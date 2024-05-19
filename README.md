@@ -1,2 +1,2 @@
 # trainingGeneration
-Geração de treino com inteligência artificial
+Geração de treino com inteligência artificial.
