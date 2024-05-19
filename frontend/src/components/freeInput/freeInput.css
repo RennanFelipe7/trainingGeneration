@@ -1,0 +1,34 @@
+.parentDivOfAllFreeInput{
+    height: 8vmax;
+    width: 25vmax;
+}
+
+.description{
+    color: #F2F2F2;
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    cursor: pointer;
+    display: inline-flex;
+    font-weight: bold;
+    margin-top: 2vmax
+}
+::placeholder{
+    font-size: clamp(0.7rem, 1.5vw, 1rem);
+    color: #DAA520;
+}
+.input{
+    display: block;
+    padding: 0.5em 0.5em 0.5em 1em;
+    border-radius: 0.5em;
+    height: 35%;
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    cursor: pointer;
+    font-size: clamp(0.7rem, 1.5vw, 1rem);
+    color: #DAA520;
+}
+
+.input:focus{
+    outline-color: #DAA520;
+    border: solid clamp(0.08rem, 0.2vw, 0.15rem) #DAA520;
+}

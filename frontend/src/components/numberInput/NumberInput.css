@@ -1,0 +1,66 @@
+.parentDivOfAllNumberInput{
+    height: 8vmax;
+    width: 25vmax;
+}
+
+.containerLabelAndInput{
+    height: 100%;
+    width: 78%;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.inputValue{
+    height: 35%;
+    width: 100%;
+    border-radius: 0.5em;
+    padding: 0.5em 0.5em 0.5em 1em;
+    font-size: clamp(0.7rem, 1.5vw, 1rem);
+    color: #DAA520;
+}
+
+.inputValue:focus{
+    outline-color: #DAA520;
+    border: solid clamp(0.08rem, 0.2vw, 0.15rem) #DAA520;
+}
+
+.inputValue::-webkit-inner-spin-button, 
+.inputValue::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+} 
+
+.containeButtons{
+    position: relative;
+    top: 10%;
+    height: 80%;
+    width: 20%;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.containeButtons button{
+    height: 40%;
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.containeButtons button img{
+    height: 70%;
+    width: 70%;
+}
+
+.valueInvalid{
+    color: red;
+    font-weight: bold;
+    font-size: 1vw;
+    display: none;
+}
