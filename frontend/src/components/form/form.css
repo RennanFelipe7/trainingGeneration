@@ -1,0 +1,25 @@
+.styleContainerInputs{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: space-around;
+    flex-wrap: wrap;
+}
+
+.submitContainer{
+    height: 5vmax;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.submitContainer input{
+    height: 3vmax;
+    width: 12vmax;
+    background-color: #DAA520;
+    color: #F2F2F2;
+    font-weight: bold;
+    font-size: 1vmax;
+    border-radius: 0.5em;
+    cursor: pointer;
+}

@@ -1,0 +1,28 @@
+.parentDivOfAll{
+    width: 30vmax;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0vmax 1vmax 1vmax 1vmax;
+    margin-top: 2vmax;
+}
+
+.descriptionRadio{
+    height: 20%;
+    font-weight: bold;
+    text-align: center;
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    color: #F2F2F2;
+}
+
+.radios{
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+}
+
+.parentDivOfAll > *:not(:first-child) {
+    margin-left: 3vmin;
+    margin-top: 1vmin;
+}

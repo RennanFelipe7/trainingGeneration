@@ -1,0 +1,17 @@
+.parentDivOfAllCheckbox{
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5vmax 1vmax 1vmax 1vmax;
+}
+
+.descriptionCheckbox{
+    font-weight: bold;
+    text-align: center;
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    color: #F2F2F2;
+}
+
+.parentDivOfAllCheckbox > *:not(:first-child) {
+    margin-left: 3vmin;
+    margin-top: 1vmin;
+}

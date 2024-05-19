@@ -1,0 +1,18 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html{
+  height: 100%;
+  width: 100%;
+  background-color: #003F63;
+}
+
+.palheta{
+  background-color: #003F63; /*Cor de fundo*/
+  background-color: #33C758; /*Cor de sucesso*/
+  background-color: #DAA520 /*Cor de destaque*/;
+  background-color: #F2F2F2; /*Cor de texto e labels*/
+}
