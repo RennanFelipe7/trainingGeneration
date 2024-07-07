@@ -3,7 +3,7 @@ import './checkbox.css'
 import React, {useRef} from 'react';
 import checkImage from '../../images/check.png';
 
-export const Checkbox = ({value, id, name, isSelected, handleSelect}) => {
+export const Checkbox = ({value, id, name, isSelected, handleSelect, checked}) => {
     const inputRef = useRef(null);
 
     const handleInputChange = () => {
@@ -29,7 +29,7 @@ export const Checkbox = ({value, id, name, isSelected, handleSelect}) => {
     return(
         <div className='parentDivOfAllRadio'>
             <label htmlFor={id}>{value}</label>
-            <input ref={inputRef} type="checkbox" name={name} id={id} className='checkboxReference' onChange={handleInputChange}/>
+            <input ref={inputRef} type="checkbox" value={value} name={name} id={id} checked={checked} className='checkboxReference' onChange={handleInputChange}/>
             <button type='button' className='checkboxFaker' onClick={handleButtonClick}>
                 {imageSrc && <img src={imageSrc} alt="" />}
             </button>

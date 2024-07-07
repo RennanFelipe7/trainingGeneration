@@ -1,0 +1,68 @@
+.parentDivOfAllLoading{
+    height: 50vh;
+    margin-left: 25%;
+    margin-right: 25%;
+    width: 50%;
+    margin-top: 10vmax;
+}
+
+.parentDivOfAllCircle{
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes rotateInfinitely {
+    0% {
+      transform: rotate(0deg);
+    }100%{
+      transform: rotate(360deg);
+    }
+}
+
+.parentDivOfAllCircle img{
+    height: 40vmin;
+    width: 40vmin;
+    max-height: 40vmin;
+    max-width: 40vmin;
+    animation: rotateInfinitely 5s infinite linear;
+}
+
+.parentDivOfAllMessage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20%;
+    color: #F2F2F2;
+    font-size: 2vmax
+}
+
+@keyframes appearsAndDisappears{
+    0%, 100%{
+        transform: scale(0.2);
+      }40%{
+        transform: scale(1);
+      }50%{
+        transform: scale(1);
+    }
+}
+.pointer{
+    border-radius: 100vmax;
+    height: 1.2vmax;
+    width: 1.2vmax;
+    background-color: #DAA520;
+    margin-left: 0.5vmax;
+    display: inline-block;
+    animation: appearsAndDisappears 1.5s infinite ease-in-out;
+}
+
+.pointer:nth-child(1){
+    animation-delay:0s;
+}
+.pointer:nth-child(2){
+    animation-delay:0.2s;
+}
+.pointer:nth-child(3){
+    animation-delay:0.4s; 
+}

@@ -1,0 +1,78 @@
+{
+  "Segunda": {
+    "exercicios": [
+      {
+        "nome": "Supino",
+        "repeticoes": 12,
+        "descanso": "1 minuto"
+      },
+      {
+        "nome": "Remada curvada",
+        "repeticoes": 10,
+        "descanso": "1 minuto"
+      }
+    ]
+  },
+  "Terca": {
+    "exercicios": [
+      {
+        "nome": "Agachamento",
+        "repeticoes": 15,
+        "descanso": "1 minuto"
+      },
+      {
+        "nome": "Leg press",
+        "repeticoes": 12,
+        "descanso": "1 minuto"
+      }
+    ]
+  },
+  "Quarta": {
+    "exercicios": [
+      {
+        "nome": "Elevação lateral",
+        "repeticoes": 10,
+        "descanso": "1 minuto"
+      },
+      {
+        "nome": "Voador",
+        "repeticoes": 12,
+        "descanso": "1 minuto"
+      }
+    ]
+  },
+  "Quinta": {
+    "exercicios": [
+      {
+        "nome": "Rosca direta",
+        "repeticoes": 12,
+        "descanso": "1 minuto"
+      },
+      {
+        "nome": "Rosca martelo",
+        "repeticoes": 10,
+        "descanso": "1 minuto"
+      }
+    ]
+  },
+  "Sexta": {
+    "exercicios": [
+      {
+        "nome": "Flexão de braço",
+        "repeticoes": 15,
+        "descanso": "1 minuto"
+      },
+      {
+        "nome": "Tríceps testa",
+        "repeticoes": 12,
+        "descanso": "1 minuto"
+      }
+    ]
+  },
+  "Sabado": {
+    "exercicios": []
+  },
+  "Domingo": {
+    "exercicios": []
+  }
+}

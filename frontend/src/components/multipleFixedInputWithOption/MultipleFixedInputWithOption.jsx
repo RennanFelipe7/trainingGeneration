@@ -6,7 +6,7 @@ import { useSound } from '../../hooks/useSound.jsx';
 import React, { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-export const MultipleFixedInputWithOption = ({description, options: initialOptions }) => {
+export const MultipleFixedInputWithOption = ({description, options: initialOptions, name}) => {
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [styleNewOption, setStyleNewOption] = useState({});
     const [styleButtonNewOption, setStyleButtonNewOption] = useState({});
@@ -48,7 +48,7 @@ export const MultipleFixedInputWithOption = ({description, options: initialOptio
 
     const handleButtonClick = () => {
         const newOptionId = uuidv4();
-        const newOption = { id: newOptionId, value: inputValue.charAt(0).toUpperCase() + inputValue.slice(1) };
+        const newOption = { id: newOptionId, value: inputValue.charAt(0).toUpperCase() + inputValue.slice(1), checked:true, name: name};
         setOptions([...options, newOption]);
         setSelectedOptions([...selectedOptions, newOptionId]);
         setStyleNewOption({ display: 'none' });
