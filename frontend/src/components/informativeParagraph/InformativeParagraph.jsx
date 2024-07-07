@@ -2,15 +2,14 @@ import PropTypes from 'prop-types';
 
 import './informativeParagraph.css'
 
-export const InformativeParagraph = ({message, styleDiv}) => {
+export const InformativeParagraph = ({message}) => {
     return(
-        <div style={styleDiv}>
+        <div className='parentDivOfAllParagraph'>
             <p className='message'>{message}</p>
         </div>
     )
 }
 
 InformativeParagraph.propTypes = {
-    message: PropTypes.string.isRequired,
-    styleDiv: PropTypes.object.isRequired
+    message: PropTypes.string.isRequired
 };

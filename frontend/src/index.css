@@ -11,8 +11,8 @@ body, html{
 }
 
 .palheta{
-  background-color: #003F63; /*Cor de fundo*/
-  background-color: #33C758; /*Cor de sucesso*/
-  background-color: #DAA520 /*Cor de destaque*/;
-  background-color: #F2F2F2; /*Cor de texto e labels*/
+  background-color: #003F63;
+  background-color: #33C758; 
+  background-color: #DAA520 ;
+  background-color: #F2F2F2;
 }

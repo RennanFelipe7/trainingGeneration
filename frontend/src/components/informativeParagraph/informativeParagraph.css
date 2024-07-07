@@ -1,3 +1,11 @@
+.parentDivOfAllParagraph{
+    height: 3vmax;
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    align-items: end;
+}
+
 .message{
     color: #F2F2F2;
     font-size: clamp(1rem, 2vw, 1.5rem);
