@@ -2,77 +2,379 @@
   "Segunda": {
     "exercicios": [
       {
-        "nome": "Supino",
-        "repeticoes": 12,
-        "descanso": "1 minuto"
+        "nome": "111",
+        "repeticoes": 111,
+        "descanso": "111"
       },
       {
-        "nome": "Remada curvada",
-        "repeticoes": 10,
-        "descanso": "1 minuto"
+        "nome": "222",
+        "repeticoes": 222,
+        "descanso": "222"
+      },
+      {
+        "nome": "333",
+        "repeticoes": 333,
+        "descanso": "333"
+      },
+      {
+        "nome": "444",
+        "repeticoes": 444,
+        "descanso": "444"
+      },
+      {
+        "nome": "555",
+        "repeticoes": 555,
+        "descanso": "555"
+      },
+      {
+        "nome": "666",
+        "repeticoes": 666,
+        "descanso": "666"
+      },
+      {
+        "nome": "777",
+        "repeticoes": 777,
+        "descanso": "777"
+      },
+      {
+        "nome": "888",
+        "repeticoes": 888,
+        "descanso": "888"
+      },
+      {
+        "nome": "999",
+        "repeticoes": 999,
+        "descanso": "999"
+      },
+      {
+        "nome": "1010",
+        "repeticoes": 1010,
+        "descanso": "1010"
       }
     ]
   },
   "Terca": {
     "exercicios": [
       {
-        "nome": "Agachamento",
-        "repeticoes": 15,
-        "descanso": "1 minuto"
+        "nome": "111",
+        "repeticoes": 111,
+        "descanso": "111"
       },
       {
-        "nome": "Leg press",
-        "repeticoes": 12,
-        "descanso": "1 minuto"
+        "nome": "222",
+        "repeticoes": 222,
+        "descanso": "222"
+      },
+      {
+        "nome": "333",
+        "repeticoes": 333,
+        "descanso": "333"
+      },
+      {
+        "nome": "444",
+        "repeticoes": 444,
+        "descanso": "444"
+      },
+      {
+        "nome": "555",
+        "repeticoes": 555,
+        "descanso": "555"
+      },
+      {
+        "nome": "666",
+        "repeticoes": 666,
+        "descanso": "666"
+      },
+      {
+        "nome": "777",
+        "repeticoes": 777,
+        "descanso": "777"
+      },
+      {
+        "nome": "888",
+        "repeticoes": 888,
+        "descanso": "888"
+      },
+      {
+        "nome": "999",
+        "repeticoes": 999,
+        "descanso": "999"
+      },
+      {
+        "nome": "1010",
+        "repeticoes": 1010,
+        "descanso": "1010"
       }
     ]
   },
   "Quarta": {
     "exercicios": [
       {
-        "nome": "Elevação lateral",
-        "repeticoes": 10,
-        "descanso": "1 minuto"
+        "nome": "111",
+        "repeticoes": 111,
+        "descanso": "111"
       },
       {
-        "nome": "Voador",
-        "repeticoes": 12,
-        "descanso": "1 minuto"
+        "nome": "222",
+        "repeticoes": 222,
+        "descanso": "222"
+      },
+      {
+        "nome": "333",
+        "repeticoes": 333,
+        "descanso": "333"
+      },
+      {
+        "nome": "444",
+        "repeticoes": 444,
+        "descanso": "444"
+      },
+      {
+        "nome": "555",
+        "repeticoes": 555,
+        "descanso": "555"
+      },
+      {
+        "nome": "666",
+        "repeticoes": 666,
+        "descanso": "666"
+      },
+      {
+        "nome": "777",
+        "repeticoes": 777,
+        "descanso": "777"
+      },
+      {
+        "nome": "888",
+        "repeticoes": 888,
+        "descanso": "888"
+      },
+      {
+        "nome": "999",
+        "repeticoes": 999,
+        "descanso": "999"
+      },
+      {
+        "nome": "1010",
+        "repeticoes": 1010,
+        "descanso": "1010"
       }
     ]
   },
   "Quinta": {
     "exercicios": [
       {
-        "nome": "Rosca direta",
-        "repeticoes": 12,
-        "descanso": "1 minuto"
+        "nome": "111",
+        "repeticoes": 111,
+        "descanso": "111"
       },
       {
-        "nome": "Rosca martelo",
-        "repeticoes": 10,
-        "descanso": "1 minuto"
+        "nome": "222",
+        "repeticoes": 222,
+        "descanso": "222"
+      },
+      {
+        "nome": "333",
+        "repeticoes": 333,
+        "descanso": "333"
+      },
+      {
+        "nome": "444",
+        "repeticoes": 444,
+        "descanso": "444"
+      },
+      {
+        "nome": "555",
+        "repeticoes": 555,
+        "descanso": "555"
+      },
+      {
+        "nome": "666",
+        "repeticoes": 666,
+        "descanso": "666"
+      },
+      {
+        "nome": "777",
+        "repeticoes": 777,
+        "descanso": "777"
+      },
+      {
+        "nome": "888",
+        "repeticoes": 888,
+        "descanso": "888"
+      },
+      {
+        "nome": "999",
+        "repeticoes": 999,
+        "descanso": "999"
+      },
+      {
+        "nome": "1010",
+        "repeticoes": 1010,
+        "descanso": "1010"
       }
     ]
   },
   "Sexta": {
     "exercicios": [
       {
-        "nome": "Flexão de braço",
-        "repeticoes": 15,
-        "descanso": "1 minuto"
+        "nome": "111",
+        "repeticoes": 111,
+        "descanso": "111"
       },
       {
-        "nome": "Tríceps testa",
-        "repeticoes": 12,
-        "descanso": "1 minuto"
+        "nome": "222",
+        "repeticoes": 222,
+        "descanso": "222"
+      },
+      {
+        "nome": "333",
+        "repeticoes": 333,
+        "descanso": "333"
+      },
+      {
+        "nome": "444",
+        "repeticoes": 444,
+        "descanso": "444"
+      },
+      {
+        "nome": "555",
+        "repeticoes": 555,
+        "descanso": "555"
+      },
+      {
+        "nome": "666",
+        "repeticoes": 666,
+        "descanso": "666"
+      },
+      {
+        "nome": "777",
+        "repeticoes": 777,
+        "descanso": "777"
+      },
+      {
+        "nome": "888",
+        "repeticoes": 888,
+        "descanso": "888"
+      },
+      {
+        "nome": "999",
+        "repeticoes": 999,
+        "descanso": "999"
+      },
+      {
+        "nome": "1010",
+        "repeticoes": 1010,
+        "descanso": "1010"
       }
     ]
   },
   "Sabado": {
-    "exercicios": []
+    "exercicios": [
+      {
+        "nome": "111",
+        "repeticoes": 111,
+        "descanso": "111"
+      },
+      {
+        "nome": "222",
+        "repeticoes": 222,
+        "descanso": "222"
+      },
+      {
+        "nome": "333",
+        "repeticoes": 333,
+        "descanso": "333"
+      },
+      {
+        "nome": "444",
+        "repeticoes": 444,
+        "descanso": "444"
+      },
+      {
+        "nome": "555",
+        "repeticoes": 555,
+        "descanso": "555"
+      },
+      {
+        "nome": "666",
+        "repeticoes": 666,
+        "descanso": "666"
+      },
+      {
+        "nome": "777",
+        "repeticoes": 777,
+        "descanso": "777"
+      },
+      {
+        "nome": "888",
+        "repeticoes": 888,
+        "descanso": "888"
+      },
+      {
+        "nome": "999",
+        "repeticoes": 999,
+        "descanso": "999"
+      },
+      {
+        "nome": "1010",
+        "repeticoes": 1010,
+        "descanso": "1010"
+      }
+    ]
   },
   "Domingo": {
-    "exercicios": []
+    "exercicios": [
+      {
+        "nome": "111",
+        "repeticoes": 111,
+        "descanso": "111"
+      },
+      {
+        "nome": "222",
+        "repeticoes": 222,
+        "descanso": "222"
+      },
+      {
+        "nome": "333",
+        "repeticoes": 333,
+        "descanso": "333"
+      },
+      {
+        "nome": "444",
+        "repeticoes": 444,
+        "descanso": "444"
+      },
+      {
+        "nome": "555",
+        "repeticoes": 555,
+        "descanso": "555"
+      },
+      {
+        "nome": "666",
+        "repeticoes": 666,
+        "descanso": "666"
+      },
+      {
+        "nome": "777",
+        "repeticoes": 777,
+        "descanso": "777"
+      },
+      {
+        "nome": "888",
+        "repeticoes": 888,
+        "descanso": "888"
+      },
+      {
+        "nome": "999",
+        "repeticoes": 999,
+        "descanso": "999"
+      },
+      {
+        "nome": "1010",
+        "repeticoes": 1010,
+        "descanso": "1010"
+      }
+    ]
   }
 }

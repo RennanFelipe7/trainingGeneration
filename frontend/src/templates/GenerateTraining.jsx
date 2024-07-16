@@ -21,7 +21,7 @@ export default function GenerateTraining({setSharedTrainingData}) {
     };
 
     const generatedTraining = (training) => {
-      setSharedTrainingData(training);
+      setSharedTrainingData((training.data));
       setIsLoading(false);
       navigate('/training');
     };
@@ -37,6 +37,7 @@ export default function GenerateTraining({setSharedTrainingData}) {
           generatedTraining={generatedTraining} 
           action = "/traininggeneration"
           value="Gerar Treino"
+          responseType='application/json'
           payload = {{
             "peso": 0,
             "biotipo_corporal": '',
