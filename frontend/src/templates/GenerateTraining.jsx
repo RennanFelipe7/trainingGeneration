@@ -1,5 +1,5 @@
 import React from "react";
-import {useState } from 'react';
+import {useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { InformativeParagraph } from '../components/informativeParagraph/InformativeParagraph.jsx'
@@ -10,14 +10,25 @@ import { NumberInput } from '../components/numberInput/NumberInput.jsx'
 import { MultipleFixedInput } from '../components/multipleFixedInput/MultipleFixedInput.jsx'
 import { MultipleFixedInputWithOption } from '../components/multipleFixedInputWithOption/MultipleFixedInputWithOption.jsx'
 import { Loading } from "../components/loading/Loading.jsx";
-
+import { Alert } from "../components/alert/Alert.jsx";
 export default function GenerateTraining({setSharedTrainingData}) {
 
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const [serverResponse, setServerResponse] = useState(null);
+    const [alertType, setAlertType] = useState(null);
+    
 
-    const displaysLoading = () => {
-      setIsLoading(true); 
+    useEffect(() => {
+      if (!isLoading && serverResponse) {
+          setTimeout(() => {
+              setServerResponse(null);
+          }, 5000);
+      }
+    }, [isLoading, serverResponse]);
+
+    const displaysLoading = (isOk) => {
+      setIsLoading(isOk); 
     };
 
     const generatedTraining = (training) => {
@@ -29,6 +40,7 @@ export default function GenerateTraining({setSharedTrainingData}) {
     return (
         <div className="generateTraining">
         {isLoading && <Loading message='Gerando treino' />}
+        {serverResponse && <Alert message={serverResponse} type={alertType} />}
         {!isLoading && <InformativeParagraph 
           message = "Insira abaixo as informações do usuário:"
         ></InformativeParagraph>}
@@ -191,6 +203,8 @@ export default function GenerateTraining({setSharedTrainingData}) {
             ></FreeInput>,
   
           ]}
+          setServerResponse={setServerResponse}
+          setAlertType={setAlertType}
         ></Form>}
       </div>
     );
