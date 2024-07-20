@@ -1,82 +1,147 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import './form.css'
 import axios from 'axios';
 
-export const Form = ({displaysLoading, action, inputs, value, generatedTraining, payload, responseType}) => {
+export const Form = ({displaysLoading, action, inputs, value, generatedTraining, payload, responseType, setServerResponse, setAlertType  }) => {
 
     const formRef = useRef();
     
     const handleSubmit = async (event) => {
         event.preventDefault();
-        displaysLoading()
         const formValues = new FormData(formRef.current);
-        
-        let cont = 0
-        let training = {
-            nome: null,
-            repeticoes: null,
-            descanso: null
-        }
-        
-        formValues.forEach((value, key) => {
-            if (Array.isArray(payload[key])) {
-                if (!payload[key].includes(value)) {
-                    payload[key].push(value);
-                }
+
+        const firstEntry = formValues.entries().next().value;
+       
+        if(firstEntry){
+
+            const [key] = firstEntry;
+
+            let requiredInputs = []
+            let normalize = []
+            if(key !== 'Segunda' && key !== 'Terca' && key !== 'Quarta' && key !== 'Quinta' && key !== 'Sexta' && key !== 'Sabado' && key !== 'Domingo'){
+                requiredInputs = ['peso', 'biotipo_corporal', 'objetivos_do_treino', 'altura', 'nivel_de_condicionamento_fisico', 'preferencias_de_exercicio', 'restricoes_de_saude', 'disponibilidade', 'idade', 'sexo', 'historico_de_lesoes', 'nome'] 
+                normalize = ['Peso', 'Biotipo corporal', 'Objetivos do treino', 'Altura', 'Nível de condicionamento físico', 'Preferências de exercício', 'Restrições de saúde', 'Disponibilidade', 'Idade', 'Sexo', 'Histórico de lesões', 'Nome']
             }else{
-                if(payload[key] !== null) {
-                    if(payload[key].hasOwnProperty("exercicios")) {
-                        if(cont === 0){
-                            training.nome = value
-                            cont++
-                        }else if(cont === 1){
-                            training.repeticoes = value
-                            cont++
-                        }else if(cont === 2){
-                            training.descanso = value
-                            payload[key].exercicios.push({
-                                nome: training.nome,
-                                repeticoes: training.repeticoes,
-                                descanso: training.descanso
-                            });
-                            cont = 0
-                        }
-                    }else{
-                        payload[key] = value;
+                requiredInputs = [] 
+                normalize = []
+            }
+
+            let insertedInputs = []
+            let error = []
+            for (const [key, value] of formValues.entries()) {
+                if(requiredInputs.includes(key)){
+                    if(value){
+                        insertedInputs.push(key)
                     }
                 }
             }
-        });
+
+            let difference = requiredInputs.filter(input => !insertedInputs.includes(input));
+            
+            if(difference.length > 0){
+                difference.forEach((element, index) => {
+                    error.push(normalize[requiredInputs.indexOf(element)])
+                });
         
-        try {
-            await axios.post(
-                process.env.REACT_APP_TRAININGGENERATION_BACKEND_URL + action, 
-                payload,
-                {
-                    withCredentials: true,
-                    responseType: responseType
-                },
-            ).then((response) => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+        
+                let formaText = error.toString()
+        
+                setServerResponse('As seguintes informações do usuário são nessesárias: ' + formaText.replace(/,/g, ', ') + '.');
+                setAlertType('error');
+            }else{
+
+                displaysLoading(true)
+
+                let cont = 0
+                let training = {
+                    nome: null,
+                    repeticoes: null,
+                    descanso: null
+                }
+                
                 formValues.forEach((value, key) => {
                     if (Array.isArray(payload[key])) {
                         if (!payload[key].includes(value)) {
-                            payload[key] = []
+                            payload[key].push(value);
                         }
                     }else{
                         if(payload[key] !== null) {
                             if(payload[key].hasOwnProperty("exercicios")) {
-                                payload[key].exercicios = []
+                                if(cont === 0){
+                                    training.nome = value
+                                    cont++
+                                }else if(cont === 1){
+                                    training.repeticoes = value
+                                    cont++
+                                }else if(cont === 2){
+                                    training.descanso = value
+                                    payload[key].exercicios.push({
+                                        nome: training.nome,
+                                        repeticoes: training.repeticoes,
+                                        descanso: training.descanso
+                                    });
+                                    cont = 0
+                                }
                             }else{
-                                payload[key] = '';
+                                payload[key] = value;
                             }
                         }
                     }
                 });
-                generatedTraining(response)
-            })
-        } catch (error) {
-            console.error('Não foi possível gerar o treino devido ao erro: ' + error);
+                
+                try {
+                    await axios.post(
+                        process.env.REACT_APP_TRAININGGENERATION_BACKEND_URL + action, 
+                        payload,
+                        {
+                            withCredentials: true,
+                            responseType: responseType
+                        },
+                    ).then((response) => {
+                        formValues.forEach((value, key) => {
+                            if (Array.isArray(payload[key])) {
+                                if (!payload[key].includes(value)) {
+                                    payload[key] = []
+                                }
+                            }else{
+                                if(payload[key] !== null) {
+                                    if(payload[key].hasOwnProperty("exercicios")) {
+                                        payload[key].exercicios = []
+                                    }else{
+                                        payload[key] = '';
+                                    }
+                                }
+                            }
+                        });
+                        generatedTraining(response)
+                    })
+                } catch (error) {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                    setServerResponse(JSON.parse(error.response.data).error);
+                    setAlertType('error');
+                    setTimeout(() => {
+                        setServerResponse(false)
+                    }, 5000);
+                }
+            }
+        }else{
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            setServerResponse('Adicione ao menos um treino para continuar.');
+            setAlertType('error');
+            setTimeout(() => {
+                setServerResponse(false)
+            }, 5000);
         }
     }
 

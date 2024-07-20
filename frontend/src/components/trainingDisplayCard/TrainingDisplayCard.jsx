@@ -4,7 +4,7 @@ import bin from '../../images/bin.png'
 import edit from '../../images/edit.png'
 import confirm from '../../images/confirm.png'
 
-export default function TrainingDisplayCard({ trainingOfDay, day }) {
+export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setAlertType }) {
 
     const addIdInTraining = (exercicios) => {
         return exercicios.map((element, index) => {
@@ -26,10 +26,40 @@ export default function TrainingDisplayCard({ trainingOfDay, day }) {
     const [name, setName] = useState('');
     const [repetition, setRepetition] = useState();
     const [rest, setRest] = useState('');
-   
+    const [isDisabled, setIsDisabled] = useState(false);
+    const [isEmpty, setIsEmpty] = useState(false);
+    const [title, setTitle] = useState('');
+    const [styleAddTraining, setStyleAddTraining] = useState({}); 
+
     const excludeTraining = (index) => {
         setTrainingDataOfTheDay(trainingDataOfTheDay.filter(a => a.id !== index));
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        setAlert('Treino excluido com sucesso.');
+        setAlertType('success');
+        setTimeout(() => {
+            setAlert(false)
+        }, 5000);
     };
+
+    useEffect(() => {
+        if(trainingDataOfTheDay.length >= 10){
+            setIsDisabled(true)
+            setStylenewTraining({ backgroundColor: 'grey', cursor: 'no-drop' });
+            setTitle('Quantidade máxima diária de treino excedido.')
+        }else{
+            setIsDisabled(false)
+            setStylenewTraining({ backgroundColor: '#33C758', cursor: 'pointer' });
+            setTitle('')
+        }    
+    }, [trainingDataOfTheDay]);
+
+    useEffect(() => {
+        checkIsEmpty();
+    }, [name, repetition, rest]);
 
     const calculateExerciseNumbers = () => {
         return trainingDataOfTheDay.map((_, index) => 
@@ -66,6 +96,8 @@ export default function TrainingDisplayCard({ trainingOfDay, day }) {
     const displaysCreateNewTraining = () => {
         setStylenewTraining({display: 'none'})
         setStyleAddNewTraining({display: 'flex'})
+        setIsEmpty(true)
+        setStyleAddTraining({ backgroundColor: 'grey', cursor: 'no-drop' });
     };
     
     const validId = () => {
@@ -77,13 +109,59 @@ export default function TrainingDisplayCard({ trainingOfDay, day }) {
     }
 
     const createNewTraining = (nome, repeticoes, descanso) => {
-        setTrainingDataOfTheDay([...trainingDataOfTheDay, {nome: nome, repeticoes: repeticoes, descanso: descanso, id: validId()}]);
-        setStylenewTraining({display: 'flex'})
-        setStyleAddNewTraining({display: 'none'})
-        setName('')
-        setRepetition('')
-        setRest('')
+
+        if(trainingDataOfTheDay.length < 10){
+            setTrainingDataOfTheDay([...trainingDataOfTheDay, {nome: nome.charAt(0).toUpperCase() + nome.slice(1), repeticoes: repeticoes, descanso: descanso, id: validId()}]);
+            setStylenewTraining({display: 'block'})
+            setStyleAddNewTraining({display: 'none'})
+            setName('')
+            setRepetition('')
+            setRest('')
+
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            setAlert('Treino criado com sucesso.');
+            setAlertType('success');
+            setTimeout(() => {
+                setAlert(false)
+            }, 5000);
+        }else{
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            setAlert('Quantidade máxima diária de treino excedido.');
+            setAlertType('error');
+            setTimeout(() => {
+                setAlert(false)
+            }, 5000);
+        }
+
     };
+
+    const checkIsEmpty = () => {
+        if(name && repetition && rest){
+            setIsEmpty(false)
+            setStyleAddTraining({ backgroundColor: '#33C758', cursor: 'pointer' });
+        }else{
+            setIsEmpty(true)
+            setStyleAddTraining({ backgroundColor: 'grey', cursor: 'no-drop' });
+        }
+    }
+
+    const handleChangeName = (e) => {
+       setName(e.target.value) 
+    }
+
+    const handleChangeRepetition = (e) => {
+        setRepetition(e.target.value) 
+    }
+
+     const handleChangeRest = (e) => {
+        setRest(e.target.value) 
+    }
 
     return(
         <div className="parentDivOfAllTraningDisplayCard">
@@ -154,25 +232,25 @@ export default function TrainingDisplayCard({ trainingOfDay, day }) {
             </div>
 
             <div className='parentNewTraining'>
-                <button type='button' onClick={displaysCreateNewTraining} style={stylenewTraining}>Novo Treino</button>
+                <button type='button' onClick={displaysCreateNewTraining} style={stylenewTraining} disabled={isDisabled} title={title}>Novo Treino</button>
                 <div className='createNewTraining' style={styleAddNewTraining}>
                     <div className='cardNewTraining'>
                         <div className='trainingAttribute'>
-                            Nome: <input type="text" className='displaysInformationNewTraining' value={name} onChange={(e) => setName(e.target.value)} />
+                            Nome: <input type="text" className='displaysInformationNewTraining' value={name} onChange={handleChangeName} />
                         </div>
                     </div>
                     <div className='cardNewTraining'>
                         <div className='trainingAttribute'>
-                            Repetições: <input type="number" className='displaysInformationNewTraining' value={repetition} onChange={(e) => setRepetition(e.target.value)} />
+                            Repetições: <input type="number" className='displaysInformationNewTraining' value={repetition} onChange={handleChangeRepetition} />
                         </div>
                     </div>
                     <div className='cardNewTraining'>
                         <div className='trainingAttribute'>
-                            Descanso: <input type="text" className='displaysInformationNewTraining' value={rest} onChange={(e) => setRest(e.target.value)} />
+                            Descanso: <input type="text" className='displaysInformationNewTraining' value={rest} onChange={handleChangeRest} />
                         </div>
                     </div>
                     <div className='addNewTraining'>
-                        <button type='button' onClick={() => createNewTraining(name, repetition, rest)}>Adicionar</button>
+                        <button type='button' onClick={() => createNewTraining(name, repetition, rest)} disabled={isEmpty} style={styleAddTraining}>Adicionar</button>
                     </div>
                 </div>
             </div>

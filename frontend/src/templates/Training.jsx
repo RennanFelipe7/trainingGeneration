@@ -1,19 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import TrainingDisplayCard from '../components/trainingDisplayCard/TrainingDisplayCard.jsx';
 import { Form } from '../components/form/Form.jsx';
 import { InformativeParagraph } from '../components/informativeParagraph/InformativeParagraph.jsx';
 import { Loading } from "../components/loading/Loading.jsx";
+import { Alert } from '../components/alert/Alert.jsx';
+import { useLocation } from 'react-router-dom';
 
 export default function Training({ sharedTrainingData }) {
 
 
     const [isLoading, setIsLoading] = useState(false);
+    const [serverResponse, setServerResponse] = useState(null);
+    const [alertType, setAlertType] = useState(null);
+    const location = useLocation();
 
     const displaysLoading = () => {
         setIsLoading(true); 
     };
   
+    useEffect(() => {
+        if (location) {
+            setServerResponse('Treino gerado com sucesso.');
+            setAlertType('success');
+            setTimeout(() => {
+                setServerResponse(false)
+            }, 5000);
+        }
+    }, [location]);
+
     const generatedTraining = (response) => {
         setIsLoading(false);
         const blob = new Blob([response.data], { type: "application/pdf" });
@@ -24,6 +39,12 @@ export default function Training({ sharedTrainingData }) {
         document.body.appendChild(a); 
         a.click();
         URL.revokeObjectURL(url);
+        
+        setServerResponse('Relatório gerado com sucesso, verifiquei sua pasta de download.');
+        setAlertType('success');
+        setTimeout(() => {
+            setServerResponse(false)
+        }, 5000);
     };
       
 
@@ -43,6 +64,7 @@ export default function Training({ sharedTrainingData }) {
 
         return (
             <div>
+                {serverResponse && <Alert message={serverResponse} type={alertType} />}
                 {isLoading && <Loading message='Gerando relatório'/>}
                 {!isLoading && (
                     <>
@@ -81,11 +103,13 @@ export default function Training({ sharedTrainingData }) {
                         }}
                         inputs = {[
                             ...Object.keys(training).map((key) => (
-                                <TrainingDisplayCard key={key} trainingOfDay={training[key]} day={key}>
+                                <TrainingDisplayCard key={key} trainingOfDay={training[key]} day={key} setAlert={setServerResponse} setAlertType={setAlertType}>
                                 
                                 </TrainingDisplayCard>
                             )),
                         ]}
+                        setServerResponse={setServerResponse}
+                        setAlertType={setAlertType}
                     ></Form>
                 </>)}
             </div>
