@@ -68,7 +68,7 @@ export default function GenerateTraining({setSharedTrainingData}) {
   
             <NumberInput 
               id="Peso"
-              description="Peso:"
+              description="Peso (kg):"
               step={0.1}
               placeholder="Insira aqui o peso"
               max={500}
@@ -102,8 +102,8 @@ export default function GenerateTraining({setSharedTrainingData}) {
   
             <NumberInput 
               id="Altura"
-              description="Altura:"
-              step={0.01}
+              description="Altura (cm):"
+              step={1}
               placeholder="Insira aqui a altura"
               max={250}
               min={0}

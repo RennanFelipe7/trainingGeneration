@@ -88,6 +88,9 @@ export const Form = ({displaysLoading, action, inputs, value, generatedTraining,
                                     cont = 0
                                 }
                             }else{
+                                if(key === "peso" || key === "altura" || key === "idade"){
+                                    value = parseFloat(value)
+                                }
                                 payload[key] = value;
                             }
                         }
@@ -121,11 +124,19 @@ export const Form = ({displaysLoading, action, inputs, value, generatedTraining,
                         generatedTraining(response)
                     })
                 } catch (error) {
+                    displaysLoading(false)
                     window.scrollTo({
                         top: 0,
                         behavior: 'smooth'
                     });
-                    setServerResponse(JSON.parse(error.response.data).error);
+                    if(typeof(error.response.data) === 'string') {
+                        setServerResponse(JSON.parse(error.response.data).error);
+                    }else if(typeof(error.response.data) === 'object'){
+                        error.response.data.text().then(jsonString => {
+                            const jsonObject = JSON.parse(jsonString);
+                            setServerResponse(jsonObject.error);
+                        })
+                    }
                     setAlertType('error');
                     setTimeout(() => {
                         setServerResponse(false)

@@ -4,7 +4,7 @@
     width: 80vw;
     margin-left: 10vw;
     display: block;
-    border-radius: 0.5em;
+    border-radius: 0.5em 0.5em 0 0.5em;
 }
 
 .parentDivOfAllAlert.success {

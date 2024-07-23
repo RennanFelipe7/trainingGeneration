@@ -3,6 +3,7 @@ import './trainingDisplayCard.css'
 import bin from '../../images/bin.png'
 import edit from '../../images/edit.png'
 import confirm from '../../images/confirm.png'
+import PropTypes from 'prop-types';
 
 export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setAlertType }) {
 
@@ -29,6 +30,7 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
     const [isDisabled, setIsDisabled] = useState(false);
     const [isEmpty, setIsEmpty] = useState(false);
     const [title, setTitle] = useState('');
+    const [titleIsEmpty, setTitleIsEmpty] = useState('');
     const [styleAddTraining, setStyleAddTraining] = useState({}); 
 
     const excludeTraining = (index) => {
@@ -117,11 +119,14 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
             setName('')
             setRepetition('')
             setRest('')
-
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            
+            setTimeout(() => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }, 1);
+            
             setAlert('Treino criado com sucesso.');
             setAlertType('success');
             setTimeout(() => {
@@ -145,9 +150,11 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
         if(name && repetition && rest){
             setIsEmpty(false)
             setStyleAddTraining({ backgroundColor: '#33C758', cursor: 'pointer' });
+            setTitleIsEmpty('')
         }else{
             setIsEmpty(true)
             setStyleAddTraining({ backgroundColor: 'grey', cursor: 'no-drop' });
+            setTitleIsEmpty('Informe os valores para Nome, Repetições e Descanso.')
         }
     }
 
@@ -250,10 +257,17 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                         </div>
                     </div>
                     <div className='addNewTraining'>
-                        <button type='button' onClick={() => createNewTraining(name, repetition, rest)} disabled={isEmpty} style={styleAddTraining}>Adicionar</button>
+                        <button type='button' onClick={() => createNewTraining(name, repetition, rest)} disabled={isEmpty} style={styleAddTraining} title={titleIsEmpty}>Adicionar</button>
                     </div>
                 </div>
             </div>
         </div>
     )
+}
+
+TrainingDisplayCard.prototype = {
+    trainingOfDay: PropTypes.object.isRequired,
+    day: PropTypes.string.isRequired,
+    setAlert: PropTypes.func.isRequired,
+    alertType: PropTypes.string.isRequired
 }
