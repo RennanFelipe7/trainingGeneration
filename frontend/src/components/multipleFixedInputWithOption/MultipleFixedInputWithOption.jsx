@@ -78,5 +78,6 @@ export const MultipleFixedInputWithOption = ({description, options: initialOptio
 
 MultipleFixedInputWithOption.propTypes = {
     description: PropTypes.string.isRequired,
-    options: PropTypes.array.isRequired
+    options: PropTypes.array.isRequired,
+    name: PropTypes.string.isRequired
 };
