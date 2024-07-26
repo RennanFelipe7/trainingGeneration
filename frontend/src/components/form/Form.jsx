@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './form.css'
 import axios from 'axios';
 
-export const Form = ({displaysLoading, action, inputs, value, generatedTraining, payload, responseType, setServerResponse, setAlertType  }) => {
+export const Form = ({displaysLoading, action, inputs, value, generatedTraining, payload, responseType, setServerResponse, setAlertType, token  }) => {
 
     const formRef = useRef();
     
@@ -15,11 +15,11 @@ export const Form = ({displaysLoading, action, inputs, value, generatedTraining,
        
         if(firstEntry){
 
-            const [key] = firstEntry;
+            let [key] = firstEntry;
 
             let requiredInputs = []
             let normalize = []
-            if(key !== 'Segunda' && key !== 'Terca' && key !== 'Quarta' && key !== 'Quinta' && key !== 'Sexta' && key !== 'Sabado' && key !== 'Domingo'){
+            if(key !== 'segunda' && key !== 'terca' && key !== 'quarta' && key !== 'quinta' && key !== 'sexta' && key !== 'sabado' && key !== 'domingo'){
                 requiredInputs = ['peso', 'biotipo_corporal', 'objetivos_do_treino', 'altura', 'nivel_de_condicionamento_fisico', 'preferencias_de_exercicio', 'restricoes_de_saude', 'disponibilidade', 'idade', 'sexo', 'historico_de_lesoes', 'nome'] 
                 normalize = ['Peso', 'Biotipo corporal', 'Objetivos do treino', 'Altura', 'Nível de condicionamento físico', 'Preferências de exercício', 'Restrições de saúde', 'Disponibilidade', 'Idade', 'Sexo', 'Histórico de lesões', 'Nome']
             }else{
@@ -53,6 +53,9 @@ export const Form = ({displaysLoading, action, inputs, value, generatedTraining,
         
                 setServerResponse('As seguintes informações do usuário são nessesárias: ' + formaText.replace(/,/g, ', ') + '.');
                 setAlertType('error');
+                setTimeout(() => {
+                    setServerResponse(false)
+                }, 5000);
             }else{
 
                 displaysLoading(true)
@@ -82,7 +85,7 @@ export const Form = ({displaysLoading, action, inputs, value, generatedTraining,
                                     training.descanso = value
                                     payload[key].exercicios.push({
                                         nome: training.nome,
-                                        repeticoes: training.repeticoes,
+                                        repeticoes: parseInt(training.repeticoes),
                                         descanso: training.descanso
                                     });
                                     cont = 0
@@ -102,8 +105,11 @@ export const Form = ({displaysLoading, action, inputs, value, generatedTraining,
                         process.env.REACT_APP_TRAININGGENERATION_BACKEND_URL + action, 
                         payload,
                         {
+                            headers: {
+                                'Authorization': `Bearer ${token}`
+                            },
                             withCredentials: true,
-                            responseType: responseType
+                            responseType: responseType,
                         },
                     ).then((response) => {
                         formValues.forEach((value, key) => {

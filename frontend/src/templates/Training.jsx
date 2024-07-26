@@ -7,7 +7,7 @@ import { Loading } from "../components/loading/Loading.jsx";
 import { Alert } from '../components/alert/Alert.jsx';
 import { useLocation } from 'react-router-dom';
 
-export default function Training({ sharedTrainingData }) {
+export default function Training({ sharedTrainingData, setAuthorization }) {
 
 
     const [isLoading, setIsLoading] = useState(false);
@@ -50,12 +50,13 @@ export default function Training({ sharedTrainingData }) {
 
     const trainingJson = JSON.parse(sharedTrainingData)
 
-    const token = trainingJson.token
     const nome = trainingJson.nome
+
+    const authorization = setAuthorization.slice(6, setAuthorization.length);
 
     const [training, setTraining] = useState(
         Object.keys(trainingJson).reduce((accumulated, dia) => {
-            if (dia !== 'token' && dia !== 'nome' && trainingJson[dia].exercicios.length > 0) {
+            if (dia !== 'nome' && trainingJson[dia].exercicios.length > 0) {
                 accumulated[dia] = trainingJson[dia];
             }
             return accumulated;
@@ -75,35 +76,35 @@ export default function Training({ sharedTrainingData }) {
                         action = "/reportGeneration"
                         value="Gerar Relatório"
                         responseType='blob'
+                        token={authorization}
                         payload={{
-                            "Segunda": {
+                            "segunda": {
                                 "exercicios": []
                             },
-                            "Terca": {
+                            "terca": {
                                 "exercicios": []
                             },
-                            "Quarta": {
+                            "quarta": {
                                 "exercicios": []
                             },
-                            "Quinta": {
+                            "quinta": {
                                 "exercicios": []
                             },
-                            "Sexta": {
+                            "sexta": {
                                 "exercicios": []
                             },
-                            "Sabado": {
+                            "sabado": {
                                 "exercicios": []
                             },
-                            "Domingo": {
+                            "domingo": {
                                 "exercicios": []
                             },
-                            "token": token,
 
                             "nome": nome
                         }}
                         inputs = {[
                             ...Object.keys(training).map((key) => (
-                                <TrainingDisplayCard key={key} trainingOfDay={training[key]} day={key} setAlert={setServerResponse} setAlertType={setAlertType}>
+                                <TrainingDisplayCard key={key} trainingOfDay={training[key]} day={key.charAt(0).toLowerCase() + key.slice(1)} setAlert={setServerResponse} setAlertType={setAlertType}>
                                 
                                 </TrainingDisplayCard>
                             )),

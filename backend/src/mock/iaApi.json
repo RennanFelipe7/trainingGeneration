@@ -5,106 +5,25 @@
         "nome": "111",
         "repeticoes": 111,
         "descanso": "111"
-      },
-      {
-        "nome": "222",
-        "repeticoes": 222,
-        "descanso": "222"
-      },
-      {
-        "nome": "333",
-        "repeticoes": 333,
-        "descanso": "333"
-      },
-      {
-        "nome": "444",
-        "repeticoes": 444,
-        "descanso": "444"
-      },
-      {
-        "nome": "555",
-        "repeticoes": 555,
-        "descanso": "555"
-      },
-      {
-        "nome": "666",
-        "repeticoes": 666,
-        "descanso": "666"
-      },
-      {
-        "nome": "777",
-        "repeticoes": 777,
-        "descanso": "777"
-      },
-      {
-        "nome": "888",
-        "repeticoes": 888,
-        "descanso": "888"
-      },
-      {
-        "nome": "999",
-        "repeticoes": 999,
-        "descanso": "999"
-      },
-      {
-        "nome": "1010",
-        "repeticoes": 1010,
-        "descanso": "1010"
       }
     ]
   },
   "Terca": {
-    "exercicios": [
-      {
-        "nome": "111",
-        "repeticoes": 111,
-        "descanso": "111"
-      }
-    ]
+    "exercicios": []
   },
   "Quarta": {
-    "exercicios": [
-      {
-        "nome": "111",
-        "repeticoes": 111,
-        "descanso": "111"
-      }
-    ]
+    "exercicios": []
   },
   "Quinta": {
-    "exercicios": [
-      {
-        "nome": "111",
-        "repeticoes": 111,
-        "descanso": "111"
-      }
-    ]
+    "exercicios": []
   },
   "Sexta": {
-    "exercicios": [
-      {
-        "nome": "111",
-        "repeticoes": 111,
-        "descanso": "111"
-      }
-    ]
+    "exercicios": []
   },
   "Sabado": {
-    "exercicios": [
-      {
-        "nome": "111",
-        "repeticoes": 111,
-        "descanso": "111"
-      }
-    ]
+    "exercicios": []
   },
   "Domingo": {
-    "exercicios": [
-      {
-        "nome": "111",
-        "repeticoes": 111,
-        "descanso": "111"
-      }
-    ]
+    "exercicios": []
   }
 }

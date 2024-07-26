@@ -1,5 +1,33 @@
 module.exports = function jsonHasCorrectEntries(requiredKeys, inputJson) {
-    
+    let errorMessage = ''; 
+    function validateTrainingInDay(element, index, day){
+
+        let errorMessage = ''
+        if (element.nome.length > 45) {
+            errorMessage = errorMessage + `'nome' do exercício ${index + 1} no(a) ${day} não deve conter mais do que 45 caracteres. Valor recebido: ${element.nome}`;
+        }
+        if (typeof element.nome !== 'string') {
+            errorMessage = errorMessage + `'nome' do exercício ${index + 1} no(a) ${day} deve ser uma string. Valor recebido: ${element.nome}`;
+        }
+        if (!Number.isInteger(element.repeticoes)) {
+            errorMessage = errorMessage + `'repeticoes' do exercício ${index + 1} no(a) ${day} deve ser uma inteiro. Valor recebido: ${element.repeticoes}`;
+        }
+        if (element.repeticoes > 100) {
+            errorMessage = errorMessage + `'repeticoes' do exercício ${index + 1} no(a) ${day} não deve ser maior que 100. Valor recebido: ${element.repeticoes}`;
+        }
+        if (element.repeticoes <= 0) {
+            errorMessage = errorMessage + `'repeticoes' do exercício ${index + 1} no(a) ${day} deve ser maior que 0. Valor recebido: ${element.repeticoes}`;
+        }
+        if (element.descanso.length > 40) {
+            errorMessage = errorMessage + `'descanso' do exercício ${index + 1} no(a) ${day} não deve conter mais do que 40 caracteres. Valor recebido: ${element.descanso}`;
+        }
+        if (typeof element.descanso !== 'string') {
+            errorMessage = errorMessage + `'descanso' do exercício ${index + 1} no(a) ${day} deve ser uma string. Valor recebido: ${element.descanso}`;
+        }
+        
+        return errorMessage
+    }
+
     function validateKey(key, value) {
         switch (key) {
             case 'peso':
@@ -99,6 +127,44 @@ module.exports = function jsonHasCorrectEntries(requiredKeys, inputJson) {
                     return `'nome' deve ser uma string. Valor recebido: ${value}`;
                 }else if(value.length > 70){
                     return `'nome' não deve conter mais do que 70 caracteres. Valor recebido: ${value}`;
+                }
+                break;
+            case 'segunda':
+                value.exercicios.forEach((element, index) => {
+                    errorMessage = errorMessage + validateTrainingInDay(element, index, key)
+                });
+                break
+            case 'terca':
+                value.exercicios.forEach((element, index) => {
+                    errorMessage = errorMessage + validateTrainingInDay(element, index, key)
+                });
+                break
+            case 'quarta':
+                value.exercicios.forEach((element, index) => {
+                    errorMessage = errorMessage + validateTrainingInDay(element, index, key)
+                });
+                break
+            case 'quinta':
+                value.exercicios.forEach((element, index) => {
+                    errorMessage = errorMessage + validateTrainingInDay(element, index, key)
+                });
+                break
+            case'sexta':
+                value.exercicios.forEach((element, index) => {
+                    errorMessage = errorMessage + validateTrainingInDay(element, index, key)
+                });
+                break
+            case'sabado':
+                value.exercicios.forEach((element, index) => {
+                    errorMessage = errorMessage + validateTrainingInDay(element, index, key)
+                });
+                break
+            case 'domingo':
+                value.exercicios.forEach((element, index) => {
+                    errorMessage = errorMessage + validateTrainingInDay(element, index, key)
+                });
+                if (errorMessage.length > 0) {
+                    return errorMessage;
                 }
                 break;
         }

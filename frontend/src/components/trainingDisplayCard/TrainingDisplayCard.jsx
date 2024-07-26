@@ -173,7 +173,7 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
     return(
         <div className="parentDivOfAllTraningDisplayCard">
             <div className='dayOfWeek'>
-                <p>{day}</p>
+                <p>{day.charAt(0).toUpperCase() + day.slice(1)}</p>
             </div>
             <div className='parentDivOfAllCards'>
                 {trainingDataOfTheDay.map((exercicio, index) => (
