@@ -11,13 +11,12 @@ import { MultipleFixedInput } from '../components/multipleFixedInput/MultipleFix
 import { MultipleFixedInputWithOption } from '../components/multipleFixedInputWithOption/MultipleFixedInputWithOption.jsx'
 import { Loading } from "../components/loading/Loading.jsx";
 import { Alert } from "../components/alert/Alert.jsx";
-export default function GenerateTraining({setSharedTrainingData}) {
+export default function GenerateTraining({setSharedTrainingData, authorization}) {
 
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const [serverResponse, setServerResponse] = useState(null);
     const [alertType, setAlertType] = useState(null);
-    
 
     useEffect(() => {
       if (!isLoading && serverResponse) {
@@ -32,6 +31,7 @@ export default function GenerateTraining({setSharedTrainingData}) {
     };
 
     const generatedTraining = (training) => {
+      authorization(training.headers.authorization)
       setSharedTrainingData((training.data));
       setIsLoading(false);
       navigate('/training');
