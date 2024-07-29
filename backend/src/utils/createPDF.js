@@ -30,13 +30,18 @@ module.exports = function createPDF(pdfContent, nome) {
         doc.fontSize(20);
         doc.text('Atividades do: ' + nome, 50, lastAvailableSpace);
         
-        for (const day in pdfContent) {
-    
+        for (let day in pdfContent) {
             if (pdfContent[day].exercicios.length > 0 && lastAvailableSpace + 120 <= 842 && (lastAvailableSpaceDay + 200) <= 799) { 
                 lastAvailableSpace += 50;
                 lastAvailableSpaceDay += 50;
                 doc.fontSize(17);
-                doc.font('Helvetica-Bold').text(day.charAt(0).toUpperCase() + day.slice(1), 255, lastAvailableSpace);
+                if (day === 'terca') {
+                    doc.font('Helvetica-Bold').text('Terça', 255, lastAvailableSpace);
+                }else if (day === 'sabado') {
+                    doc.font('Helvetica-Bold').text('Sábado', 255, lastAvailableSpace);
+                }else{
+                    doc.font('Helvetica-Bold').text(day.charAt(0).toUpperCase() + day.slice(1), 255, lastAvailableSpace);
+                }
             }else if(lastAvailableSpace + 120 > 842 && lastAvailableSpaceDay + 170 <= 842){
                 doc.addPage();
                 lastAvailableSpaceDay = 0
@@ -47,7 +52,13 @@ module.exports = function createPDF(pdfContent, nome) {
                 lastAvailableSpace += 50;
                 lastAvailableSpaceDay += 50;
                 doc.fontSize(17);
-                doc.font('Helvetica-Bold').text(day.charAt(0).toUpperCase() + day.slice(1), 255, lastAvailableSpace);
+                if (day === 'terca') {
+                    doc.font('Helvetica-Bold').text('Terça', 255, lastAvailableSpace);
+                }else if (day === 'sabado') {
+                    doc.font('Helvetica-Bold').text('Sábado', 255, lastAvailableSpace);
+                }else{
+                    doc.font('Helvetica-Bold').text(day.charAt(0).toUpperCase() + day.slice(1), 255, lastAvailableSpace);
+                }
             }else if((lastAvailableSpaceDay + 200) > 799 && pdfContent[day].exercicios.length > 0){
                 doc.addPage();
                 lastAvailableSpaceDay = 0
@@ -59,7 +70,13 @@ module.exports = function createPDF(pdfContent, nome) {
                 lastAvailableSpace += 50;
                 lastAvailableSpaceDay += 50;
                 doc.fontSize(17);
-                doc.font('Helvetica-Bold').text(day.charAt(0).toUpperCase() + day.slice(1), 255, lastAvailableSpace);
+                if (day === 'terca') {
+                    doc.font('Helvetica-Bold').text('Terça', 255, lastAvailableSpace);
+                }else if (day === 'sabado') {
+                    doc.font('Helvetica-Bold').text('Sábado', 255, lastAvailableSpace);
+                }else{
+                    doc.font('Helvetica-Bold').text(day.charAt(0).toUpperCase() + day.slice(1), 255, lastAvailableSpace);
+                }
             }
     
             pdfContent[day].exercicios.forEach((element, index) => {

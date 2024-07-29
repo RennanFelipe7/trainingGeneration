@@ -1,7 +1,7 @@
 .parentDivOfAllTraningDisplayCard{
     margin: 1.5vmax 0.2vmax;
     height: 30vmax;
-    width: 25vmax;
+    width: 80%;
     background-color: #DAA520;
     border-radius: 1em;
     overflow-y:auto;
@@ -10,12 +10,46 @@
 
 .dayOfWeek{
     color: #F2F2F2;
-    height: 15%;
-    display: flex;
+    height: 3vmax;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     font-size: clamp(1.5rem, 2.5vw, 2rem);
     font-weight: bold;
+    width: 95%;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.rotate {
+    animation: rotate-once 1s linear;
+}
+
+.expandAndRetract{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 3vmax;
+    width: 5%;
+    float: right;
+}
+
+.expandAndRetract button{
+    height: 3vmax;
+    width: 60%;
+    border:  none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.expandAndRetract button img{
+    height: 100%;
+    width: 100%;
+    max-height: 100%;
+    max-width: 100%;
 }
 
 .parentDivOfAllCards{
@@ -33,34 +67,36 @@
 
 .numberOfExercise{
     height: 100%;
-    width: 90%;
+    width: 95%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .trainingAttribute{
-    height: 100%;
-    width: 90%;
+    height: 3vmax;
+    width: 95%;
     display: inline-flex;
     justify-content: start;
     align-items: center;
 }
 
 .displaysInformation, .displaysInformation:focus{
-    max-width: 60%;
-    margin-left: 0.3vmax;
-    border: none;
-    background-color: transparent;
-    color: #F2F2F2;
-    font-size: clamp(0.8rem, 1.5vw, 1.3rem);
     outline: none;
-    cursor: default;
+    border: none;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    height: 2.5vmax;
+    width: 60%;
+    cursor:default;
+    font-size: clamp(1.3rem, 2vw, 1.5rem);
+    color: #F2F2F2;
+    background-color: transparent;
 }
 
 .editAttribute{
     height: 100%;
-    width: 10%;
+    width: 5%;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -68,7 +104,7 @@
 
 .confirmAttribute{
     height: 100%;
-    width: 10%;
+    width: 5%;
     display: none;
     justify-content: center;
     align-items: center;
@@ -85,20 +121,19 @@
 
 .editAttribute button img, .confirmAttribute button img{
     border: 0;
-    height: 100%;
-    width: 100%;
-    max-height: 100%;
-    max-width: 100%;
+    height: 65%;
+    width: 65%;
+    max-height: 65%;
+    max-width: 65%;
 }
 
 .card{
     display: flex;
-    height: 2vmax;
 }
 
 .deleteTraining{
     height: 100%;
-    width: 10%;
+    width: 5%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -109,8 +144,8 @@
     background-color: transparent;
     cursor: pointer;
     border: 0;
-    height: 70%;
-    width: 70%;
+    height: 50%;
+    width: 50%;
 }
 
 .deleteTraining img{
@@ -122,7 +157,7 @@
 }
 
 .parentDivOfAllCard{
-    font-size: clamp(0.8rem, 1.5vw, 1.3rem);
+    font-size: clamp(1rem, 1.7vw, 1.5rem);
     margin-top: 2vmax;
     display: flex;
     flex-direction: column;
@@ -132,48 +167,62 @@
 .parentNewTraining{
     display: flex;
     align-items: end;
+    width: 95%;
     justify-content: center;
 }
 
 .parentNewTraining button{
-    padding: 2%;
+    padding: 0.3vmax;
     border-radius: 0.5em;
-    height: 50%;
-    width: 35%;
+    height: 3vmax;
+    width: 30%;
     font-size: 1vmax;
     font-weight: bold;
     color: #F2F2F2;
     background-color: #33C758;
     cursor: pointer;
+    margin-top: 1vmax;
 }
 
 .createNewTraining{
     margin-top: 2vmax;
     display: none;
-    height: 12vmax;
+    height: 15vmax;
     width: 100%;
     flex-direction: column;
 }
 
 .cardNewTraining{
-    font-size: clamp(0.8rem, 1.5vw, 1.3rem);
+    font-size: clamp(1rem, 1.7vw, 1.5rem);
     color:#F2F2F2 ;
     height: 20%;
 }
 
 .addNewTraining{
-    height: 20%;
+    height: 25%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items:end;
 }
 .addNewTraining button{
-    height: 100%;
+    height: 80%;
 }
 
 .displaysInformationNewTraining{
-    max-width: 60%;
-    margin-left: 0.3vmax;
     border: solid clamp(0.08rem, 0.2vw, 0.15rem) black;
-    font-size: clamp(0.8rem, 1.5vw, 1.3rem);
+    padding: 0.5em;
+    border-radius: 0.5em;
+    height: 2.5vmax;
+    width: 35%;
+    cursor: pointer;
+    font-size: clamp(1.3rem, 2vw, 1.5rem);
+    color: #003F63;
+}
+
+.alertInputError{
+    display: none;
+    color: red;
+    font-size: clamp(1rem, 1.7vw, 1.2rem);
+    font-weight: bold;
+    margin-left: 1vmax;
 }

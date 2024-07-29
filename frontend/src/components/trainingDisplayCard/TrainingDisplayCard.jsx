@@ -4,6 +4,7 @@ import bin from '../../images/bin.png'
 import edit from '../../images/edit.png'
 import confirm from '../../images/confirm.png'
 import PropTypes from 'prop-types';
+import expandAndRetract from '../../images/expandAndRetract.png';
 
 export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setAlertType }) {
 
@@ -13,14 +14,31 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
         });
     };
 
+    const [formattedDay, setFormattedDay] = useState(day);
+
+    useEffect(() => {
+        const formatarDia = (dia) => {
+            switch (dia) {
+                case 'terca':
+                return 'Terça';
+                case 'sabado':
+                return 'Sábado';
+                default:
+                return dia;
+            }
+        };
+        setFormattedDay(formatarDia(day));
+    }, [day]);
+
     const [trainingDataOfTheDay, setTrainingDataOfTheDay] = useState(addIdInTraining(trainingOfDay.exercicios))
 
     const [deleteTraining, setDeleteTraining] = useState([]); 
     const [styleEditInput, setStyleEditInput] = useState({}); 
+    const [styleAlert, setStyleAlert] = useState({});
     const [styleEditButton, setStyleEditButton] = useState({}); 
     const [styleConfirmInput, setStyleConfirmInput] = useState({}); 
     const [editingIndex, setEditingIndex] = useState(null);
-    const [readOnly, setReadOnly] = useState(true);
+    const [editingIndexReadOnly, setEditingIndexReadOnly] = useState(null);
     const [inputValue, setInputValue] = useState('');
     const [stylenewTraining, setStylenewTraining] = useState({}); 
     const [styleAddNewTraining, setStyleAddNewTraining] = useState({}); 
@@ -32,6 +50,10 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
     const [title, setTitle] = useState('');
     const [titleIsEmpty, setTitleIsEmpty] = useState('');
     const [styleAddTraining, setStyleAddTraining] = useState({}); 
+    const [rotate, setRotate] = useState(false);
+    const [isrotate, setIsRotate] = useState(false);
+    const [overflowY, setOverflowY] = useState('auto');
+    const [pointerEvents, setPointerEvents] = useState('auto')
 
     const excludeTraining = (index) => {
         setTrainingDataOfTheDay(trainingDataOfTheDay.filter(a => a.id !== index));
@@ -75,25 +97,56 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
         setStyleEditInput({border: 'solid clamp(0.08rem, 0.2vw, 0.15rem) black', cursor: 'text', backgroundColor: 'white', color: '#003F63'});
         setStyleEditButton({display: 'none'})
         setStyleConfirmInput({display: 'inline-flex'})
-        setReadOnly(false);
         setEditingIndex(index);
+        setEditingIndexReadOnly(index)
     }
     
     const hideInput = () => {
         setStyleEditInput({border: 'none', cursor: 'default', backgroundColor: 'transparent', color: '#F2F2F2'});
-        setReadOnly(true);
         setEditingIndex(null);
+        setEditingIndexReadOnly(null)
     }
 
-    const changeValue = event => {
+    const changeValue = (event, type, min, max) => {
         const newValue = event.target.value;
-        if (newValue === '') {
-          setInputValue('');
-        } else {
-          setInputValue(newValue);
+
+        if(type === 'nome' || type === 'descanso'){
+            if (newValue === '') {
+                setInputValue('');
+            } else if (newValue.length <= max) {
+                setInputValue(newValue);
+            } else {
+                setStyleAlert({display: 'block'})
+                setTimeout(() => {
+                    setStyleAlert({display: 'none'})
+                }, 3000);
+                setInputValue(newValue.substring(0, max));
+                event.target.value = newValue.substring(0, max)
+            }
+        }
+
+        if(type === 'repeticao'){
+            if (newValue === '') {
+                setInputValue('');
+            } else if (newValue <= max && newValue >= min) {
+                setInputValue(newValue);
+            } else if (newValue > max){
+                setStyleAlert({display: 'block'})
+                setTimeout(() => {
+                    setStyleAlert({display: 'none'})
+                }, 3000);
+                setInputValue(max);
+                event.target.value = max
+            }else if(newValue < min){
+                setStyleAlert({display: 'block'})
+                setTimeout(() => {
+                    setStyleAlert({display: 'none'})
+                }, 3000);
+                setInputValue(min);
+                event.target.value = min
+            }
         }
     };
-
     
     const displaysCreateNewTraining = () => {
         setStylenewTraining({display: 'none'})
@@ -170,17 +223,56 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
         setRest(e.target.value) 
     }
 
+    const rotateOnClick = () => {
+        setPointerEvents('none')
+        setRotate(!rotate);
+        setIsRotate(true)
+        if (rotate) {
+            setTimeout(() => {
+                setOverflowY('auto');
+            }, 2000); 
+        } else {
+            setTimeout(() => {
+                setOverflowY('hidden');
+            }, 2000); 
+        }
+        setTimeout(() => {
+            setIsRotate(false);
+        }, 2000);
+        setTimeout(() => {
+            setPointerEvents('auto')
+        }, 2000);
+    };
+
     return(
-        <div className="parentDivOfAllTraningDisplayCard">
+        <div className="parentDivOfAllTraningDisplayCard"
+            style={{
+                height: rotate ? '5vmax' : '30vmax',
+                transition: 'height 2s linear',
+                overflowY: overflowY,
+                pointerEvents: pointerEvents
+            }}
+        >
             <div className='dayOfWeek'>
-                <p>{day.charAt(0).toUpperCase() + day.slice(1)}</p>
+                <p>{formattedDay.charAt(0).toUpperCase() + formattedDay.slice(1)}</p>
+            </div>
+            <div className='expandAndRetract'>
+                <button type='button' 
+                disabled={isrotate}
+                    style={{
+                        transform: rotate ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 2s linear',
+                    }}
+                    onClick={rotateOnClick}>
+                    <img src={expandAndRetract} alt="" />
+                </button>
             </div>
             <div className='parentDivOfAllCards'>
                 {trainingDataOfTheDay.map((exercicio, index) => (
                     <div key={exercicio.id} className='parentDivOfAllCard'>
                         <div className='namberAndDeleteTraining'>
                             <div className='numberOfExercise'>
-                                Treino {exerciseNumbers[index] + 1}
+                                Treino {exerciseNumbers[index] + 1} 
                             </div>
                             <div className='deleteTraining'>
                                 <button type='button' onClick={() => excludeTraining(exercicio.id)}>
@@ -191,7 +283,8 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                         </div>
                         <div className='card'>
                             <div className='trainingAttribute'>
-                                Nome: <input name={day} type="text" defaultValue={inputValue || exercicio.nome} className='displaysInformation' readOnly={readOnly} style={editingIndex === (index + 'nome') ? styleEditInput : null} onChange={changeValue} />
+                                Nome: <input name={day} type="text" defaultValue={inputValue || exercicio.nome} className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'nome') ? null : true} style={editingIndex === (index + 'nome') ? styleEditInput : null} onChange={(event) => changeValue(event, 'nome', 1, 45)} maxLength={45}/>
+                                <p className='alertInputError' style={editingIndex === (index + 'nome') ? styleAlert : null}>O nome deve conter no máximo 45 caracteres.</p>
                             </div>
                             <div className='editAttribute' style={editingIndex === (index + 'nome') ? styleEditButton: null}>
                                 <button type='button' onClick={() => displayInput(index + 'nome')}>
@@ -206,7 +299,8 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                         </div>
                         <div className='card'>
                             <div className='trainingAttribute'>
-                                Repetições: <input name={day} type="number" defaultValue={inputValue || parseInt(exercicio.repeticoes)} className='displaysInformation' readOnly={readOnly} style={editingIndex === (index + 'repeticao') ? styleEditInput : null} onChange={changeValue}/>
+                                Repetições: <input name={day} type="number" defaultValue={inputValue || parseInt(exercicio.repeticoes)} className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'repeticao') ? null : true} style={editingIndex === (index + 'repeticao') ? styleEditInput : null} onChange={(event) => changeValue(event, 'repeticao', 1, 100)} max={100} min={1}/>
+                                <p className='alertInputError' style={editingIndex === (index + 'repeticao') ? styleAlert : null}>A repetição deve estar entre 1 e 100</p>
                             </div>
                             <div className='editAttribute' style={editingIndex === (index + 'repeticao') ? styleEditButton: null}>
                                 <button type='button' onClick={() => displayInput(index + 'repeticao')}>
@@ -221,7 +315,8 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                         </div>
                         <div className='card'>
                             <div className='trainingAttribute'>
-                                Descanso: <input name={day} type="text" defaultValue={inputValue || exercicio.descanso} className='displaysInformation' readOnly={readOnly} style={editingIndex === (index + 'descanso') ? styleEditInput : null} onChange={changeValue}/>
+                                Descanso: <input name={day} type="text" defaultValue={inputValue || exercicio.descanso} className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'descanso') ? null : true} style={editingIndex === (index + 'descanso') ? styleEditInput : null} onChange={(event) => changeValue(event, 'descanso', 1, 40)} maxLength={40}/>
+                                <p className='alertInputError' style={editingIndex === (index + 'descanso') ? styleAlert : null}>O descanso deve conter no máximo 40 caracteres.</p>
                             </div>
                             <div className='editAttribute' style={editingIndex === (index + 'descanso') ? styleEditButton: null}>
                                 <button type='button' onClick={() => displayInput(index + 'descanso')}>
@@ -260,7 +355,7 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                         <button type='button' onClick={() => createNewTraining(name, repetition, rest)} disabled={isEmpty} style={styleAddTraining} title={titleIsEmpty}>Adicionar</button>
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
     )
 }

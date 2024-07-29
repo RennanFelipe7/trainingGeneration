@@ -15,8 +15,8 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
     const [alertType, setAlertType] = useState(null);
     const location = useLocation();
 
-    const displaysLoading = () => {
-        setIsLoading(true); 
+    const displaysLoading = (isOK) => {
+        setIsLoading(isOK); 
     };
   
     useEffect(() => {
