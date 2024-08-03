@@ -1,29 +1,46 @@
 {
-  "Segunda": {
+  "segunda": {
     "exercicios": [
       {
-        "nome": "111",
-        "repeticoes": 10,
-        "descanso": "111"
+        "nome": "segunda 1",
+        "repeticoes": 1,
+        "descanso": "segunda 1"
+      },
+      {
+        "nome": "segunda 2",
+        "repeticoes": 2,
+        "descanso": "segunda 2"
       }
     ]
   },
-  "Terca": {
+  "terca": {
+    "exercicios": [
+      {
+        "nome": "terca 1",
+        "repeticoes": 1,
+        "descanso": "terca 1"
+      }
+    ]
+  },
+  "quarta": {
     "exercicios": []
   },
-  "Quarta": {
+  "quinta": {
     "exercicios": []
   },
-  "Quinta": {
+  "sexta": {
     "exercicios": []
   },
-  "Sexta": {
+  "sabado": {
     "exercicios": []
   },
-  "Sabado": {
-    "exercicios": []
-  },
-  "Domingo": {
-    "exercicios": []
+  "domingo": {
+    "exercicios": [
+      {
+        "nome": "domingo 1",
+        "repeticoes": 1,
+        "descanso": "domingo 1"
+      }
+    ]
   }
 }

@@ -49,7 +49,7 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
       
 
     const trainingJson = JSON.parse(sharedTrainingData)
-
+    
     const nome = trainingJson.nome
 
     const authorization = setAuthorization.slice(6, setAuthorization.length);
@@ -63,6 +63,33 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
         }, {})
     );
 
+    const handleTrainingChange = (day, updatedTraining) => {
+        setTraining((prevTraining) => ({
+          ...prevTraining,
+          [day]: {
+            exercicios: updatedTraining,
+          },
+        }));
+    };      
+      
+
+    const handleTrainingEdit = (day, index, key, newValue) => {
+        setTraining((prevTraining) => {
+          const updatedExercises = prevTraining[day].exercicios.map((exercise, i) => 
+            i === index ? { ...exercise, [key]: newValue } : exercise
+          );
+      
+          return {
+            ...prevTraining,
+            [day]: {
+              ...prevTraining[day],
+              exercicios: updatedExercises,
+            },
+          };
+        });
+    };
+      
+      
         return (
             <div>
                 {serverResponse && <Alert message={serverResponse} type={alertType} />}
@@ -104,7 +131,7 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
                         }}
                         inputs = {[
                             ...Object.keys(training).map((key) => (
-                                <TrainingDisplayCard key={key} trainingOfDay={training[key]} day={key.charAt(0).toLowerCase() + key.slice(1)} setAlert={setServerResponse} setAlertType={setAlertType}>
+                                <TrainingDisplayCard key={key} trainingOfDay={training[key]} day={key.charAt(0).toLowerCase() + key.slice(1)} setAlert={setServerResponse} setAlertType={setAlertType} changeTraining={handleTrainingChange} editTraining={handleTrainingEdit}>
                                 
                                 </TrainingDisplayCard>
                             )),

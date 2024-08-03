@@ -6,7 +6,7 @@ import confirm from '../../images/confirm.png'
 import PropTypes from 'prop-types';
 import expandAndRetract from '../../images/expandAndRetract.png';
 
-export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setAlertType }) {
+export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setAlertType, changeTraining, editTraining}) {
 
     const addIdInTraining = (exercicios) => {
         return exercicios.map((element, index) => {
@@ -56,7 +56,9 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
     const [pointerEvents, setPointerEvents] = useState('auto')
 
     const excludeTraining = (index) => {
-        setTrainingDataOfTheDay(trainingDataOfTheDay.filter(a => a.id !== index));
+        let updatedTraining = trainingDataOfTheDay.filter(a => a.id !== index)
+        setTrainingDataOfTheDay(updatedTraining);
+        changeTraining(day, updatedTraining);
 
         window.scrollTo({
             top: 0,
@@ -107,7 +109,7 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
         setEditingIndexReadOnly(null)
     }
 
-    const changeValue = (event, type, min, max) => {
+    const changeValue = (event, type, min, max, index) => {
         const newValue = event.target.value;
 
         if(type === 'nome' || type === 'descanso'){
@@ -146,6 +148,8 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                 event.target.value = min
             }
         }
+
+        editTraining(day, index, type, newValue)
     };
     
     const displaysCreateNewTraining = () => {
@@ -166,7 +170,9 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
     const createNewTraining = (nome, repeticoes, descanso) => {
 
         if(trainingDataOfTheDay.length < 10){
-            setTrainingDataOfTheDay([...trainingDataOfTheDay, {nome: nome.charAt(0).toUpperCase() + nome.slice(1), repeticoes: repeticoes, descanso: descanso, id: validId()}]);
+            let updatedTraining = [...trainingDataOfTheDay, {nome: nome.charAt(0).toUpperCase() + nome.slice(1), repeticoes: repeticoes, descanso: descanso, id: validId()}]
+            setTrainingDataOfTheDay(updatedTraining);
+            changeTraining(day, updatedTraining)
             setStylenewTraining({display: 'block'})
             setStyleAddNewTraining({display: 'none'})
             setName('')
@@ -283,7 +289,7 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                         </div>
                         <div className='card'>
                             <div className='trainingAttribute'>
-                                Nome: <input name={day} type="text" defaultValue={inputValue || exercicio.nome} className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'nome') ? null : true} style={editingIndex === (index + 'nome') ? styleEditInput : null} onChange={(event) => changeValue(event, 'nome', 1, 45)} maxLength={45}/>
+                                Nome: <input name={day} type="text" defaultValue={inputValue || exercicio.nome} className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'nome') ? null : true} style={editingIndex === (index + 'nome') ? styleEditInput : null} onChange={(event) => changeValue(event, 'nome', 1, 45, index)} maxLength={45}/>
                                 <p className='alertInputError' style={editingIndex === (index + 'nome') ? styleAlert : null}>O nome deve conter no máximo 45 caracteres.</p>
                             </div>
                             <div className='editAttribute' style={editingIndex === (index + 'nome') ? styleEditButton: null}>
@@ -299,7 +305,7 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                         </div>
                         <div className='card'>
                             <div className='trainingAttribute'>
-                                Repetições: <input name={day} type="number" defaultValue={inputValue || parseInt(exercicio.repeticoes)} className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'repeticao') ? null : true} style={editingIndex === (index + 'repeticao') ? styleEditInput : null} onChange={(event) => changeValue(event, 'repeticao', 1, 100)} max={100} min={1}/>
+                                Repetições: <input name={day} type="number" defaultValue={inputValue || parseInt(exercicio.repeticoes)} className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'repeticao') ? null : true} style={editingIndex === (index + 'repeticao') ? styleEditInput : null} onChange={(event) => changeValue(event, 'repeticao', 1, 100, index)} max={100} min={1}/>
                                 <p className='alertInputError' style={editingIndex === (index + 'repeticao') ? styleAlert : null}>A repetição deve estar entre 1 e 100</p>
                             </div>
                             <div className='editAttribute' style={editingIndex === (index + 'repeticao') ? styleEditButton: null}>
@@ -315,7 +321,7 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                         </div>
                         <div className='card'>
                             <div className='trainingAttribute'>
-                                Descanso: <input name={day} type="text" defaultValue={inputValue || exercicio.descanso} className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'descanso') ? null : true} style={editingIndex === (index + 'descanso') ? styleEditInput : null} onChange={(event) => changeValue(event, 'descanso', 1, 40)} maxLength={40}/>
+                                Descanso: <input name={day} type="text" defaultValue={inputValue || exercicio.descanso} className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'descanso') ? null : true} style={editingIndex === (index + 'descanso') ? styleEditInput : null} onChange={(event) => changeValue(event, 'descanso', 1, 40, index)} maxLength={40}/>
                                 <p className='alertInputError' style={editingIndex === (index + 'descanso') ? styleAlert : null}>O descanso deve conter no máximo 40 caracteres.</p>
                             </div>
                             <div className='editAttribute' style={editingIndex === (index + 'descanso') ? styleEditButton: null}>
