@@ -9,11 +9,13 @@ import { useLocation } from 'react-router-dom';
 
 export default function Training({ sharedTrainingData, setAuthorization }) {
 
-
     const [isLoading, setIsLoading] = useState(false);
     const [serverResponse, setServerResponse] = useState(null);
     const [alertType, setAlertType] = useState(null);
     const location = useLocation();
+    const [sharedTrainingDataState, setSharedTrainingDataState] = useState(sharedTrainingData)
+    const [training, setTraining] = useState({});
+    const [name, setName] = useState('')
 
     const displaysLoading = (isOK) => {
         setIsLoading(isOK); 
@@ -29,13 +31,42 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
         }
     }, [location]);
 
+    useEffect(() => {
+        const saveValue = sessionStorage.getItem('training');
+        const saveName = sessionStorage.getItem('name');
+        if (saveValue) {
+            setTraining(saveValue);
+            setTraining(Object.keys(JSON.parse(saveValue)).reduce((accumulated, dia) => {
+                if (dia !== 'nome' && JSON.parse(saveValue)[dia].exercicios.length > 0) {
+                    accumulated[dia] = JSON.parse(saveValue)[dia];
+                }
+                return accumulated;
+            }, {}))
+        }else{
+            setTraining(Object.keys(JSON.parse(sharedTrainingDataState)).reduce((accumulated, dia) => {
+                if (dia !== 'nome' && JSON.parse(sharedTrainingDataState)[dia].exercicios.length > 0) {
+                    accumulated[dia] = JSON.parse(sharedTrainingDataState)[dia];
+                }
+                return accumulated;
+            }, {}))
+        }
+        setName(saveName)
+    }, []);
+      
+    useEffect(() => {
+        if(sharedTrainingDataState){
+            sessionStorage.setItem('training', sharedTrainingDataState);
+            sessionStorage.setItem('name', JSON.parse(sharedTrainingDataState).nome);
+        }
+    }, [sharedTrainingDataState]);
+
     const generatedTraining = (response) => {
         setIsLoading(false);
         const blob = new Blob([response.data], { type: "application/pdf" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = nome + " treino.pdf";
+        a.download = name + " treino.pdf";
         document.body.appendChild(a); 
         a.click();
         URL.revokeObjectURL(url);
@@ -46,22 +77,8 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
             setServerResponse(false)
         }, 5000);
     };
-      
-
-    const trainingJson = JSON.parse(sharedTrainingData)
-    
-    const nome = trainingJson.nome
 
     const authorization = setAuthorization.slice(6, setAuthorization.length);
-
-    const [training, setTraining] = useState(
-        Object.keys(trainingJson).reduce((accumulated, dia) => {
-            if (dia !== 'nome' && trainingJson[dia].exercicios.length > 0) {
-                accumulated[dia] = trainingJson[dia];
-            }
-            return accumulated;
-        }, {})
-    );
 
     const handleTrainingChange = (day, updatedTraining) => {
         setTraining((prevTraining) => ({
@@ -70,6 +87,12 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
             exercicios: updatedTraining,
           },
         }));
+        const trainingInSessionStorage = sessionStorage.getItem('training');
+        if(trainingInSessionStorage){
+            const parsedTraining = JSON.parse(trainingInSessionStorage);
+            parsedTraining[day].exercicios = updatedTraining
+            sessionStorage.setItem('training', JSON.stringify(parsedTraining));
+        }
     };      
       
 
@@ -96,7 +119,7 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
                 {isLoading && <Loading message='Gerando relatório'/>}
                 {!isLoading && (
                     <>
-                    <InformativeParagraph message={`Olá ${nome}, treino gerado por inteligência artificial, caso necessite é possível editá-lo.`} />
+                    <InformativeParagraph message={`Olá ${name}, treino gerado por inteligência artificial, caso necessite é possível editá-lo.`} />
                         <Form
                         displaysLoading={displaysLoading}
                         generatedTraining={generatedTraining} 
@@ -127,7 +150,7 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
                                 "exercicios": []
                             },
 
-                            "nome": nome
+                            "nome": name
                         }}
                         inputs = {[
                             ...Object.keys(training).map((key) => (

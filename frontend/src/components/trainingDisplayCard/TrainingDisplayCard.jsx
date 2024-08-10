@@ -127,7 +127,7 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
             }
         }
 
-        if(type === 'repeticao'){
+        if(type === 'repeticoes'){
             if (newValue === '') {
                 setInputValue('');
             } else if (newValue <= max && newValue >= min) {
@@ -150,6 +150,12 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
         }
 
         editTraining(day, index, type, newValue)
+        const trainingInSessionStorage = sessionStorage.getItem('training');
+        if(trainingInSessionStorage){
+            const parsedTraining = JSON.parse(trainingInSessionStorage);
+            parsedTraining[day].exercicios[index][type] = newValue
+            sessionStorage.setItem('training', JSON.stringify(parsedTraining));
+        }
     };
     
     const displaysCreateNewTraining = () => {
@@ -305,15 +311,15 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                         </div>
                         <div className='card'>
                             <div className='trainingAttribute'>
-                                Repetições: <input name={day} type="number" defaultValue={inputValue || parseInt(exercicio.repeticoes)} className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'repeticao') ? null : true} style={editingIndex === (index + 'repeticao') ? styleEditInput : null} onChange={(event) => changeValue(event, 'repeticao', 1, 100, index)} max={100} min={1}/>
-                                <p className='alertInputError' style={editingIndex === (index + 'repeticao') ? styleAlert : null}>A repetição deve estar entre 1 e 100</p>
+                                Repetições: <input name={day} type="number" defaultValue={inputValue || parseInt(exercicio.repeticoes)} className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'repeticoes') ? null : true} style={editingIndex === (index + 'repeticoes') ? styleEditInput : null} onChange={(event) => changeValue(event, 'repeticoes', 1, 100, index)} max={100} min={1}/>
+                                <p className='alertInputError' style={editingIndex === (index + 'repeticoes') ? styleAlert : null}>A repetição deve estar entre 1 e 100</p>
                             </div>
-                            <div className='editAttribute' style={editingIndex === (index + 'repeticao') ? styleEditButton: null}>
-                                <button type='button' onClick={() => displayInput(index + 'repeticao')}>
+                            <div className='editAttribute' style={editingIndex === (index + 'repeticoes') ? styleEditButton: null}>
+                                <button type='button' onClick={() => displayInput(index + 'repeticoes')}>
                                     <img src={edit} alt="Editar repetição"/>
                                 </button>
                             </div> 
-                            <div className='confirmAttribute' style={editingIndex === (index + 'repeticao') ? styleConfirmInput: null}>
+                            <div className='confirmAttribute' style={editingIndex === (index + 'repeticoes') ? styleConfirmInput: null}>
                                 <button type='button' onClick={() => hideInput()}>
                                     <img src={confirm} alt="Salvar repetição"/>
                                 </button>
