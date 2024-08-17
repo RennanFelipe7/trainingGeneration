@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import './form.css'
 import axios from 'axios';
@@ -6,7 +6,13 @@ import axios from 'axios';
 export const Form = ({displaysLoading, action, inputs, value, generatedTraining, payload, responseType, setServerResponse, setAlertType, token  }) => {
 
     const formRef = useRef();
-    
+    useEffect(() => {
+        const saveValue = sessionStorage.getItem('token');
+        if (!saveValue) {
+            sessionStorage.setItem('token', token)
+        }
+    }, []);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formValues = new FormData(formRef.current);
@@ -106,7 +112,7 @@ export const Form = ({displaysLoading, action, inputs, value, generatedTraining,
                         payload,
                         {
                             headers: {
-                                'Authorization': `Bearer ${token}`
+                                'Authorization': `Bearer ${token || sessionStorage.getItem('token')}`
                             },
                             withCredentials: true,
                             responseType: responseType,

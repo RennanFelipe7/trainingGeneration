@@ -111,60 +111,59 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
           };
         });
     };
-      
-      
-        return (
-            <div>
-                {serverResponse && <Alert message={serverResponse} type={alertType} />}
-                {isLoading && <Loading message='Gerando relatório'/>}
-                {!isLoading && (
-                    <>
-                    <InformativeParagraph message={`Olá ${name}, treino gerado por inteligência artificial, caso necessite é possível editá-lo.`} />
-                        <Form
-                        displaysLoading={displaysLoading}
-                        generatedTraining={generatedTraining} 
-                        action = "/reportGeneration"
-                        value="Gerar Relatório"
-                        responseType='blob'
-                        token={authorization}
-                        payload={{
-                            "segunda": {
-                                "exercicios": []
-                            },
-                            "terca": {
-                                "exercicios": []
-                            },
-                            "quarta": {
-                                "exercicios": []
-                            },
-                            "quinta": {
-                                "exercicios": []
-                            },
-                            "sexta": {
-                                "exercicios": []
-                            },
-                            "sabado": {
-                                "exercicios": []
-                            },
-                            "domingo": {
-                                "exercicios": []
-                            },
+    
+    return (
+        <div>
+            {serverResponse && <Alert message={serverResponse} type={alertType} />}
+            {isLoading && <Loading message='Gerando relatório'/>}
+            {!isLoading && (
+                <>
+                <InformativeParagraph message={`Olá ${name}, treino gerado por inteligência artificial, caso necessite é possível editá-lo.`} />
+                    <Form
+                    displaysLoading={displaysLoading}
+                    generatedTraining={generatedTraining} 
+                    action = "/reportGeneration"
+                    value="Gerar Relatório"
+                    responseType='blob'
+                    token={authorization}
+                    payload={{
+                        "segunda": {
+                            "exercicios": []
+                        },
+                        "terca": {
+                            "exercicios": []
+                        },
+                        "quarta": {
+                            "exercicios": []
+                        },
+                        "quinta": {
+                            "exercicios": []
+                        },
+                        "sexta": {
+                            "exercicios": []
+                        },
+                        "sabado": {
+                            "exercicios": []
+                        },
+                        "domingo": {
+                            "exercicios": []
+                        },
 
-                            "nome": name
-                        }}
-                        inputs = {[
-                            ...Object.keys(training).map((key) => (
-                                <TrainingDisplayCard key={key} trainingOfDay={training[key]} day={key.charAt(0).toLowerCase() + key.slice(1)} setAlert={setServerResponse} setAlertType={setAlertType} changeTraining={handleTrainingChange} editTraining={handleTrainingEdit}>
-                                
-                                </TrainingDisplayCard>
-                            )),
-                        ]}
-                        setServerResponse={setServerResponse}
-                        setAlertType={setAlertType}
-                    ></Form>
-                </>)}
-            </div>
-        );
+                        "nome": name
+                    }}
+                    inputs = {[
+                        ...Object.keys(training).map((key) => (
+                            <TrainingDisplayCard key={key} trainingOfDay={training[key]} day={key.charAt(0).toLowerCase() + key.slice(1)} setAlert={setServerResponse} setAlertType={setAlertType} changeTraining={handleTrainingChange} editTraining={handleTrainingEdit}>
+                            
+                            </TrainingDisplayCard>
+                        )),
+                    ]}
+                    setServerResponse={setServerResponse}
+                    setAlertType={setAlertType}
+                ></Form>
+            </>)}
+        </div>
+    );
 }
 
 Training.prototype = {
