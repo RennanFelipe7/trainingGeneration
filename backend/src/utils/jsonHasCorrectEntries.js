@@ -93,8 +93,8 @@ module.exports = function jsonHasCorrectEntries(requiredKeys, inputJson) {
                         });
                     }
                     value = lowercaseFirstLetter(value);
-                    if(value.some(item => item !== 'segunda' && item !== 'terça' && item !== 'quarta' && item !== 'quinta' && item !== 'sexta' && item !== 'sábado' && item !== 'domingo')){
-                        return `'disponibilidade' deve ser um ou mais dos valores: "segunda" ou "terça" ou "quarta" ou "quinta" ou "sexta" ou "sábado" ou "domingo". Valor recebido: ${value}`;
+                    if(value.some(item => item !== 'segunda' && item !== 'terca' && item !== 'quarta' && item !== 'quinta' && item !== 'sexta' && item !== 'sábado' && item !== 'domingo')){
+                        return `'disponibilidade' deve ser um ou mais dos valores: "segunda" ou "terca" ou "quarta" ou "quinta" ou "sexta" ou "sábado" ou "domingo". Valor recebido: ${value}`;
                     }
                     break;
                 }

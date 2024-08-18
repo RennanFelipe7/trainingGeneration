@@ -10,7 +10,7 @@ module.exports = function jsonFilledIsValid(requiredKeys, inputJson){
                 );
                 
                 if(!(hasAllRequiredKeys && hasNoExtraKeys && allKeysHaveValidValues)){
-                    isValid = false; ;
+                    isValid = false;
                 }
             });
         }

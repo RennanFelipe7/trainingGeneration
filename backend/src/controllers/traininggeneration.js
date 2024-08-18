@@ -7,7 +7,7 @@ const createPDF = require('../utils/createPDF');
 const jsonIsValid = require('../utils/jsonIsValid');
 const jsonTrainingGenerationIsEmpty = require('../utils/jsonTrainingGenerationIsEmpty');
 const jsonHasCorrectEntries = require('../utils/jsonHasCorrectEntries');
-const jsonCreatePDFIsEmpty = require('../utils/jsonCreatePDFIsEmpty');
+const jsonExercisesIsEmpty = require('../utils/jsonExercisesIsEmpty');
 const jsonFilledIsValid = require('../utils/jsonFilledIsValid');
 
 module.exports = class traininggeneration{
@@ -20,13 +20,41 @@ module.exports = class traininggeneration{
             }else{
                 const validationResult = jsonHasCorrectEntries(requiredKeys, trainingInputs);
                 if(validationResult.success){
-                    postPrompt(prompted(trainingInputs)).then((response) => {
+                    let nome = trainingInputs["nome"]
+                    delete trainingInputs["nome"]
+                    postPrompt(prompted(trainingInputs)).then((response) => {  
                         let formatJson = FormatJson(response)
-                        formatJson.nome = trainingInputs.nome
-                        res.setHeader('Authorization', `token ${req.session.token}`);
-                        res.status(200).header('Content-Type', 'application/json').send(formatJson);
+                        const requiredKeys = ["segunda", "terca", "quarta", "quinta", "sexta", "sabado", "domingo"];
+                        if (jsonIsValid(requiredKeys, formatJson)) {
+                            const requiredProperty = ["nome", "repeticoes", "descanso"];
+                            if(jsonExercisesIsEmpty(formatJson)){
+                                return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_OF_TRAINING + " minutos"});
+                            }
+                            if(jsonFilledIsValid(requiredProperty, formatJson)){ 
+                                const validationResult = jsonHasCorrectEntries(requiredKeys, formatJson);
+                                if (validationResult.success) {
+                                    let daysOfDisponibility = []
+                                    daysOfDisponibility = trainingInputs.disponibilidade
+                                    for(const dayofTraining in formatJson){
+                                        if((formatJson[dayofTraining].exercicios.length === 0 && daysOfDisponibility.includes(dayofTraining)) || !daysOfDisponibility.includes(dayofTraining) && formatJson[dayofTraining].exercicios.length > 0){
+                                            return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_OF_TRAINING + " minutos"});
+                                        }
+                                    }
+                                    formatJson.nome = trainingInputs.nome
+                                    formatJson["nome"] = nome
+                                    res.setHeader('Authorization', `token ${req.session.token}`);
+                                    res.status(200).header('Content-Type', 'application/json').send(formatJson);
+                                }else{                                  
+                                    return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_OF_TRAINING + " minutos"});
+                                }
+                            }else{                               
+                                return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_OF_TRAINING + " minutos"});
+                            }
+                        }else{                           
+                            return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_OF_TRAINING + " minutos"});
+                        }
                     })
-                }else{
+                }else{                    
                     return res.status(422).json({ error: "Foram encontrados os seguintes erros: " +  validationResult.errors});
                 }
             }
@@ -41,7 +69,7 @@ module.exports = class traininggeneration{
         const requiredKeys = ["segunda", "terca", "quarta", "quinta", "sexta", "sabado", "domingo", "nome"];
         
         if(jsonIsValid(requiredKeys, trainingInputs)){
-            if(jsonCreatePDFIsEmpty(trainingInputs)){
+            if(jsonExercisesIsEmpty(trainingInputs)){
                 return res.status(422).json({ error: "Campo(s) vazio(s). Preencha todos os campos" });
             }else{
                 const requiredProperty = ["nome", "repeticoes", "descanso"];
