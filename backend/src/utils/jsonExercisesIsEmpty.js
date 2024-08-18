@@ -1,4 +1,4 @@
-module.exports = function jsonCreatePDFIsEmpty(inputJson){
+module.exports = function jsonExercisesIsEmpty(inputJson){
     let cont = 0;
     for (let key in inputJson) {
         if(Array.isArray(inputJson[key].exercicios)){
