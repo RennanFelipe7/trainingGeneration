@@ -28,7 +28,7 @@ export const MultipleFixedInput = ({description, options}) => {
                     {...option} 
                     isSelected={selectedOptions.includes(option.id)} 
                     handleSelect={() => handleSelect(option.id)} 
-            />
+                />
             )}
         </div>
     )

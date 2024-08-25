@@ -18,7 +18,7 @@ export const Form = ({displaysLoading, action, inputs, value, generatedTraining,
         const formValues = new FormData(formRef.current);
 
         const firstEntry = formValues.entries().next().value;
-       
+        
         if(firstEntry){
 
             let [key] = firstEntry;

@@ -44,7 +44,7 @@ module.exports = function baseJson(){
       "exercicios": [
         {
           "nome": "",
-          "repeticoes": 3,
+          "repeticoes": ,
           "descanso": ""
         }
       ]
