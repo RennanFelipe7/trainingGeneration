@@ -149,12 +149,12 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               description = "Disponibilidade:"
               options = {[
                 {value: 'Segunda', id:'segunda', name: 'disponibilidade'},
-                {value: 'Terça', id:'terça', name: 'disponibilidade'},
+                {value: 'Terça', id:'terca', name: 'disponibilidade'},
                 {value: 'Quarta', id:'quarta', name: 'disponibilidade'},
                 {value: 'Quinta', id:'quinta', name: 'disponibilidade'},
                 {value: 'Sexta', id:'sexta', name: 'disponibilidade'},
                 {value: 'Sábado', id:'sabado', name: 'disponibilidade'},
-                {value: 'Domingo', id:'somingo', name: 'disponibilidade'},
+                {value: 'Domingo', id:'domingo', name: 'disponibilidade'},
               ]}
               name='disponibilidade'
               key='disponibilidade'
