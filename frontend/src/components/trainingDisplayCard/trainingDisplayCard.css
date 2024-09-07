@@ -74,11 +74,11 @@
 }
 
 .trainingAttribute{
-    height: 3vmax;
+    /* height: 3vmax; */
     width: 95%;
-    display: inline-flex;
+    /* display: inline-flex;
     justify-content: start;
-    align-items: center;
+    align-items: center; */
 }
 
 .displaysInformation, .displaysInformation:focus{
@@ -225,4 +225,32 @@
     font-size: clamp(1rem, 1.7vw, 1.2rem);
     font-weight: bold;
     margin-left: 1vmax;
+}
+
+.atribute{
+    display: inline-block;
+}
+.suggestedExercises{
+    margin-left: calc(clamp(3rem, 5.8vw, 5.0rem) - 0.5em);
+    display: block;
+    background-color: #F2F2F2;
+    color: #003F63;
+    width: 60%;
+    height: 15vmax;
+    overflow: auto;
+    border-radius: 0.5em;
+    display: none;
+}
+
+.dropdown-item:not(:first-child){
+    margin-top: 0.5vmax;
+}
+.dropdown-item{
+    padding: 0.5em;
+}
+.dropdown-item:hover{
+    background-color: #33C758;
+}
+.dropdown-item > p{
+    cursor: pointer;
 }
