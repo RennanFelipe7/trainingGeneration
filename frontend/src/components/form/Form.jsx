@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import './form.css'
 import axios from 'axios';
+import {useSelector} from 'react-redux'
 
 export const Form = ({displaysLoading, action, inputs, value, generatedTraining, payload, responseType, setServerResponse, setAlertType, token  }) => {
 
@@ -168,6 +169,8 @@ export const Form = ({displaysLoading, action, inputs, value, generatedTraining,
         }
     }
 
+    const { anyInputIsEmpty } = useSelector((state) => state.trainingDisplayCard);
+
     return(
         <div className='parentDivOfAllForm'>
             <form ref={formRef} onSubmit={handleSubmit} className='styleForm' method='POST'>
@@ -175,7 +178,7 @@ export const Form = ({displaysLoading, action, inputs, value, generatedTraining,
                     {inputs.map((inputElement, index) => inputElement)}
                 </div>
                 <div className='submitContainer'>
-                    <input type="submit" value={value}/>
+                    <input type="submit" value={value} disabled={anyInputIsEmpty}/>
                 </div>
             </form>
         </div>
