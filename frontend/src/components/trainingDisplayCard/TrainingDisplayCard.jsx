@@ -6,6 +6,9 @@ import confirm from '../../images/confirm.png'
 import PropTypes from 'prop-types';
 import expandAndRetract from '../../images/expandAndRetract.png';
 import suggestedExercisesUtil from '../../utils/suggestedExercises.json'
+import { useDispatch } from 'react-redux';
+import { setAnyInputIsEmpty } from '../../slices/trainingDisplayCard';
+
 export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setAlertType, changeTraining, editTraining}) {
 
     const addIdInTraining = (exercicios) => {
@@ -65,6 +68,14 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
     const [styleSuggestionDiv, setStyleSuggestionDiv] = useState({})
     const [isMatch, setIsMatch] = useState(false)
     const [indexSuggestion, setIndexSuggestion] = useState(null);
+    const [inputEditingIsEmpty, setInputEditingIsEmpty] = useState(false);
+    const [inputEditingIsEmptyIndex, setInputEditingIsEmptyIndex] = useState(null);
+    const [anyInputIsEmpty, setAnyInputIsEmptyState] = useState(false);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(setAnyInputIsEmpty(anyInputIsEmpty));
+    }, [anyInputIsEmpty]);
 
     const excludeTraining = (index) => {
         let updatedTraining = trainingDataOfTheDay.filter(a => a.id !== index)
@@ -125,6 +136,11 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
         setStyleSuggestionDiv({display: 'block'});
     }
 
+    const setIfIsEmpty = (index) => {
+        setInputEditingIsEmptyIndex(index)
+        setInputEditingIsEmpty(true)
+    }
+
     const changeValue = (event, type, min, max, index) => {
         const newValue = event.target.value;
 
@@ -137,7 +153,7 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
         }));
 
         if(type === 'nome' || type === 'descanso'){
-            if (newValue === '') {
+            if (newValue.replace(/\s+/g, '') === '') {
                 setInputValue(prevValues => ({
                     ...prevValues,
                     [index]: {
@@ -145,6 +161,12 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                         [type]: ''
                     }
                 }));
+                setAnyInputIsEmptyState(true)
+                if(type === 'nome'){
+                    setIfIsEmpty(index + 'nome')
+                }else{
+                    setIfIsEmpty(index + 'descanso')
+                }
             } else if (newValue.length <= max) {
                 setInputValue(prevValues => ({
                     ...prevValues,
@@ -153,6 +175,9 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                         [type]: newValue
                     }
                 }));
+                setAnyInputIsEmptyState(false)
+                setInputEditingIsEmptyIndex(null)
+                setInputEditingIsEmpty(false)
             } else {
                 setStyleAlert({display: 'block'})
                 setTimeout(() => {
@@ -166,6 +191,9 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                     }
                 }));
                 event.target.value = newValue.substring(0, max)
+                setAnyInputIsEmptyState(false)
+                setInputEditingIsEmptyIndex(null)
+                setInputEditingIsEmpty(false)
             }
         }
 
@@ -178,6 +206,8 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                         [type]: ''
                     }
                 }));
+                setAnyInputIsEmptyState(true)
+                setIfIsEmpty(index +'repeticoes')
             } else if (newValue <= max && newValue >= min) {
                 setInputValue(prevValues => ({
                     ...prevValues,
@@ -186,6 +216,9 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                         [type]: newValue
                     }
                 }));
+                setAnyInputIsEmptyState(false)
+                setInputEditingIsEmptyIndex(null)
+                setInputEditingIsEmpty(false)
             } else if (newValue > max){
                 setStyleAlert({display: 'block'})
                 setTimeout(() => {
@@ -199,6 +232,9 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                     }
                 }));
                 event.target.value = max
+                setAnyInputIsEmptyState(false)
+                setInputEditingIsEmptyIndex(null)
+                setInputEditingIsEmpty(false)
             }else if(newValue < min){
                 setStyleAlert({display: 'block'})
                 setTimeout(() => {
@@ -212,6 +248,9 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                     }
                 }));
                 event.target.value = min
+                setAnyInputIsEmptyState(false)
+                setInputEditingIsEmptyIndex(null)
+                setInputEditingIsEmpty(false)
             }
         }
 
@@ -438,7 +477,7 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                                 </button>
                             </div>
                             <div className='confirmAttribute' style={editingIndex === (index + 'nome') ? styleConfirmInput: null}>
-                                <button type='button' onClick={() => hideInput()}>
+                                <button type='button' onClick={() => hideInput()} disabled={inputEditingIsEmptyIndex === (index + 'nome') ? inputEditingIsEmpty: null}>
                                     <img src={confirm} alt="Salvar nome"/>
                                 </button>
                             </div>
@@ -454,7 +493,7 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                                 </button>
                             </div> 
                             <div className='confirmAttribute' style={editingIndex === (index + 'repeticoes') ? styleConfirmInput: null}>
-                                <button type='button' onClick={() => hideInput()}>
+                                <button type='button' onClick={() => hideInput()} disabled={inputEditingIsEmptyIndex === (index + 'repeticoes') ? inputEditingIsEmpty: null}>
                                     <img src={confirm} alt="Salvar repetição"/>
                                 </button>
                             </div>
@@ -470,7 +509,7 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                                 </button>
                             </div> 
                             <div className='confirmAttribute' style={editingIndex === (index + 'descanso') ? styleConfirmInput: null}>
-                                <button type='button' onClick={() => hideInput()}>
+                                <button type='button' onClick={() => hideInput()} disabled={inputEditingIsEmptyIndex === (index + 'descanso') ? inputEditingIsEmpty: null}>
                                     <img src={confirm} alt="Salvar descanso"/>
                                 </button>
                             </div>

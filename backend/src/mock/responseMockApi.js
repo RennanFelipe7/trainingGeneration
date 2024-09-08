@@ -88,8 +88,8 @@ module.exports = function responseMockApi(){
             "exercicios":[
                 {
                     "nome":"Descanso",
-                    "repeticoes":0,
-                    "descanso":"0 minutos"
+                    "repeticoes":10,
+                    "descanso":"1 minutos"
                 }
             ]
         }
