@@ -46,6 +46,36 @@ const sslServer = https.createServer({
   cert: fs.readFileSync('./certs/mycert.crt')
 }, app);
 
+const cron = require('node-cron');
+
+cron.schedule('*/15 * * * *', () => {
+  console.log('RUNNING CRON');
+  let currentIpsAndCounts = [];
+  const blockingTime = 15 * 60 * 1000;
+  try {
+    const ipsAndCounts = fs.readFileSync('serverStorage/bloquer.txt', 'utf8');
+    currentIpsAndCounts = ipsAndCounts.split('\n').map(item => item.replace('\r', ''));
+    console.log('Original = ' + currentIpsAndCounts);
+  } catch (err) { 
+    console.error('Não foi possível ler o arquivo contendo os IPs devido ao erro: ' + err);
+  }
+
+  currentIpsAndCounts = currentIpsAndCounts.map(item => {
+    let [currentIp, count, timestamp, isBlockedFile] = item.split(';');
+    const currentTime = Date.now();
+    if (!((currentTime - parseInt(timestamp, 10) > blockingTime) && isBlockedFile === 'true')) {
+      return item;
+    }
+    return null;
+  }).filter(item => item !== null);
+
+  try {
+    fs.writeFileSync('serverStorage/bloquer.txt', currentIpsAndCounts.join('\n'), 'utf8');
+  } catch (err) {
+    console.error('Não foi possível escrever no arquivo contendo os IPs devido ao erro: ' + err);
+  }
+});
+
 sslServer.listen(port, () => {
   console.log(`Training Generation em execução`)
 })
