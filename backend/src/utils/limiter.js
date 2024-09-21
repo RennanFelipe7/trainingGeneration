@@ -5,7 +5,11 @@ module.exports = function limiter (time, messageError){
         windowMs: time * 60000,
         max: 1,
         handler: (req, res, next) => {
-            res.status(429).header('Content-Type', 'application/json').send({error: messageError});
+            return res.status(429).header('Content-Type', 'application/json').send({error: messageError});
+        },
+        
+        skip: (req, res) => {
+            return req.session.skipRateLimit
         }
     });
 
