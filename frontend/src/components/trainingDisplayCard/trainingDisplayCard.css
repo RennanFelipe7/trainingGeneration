@@ -16,7 +16,7 @@
     align-items: center;
     font-size: clamp(1.5rem, 2.5vw, 2rem);
     font-weight: bold;
-    width: 95%;
+    width: 90%;
 }
 
 @keyframes rotate {
@@ -37,7 +37,16 @@
     float: right;
 }
 
-.expandAndRetract button{
+.excludeDay{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 3vmax;
+    width: 5%;
+    float: left;
+}
+
+.expandAndRetract button, .excludeDay button{
     height: 3vmax;
     width: 60%;
     border:  none;
@@ -45,7 +54,7 @@
     cursor: pointer;
 }
 
-.expandAndRetract button img{
+.expandAndRetract button img, .excludeDay button img{
     height: 100%;
     width: 100%;
     max-height: 100%;
@@ -249,7 +258,7 @@
     padding: 0.5em;
 }
 .dropdown-item:hover{
-    background-color: #33C758;
+    background-color: #00ff00;
 }
 .dropdown-item > p{
     cursor: pointer;

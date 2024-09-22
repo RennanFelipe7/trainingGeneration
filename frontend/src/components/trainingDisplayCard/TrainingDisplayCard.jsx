@@ -9,7 +9,7 @@ import suggestedExercisesUtil from '../../utils/suggestedExercises.json'
 import { useDispatch } from 'react-redux';
 import { setAnyInputIsEmpty } from '../../slices/trainingDisplayCard';
 
-export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setAlertType, changeTraining, editTraining}) {
+export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setAlertType, changeTraining, editTraining, excludeDay}) {
 
     const addIdInTraining = (exercicios) => {
         return exercicios.map((element, index) => {
@@ -107,6 +107,11 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
 
     useEffect(() => {
         checkIsEmpty();
+        setInputValue(trainingDataOfTheDay.map(exercicio => ({
+            nome: exercicio.nome,
+            repeticoes: parseInt(exercicio.repeticoes),
+            descanso: exercicio.descanso
+        })))
     }, [name, repetition, rest]);
 
     const calculateExerciseNumbers = () => {
@@ -426,6 +431,11 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                 pointerEvents: pointerEvents
             }}
         >
+            <div className='excludeDay'>
+                <button type='button' onClick={() => excludeDay(day)}>
+                    <img src={bin} alt="Excluir Dia"/>
+                </button>
+            </div>
             <div className='dayOfWeek'>
                 <p>{formattedDay.charAt(0).toUpperCase() + formattedDay.slice(1)}</p>
             </div>
@@ -459,15 +469,15 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                                 <p className='alertInputError' style={editingIndex === (index + 'nome') ? styleAlert : null}>O nome deve conter no máximo 45 caracteres.</p>
                                 <div className='suggestedExercises' style={suggestionIndex === (index + 'nome') ? styleSuggestionDiv : null}>
                                     <div className="dropdown-content">
-                                    {execiseSuggestion.map((exercise, idx) => (
-                                        exercise.toLowerCase().includes(searchTerm.toLowerCase()) && (
-                                            <div key={idx} className="dropdown-item">
-                                                <p onClick={() => choiseExercise(exercise, index, day)}>
-                                                    {highlightText(exercise, searchTerm)}
-                                                </p>
-                                            </div>
-                                        )
-                                    ))}
+                                        {execiseSuggestion.map((exercise, idx) => (
+                                            exercise.toLowerCase().includes(searchTerm.toLowerCase()) && (
+                                                <div key={idx} className="dropdown-item">
+                                                    <p onClick={() => choiseExercise(exercise, index, day)}>
+                                                        {highlightText(exercise, searchTerm)}
+                                                    </p>
+                                                </div>
+                                            )
+                                        ))}
                                     </div>
                                 </div>
                             </div>

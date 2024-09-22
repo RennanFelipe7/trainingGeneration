@@ -6,6 +6,7 @@ import { InformativeParagraph } from '../components/informativeParagraph/Informa
 import { Loading } from "../components/loading/Loading.jsx";
 import { Alert } from '../components/alert/Alert.jsx';
 import { useLocation } from 'react-router-dom';
+import { AddDay } from '../components/addDay/AddDay.jsx';
 
 export default function Training({ sharedTrainingData, setAuthorization }) {
 
@@ -16,7 +17,15 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
     const [sharedTrainingDataState, setSharedTrainingDataState] = useState(sharedTrainingData)
     const [training, setTraining] = useState({});
     const [name, setName] = useState('')
+    const [nonTrainingDays, setNonTrainingDays] = useState([]);
 
+    const allDays = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'];
+
+    useEffect(() => {
+        const nonTrainingDaysInitial = allDays.filter(day => !Object.keys(training).includes(day));
+        setNonTrainingDays(nonTrainingDaysInitial);
+    }, [training]);
+    
     const displaysLoading = (isOK) => {
         setIsLoading(isOK); 
     };
@@ -111,7 +120,62 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
           };
         });
     };
+    const handleExcludeDay = (day) => {
+        setTraining((prevTraining) => {
+            const updatedDays = {...prevTraining };
+            delete updatedDays[day];
+            return updatedDays;
+        });
+        const trainingInSessionStorage = sessionStorage.getItem('training');
+        if(trainingInSessionStorage){
+            const parsedTraining = JSON.parse(trainingInSessionStorage);
+            delete parsedTraining[day];
+            sessionStorage.setItem('training', JSON.stringify(parsedTraining));
+        }
+        setServerResponse('Dia excluido com sucesso.');
+        setAlertType('success');
+        setTimeout(() => {
+            setServerResponse(false)
+        }, 5000);
+    }
+
+    const createDay = (day) => {
+        if(day){
+            const daysOfWeek = ["segunda", "terca", "quarta", "quinta", "sexta", "sabado", "domingo"];
+            setTraining((prevTraining) => {
+                const updatedTraining = { ...prevTraining, [day]: { exercicios: [] } };
+                const sortedTraining = Object.keys(updatedTraining)
+                    .sort((a, b) => daysOfWeek.indexOf(a) - daysOfWeek.indexOf(b))
+                    .reduce((acc, key) => {
+                        acc[key] = updatedTraining[key];
+                        return acc;
+                    }, {});
+                return sortedTraining;
+            });
+        
+            const trainingInSessionStorage = sessionStorage.getItem('training');
+            if (trainingInSessionStorage) {
+                const parsedTraining = JSON.parse(trainingInSessionStorage);
+                parsedTraining[day] = { exercicios: [] };
+                const sortedTraining = Object.keys(parsedTraining)
+                    .sort((a, b) => daysOfWeek.indexOf(a) - daysOfWeek.indexOf(b))
+                    .reduce((acc, key) => {
+                        acc[key] = parsedTraining[key];
+                        return acc;
+                    }, {});
+                sessionStorage.setItem('training', JSON.stringify(sortedTraining));
+            }
+        
+            setNonTrainingDays(prevDays => prevDays.filter(d => d !== day));
+            setServerResponse('Dia adicionado com sucesso.');
+            setAlertType('success');
+            setTimeout(() => {
+                setServerResponse(false)
+            }, 5000);
+        }
+    };
     
+
     return (
         <div>
             {serverResponse && <Alert message={serverResponse} type={alertType} />}
@@ -119,6 +183,7 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
             {!isLoading && (
                 <>
                 <InformativeParagraph message={`Olá ${name}, treino gerado por inteligência artificial, caso necessite é possível editá-lo.`} />
+                <AddDay options={nonTrainingDays} choice={createDay}></AddDay>
                     <Form
                     displaysLoading={displaysLoading}
                     generatedTraining={generatedTraining} 
@@ -153,7 +218,7 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
                     }}
                     inputs = {[
                         ...Object.keys(training).map((key) => (
-                            <TrainingDisplayCard key={key} trainingOfDay={training[key]} day={key.charAt(0).toLowerCase() + key.slice(1)} setAlert={setServerResponse} setAlertType={setAlertType} changeTraining={handleTrainingChange} editTraining={handleTrainingEdit}>
+                            <TrainingDisplayCard key={key} trainingOfDay={training[key]} day={key.charAt(0).toLowerCase() + key.slice(1)} setAlert={setServerResponse} setAlertType={setAlertType} changeTraining={handleTrainingChange} editTraining={handleTrainingEdit} excludeDay={handleExcludeDay}>
                             
                             </TrainingDisplayCard>
                         )),
