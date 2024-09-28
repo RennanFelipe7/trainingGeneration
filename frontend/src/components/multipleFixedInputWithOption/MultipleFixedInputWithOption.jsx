@@ -75,22 +75,6 @@ export const MultipleFixedInputWithOption = ({description, options: initialOptio
     }, [options])
 
     return (
-        // <div className="parentDivOfAllMultFixedWithOption">
-        //     <div className='descriptionCheckbox'><p>{description}</p></div>
-        //     {options.map((option, index) =>
-        //         <Checkbox
-        //             key={index}
-        //             {...option}
-        //             isSelected={selectedOptions.includes(option.id)}
-        //             handleSelect={() => handleSelect(option.id)}
-        //         />
-        //     )}
-        //     <button type='button' className='createNewOption' onClick={newOptionInputAppears} style={styleParentButtonNewOption} disabled={maximumReached} title={title}>Nova opção</button>
-        //     <div className='newOption' style={styleNewOption}>
-        //         <input type="text" name="" id="" value={inputValue} onChange={handleChange} ref={inputRef} maxLength={50}/>
-        //         <button type='button' disabled={!inputValue} style={changeBackgroundColorIfDisabled} onClick={handleButtonClick} title={titleCreateNewOption}>Adicionar</button>
-        //     </div>
-        // </div>
         <div className="parentDivOfAllMultFixedWithOption">
             <div className='descriptionCheckbox'>
                 <p>{description}</p>
@@ -114,13 +98,6 @@ export const MultipleFixedInputWithOption = ({description, options: initialOptio
                 <input type="text" name="" id="" value={inputValue} onChange={handleChange} ref={inputRef} maxLength={50}/>
                 <button type='button' disabled={!inputValue} style={changeBackgroundColorIfDisabled} onClick={handleButtonClick} title={titleCreateNewOption}>Adicionar</button>
             </div>
-            <div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-            <div></div>
         </div>
     );
 };

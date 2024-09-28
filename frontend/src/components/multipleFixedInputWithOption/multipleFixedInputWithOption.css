@@ -1,70 +1,3 @@
-/* .parentDivOfAllCheckbox{
-    width: 30vmax;
-    flex-direction: column;
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5vmax 1vmax 1vmax 1vmax;
-    margin-top: 2vmax
-}
-
-.descriptionCheckbox{
-    font-weight: bold;
-    text-align: center;
-    font-size: clamp(1rem, 2vw, 1.5rem);
-    color: #F2F2F2;
-}
-
-.parentDivOfAllCheckbox > *:not(:first-child) {
-    margin-left: 3vmin;
-    margin-top: 1vmin;
-}
-
-.createNewOption{
-    height: 2.5vmax;
-    width: 30%;
-    border-radius: 0.5em;
-    cursor: pointer;
-    font-size: 1vmax;
-    font-weight: bold;
-    color: #DAA520;
-}
-
-.newOption{
-    display: none;
-    height: 2.5vmax;
-    width: 70%;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.newOption > input{
-    display: block;
-    padding: 0.5em 0.5em 0.5em 1em;
-    border-radius: 0.5em;
-    height: 2.5vmax;
-    width: 60%;
-    cursor: pointer;
-    font-size: clamp(0.7rem, 1.5vw, 1rem);
-    color: #DAA520;
-}
-
-.newOption > input:focus{
-    outline-color: #DAA520;
-    border: solid clamp(0.08rem, 0.2vw, 0.15rem) #DAA520;
-}
-
-.newOption > button{
-    padding: 2%;
-    border-radius: 0.5em;
-    height: 2.5vmax;
-    width: 35%;
-    font-size: 1vmax;
-    font-weight: bold;
-    color: #F2F2F2;
-    background-color: grey;
-    cursor: no-drop;
-} */
-
 .parentDivOfAllMultFixedWithOption{
     width: 30vmax;
     flex-direction: column;
@@ -72,7 +5,6 @@
     justify-content: space-between;
     padding: 0.5vmax 1vmax 1vmax 1vmax;
     margin-top: 2vmax;
-    /* background-color: red; */
 }
 
 .parentCreateNewOption{
