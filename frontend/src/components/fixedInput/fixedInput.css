@@ -1,10 +1,8 @@
 .parentDivOfAll{
     width: 30vmax;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
     padding: 0vmax 1vmax 1vmax 1vmax;
     margin-top: 2vmax;
+    height: 12vmax;
 }
 
 .descriptionRadio{
