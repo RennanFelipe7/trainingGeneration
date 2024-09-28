@@ -1,4 +1,13 @@
 .parentDivOfAllCheckbox{
+    width: 30vmax;
+    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5vmax 1vmax 1vmax 1vmax;
+    margin-top: 2vmax
+}
+
+.parentDivOfAllCheckbox{
     display: flex;
     justify-content: space-between;
     padding: 0.5vmax 1vmax 1vmax 1vmax;

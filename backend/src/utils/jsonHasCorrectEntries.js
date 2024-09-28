@@ -50,6 +50,10 @@ module.exports = function jsonHasCorrectEntries(requiredKeys, inputJson) {
                     return `'objetivos_do_treino' não deve conter mais do que 10 objetivos. quantidade de objetivos: ${value.length}`;
                 }else if(value.some(item => typeof item !== 'string')){
                     return `'objetivos_do_treino' deve ser uma string. Valor recebido: ${value}`;
+                }else if(value.some(item => item.length === 0)){
+                    return `'objetivos_do_treino' deve ser uma string não vazia. Valor recebido: ${value}`;
+                }else if(value.some(item => item.length > 50)){
+                    return `'objetivos_do_treino' deve ser uma string de tamanho menor ou igual a 50 ${value}`;
                 }
                 break;
             case 'altura':
@@ -65,6 +69,7 @@ module.exports = function jsonHasCorrectEntries(requiredKeys, inputJson) {
                 break;
             case 'nivel_de_condicionamento_fisico':
                 value = value.charAt(0).toLowerCase() + value.slice(1)
+                console.log('BUG = ' + value);
                 if (value !== 'iniciante' && value !== 'intermediário' && value !== 'avançado') {
                     return `'nivel_de_condicionamento_fisico' deve ser um dos valores: "iniciante" ou "intermediário" ou "avançado". Valor recebido: ${value}`;
                 }
@@ -74,6 +79,10 @@ module.exports = function jsonHasCorrectEntries(requiredKeys, inputJson) {
                     return `'preferencias_de_exercicio' não deve conter mais do que 10 preferência. quantidade de preferência: ${value.length}`;
                 }else if(value.some(item => typeof item !== 'string')){
                     return `'preferencias_de_exercicio' deve ser uma string. Valor recebido: ${value}`;
+                }else if(value.some(item => item.length === 0)){
+                    return `'preferencias_de_exercicio' deve ser uma string não vazia. Valor recebido: ${value}`;
+                }else if(value.some(item => item.length > 50)){
+                    return `'preferencias_de_exercicio' deve ser uma string de tamanho menor ou igual a 50 ${value}`;
                 }
                 break;
             case 'restricoes_de_saude':
@@ -81,6 +90,10 @@ module.exports = function jsonHasCorrectEntries(requiredKeys, inputJson) {
                     return `'restricoes_de_saude' não deve conter mais do que 10 restrições. quantidade de restrições: ${value.length}`;
                 }else if(value.some(item => typeof item !== 'string')){
                     return `'restricoes_de_saude' deve ser uma string. Valor recebido: ${value}`;
+                }else if(value.some(item => item.length === 0)){
+                    return `'restricoes_de_saude' deve ser uma string não vazia. Valor recebido: ${value}`;
+                }else if(value.some(item => item.length > 50)){
+                    return `'restricoes_de_saude' deve ser uma string de tamanho menor ou igual a 50 ${value}`;
                 }
                 break;
             case 'disponibilidade':
@@ -120,6 +133,10 @@ module.exports = function jsonHasCorrectEntries(requiredKeys, inputJson) {
                     return `'historico_de_lesoes' não deve conter mais do que 10 lesões. quantidade de lesões: ${value.length}`;
                 }else if(value.some(item => typeof item !== 'string')){
                     return `'historico_de_lesoes' deve ser uma string. Valor recebido: ${value}`;
+                }else if(value.some(item => item.length === 0)){
+                    return `'historico_de_lesoes' deve ser uma string não vazia. Valor recebido: ${value}`;
+                }else if(value.some(item => item.length > 50)){
+                    return `'historico_de_lesoes' deve ser uma string de tamanho menor ou igual a 50 ${value}`;
                 }
                 break;
             case 'nome':

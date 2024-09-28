@@ -115,7 +115,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               description = "Nível de condicionamento físico:"
               options = {[
                 {value: 'Iniciante', id:'iniciante', name: 'nivel_de_condicionamento_fisico'},
-                {value: 'Intermediário ', id:'intermediário ', name: 'nivel_de_condicionamento_fisico'},
+                {value: 'Intermediário', id:'intermediário ', name: 'nivel_de_condicionamento_fisico'},
                 {value: 'Avançado', id:'avançado', name: 'nivel_de_condicionamento_fisico'}
               ]}
               name='nivel_de_condicionamento_fisico'
@@ -200,6 +200,8 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               key = 'nome'
               id='username'
               name='nome'
+              min={0}
+              max={70}
             ></FreeInput>,
   
           ]}
