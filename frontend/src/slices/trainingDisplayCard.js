@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const trainingDisplayCards = createSlice({
     name: 'anyInputIsEmpty',
     initialState:{
-        anyInputIsEmpty: true,
+        anyInputIsEmpty: false,
     },
     reducers:{
         setAnyInputIsEmpty: (state, action) => {
