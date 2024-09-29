@@ -83,11 +83,7 @@
 }
 
 .trainingAttribute{
-    /* height: 3vmax; */
     width: 95%;
-    /* display: inline-flex;
-    justify-content: start;
-    align-items: center; */
 }
 
 .displaysInformation, .displaysInformation:focus{
