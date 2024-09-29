@@ -69,7 +69,6 @@ module.exports = function jsonHasCorrectEntries(requiredKeys, inputJson) {
                 break;
             case 'nivel_de_condicionamento_fisico':
                 value = value.charAt(0).toLowerCase() + value.slice(1)
-                console.log('BUG = ' + value);
                 if (value !== 'iniciante' && value !== 'intermediário' && value !== 'avançado') {
                     return `'nivel_de_condicionamento_fisico' deve ser um dos valores: "iniciante" ou "intermediário" ou "avançado". Valor recebido: ${value}`;
                 }

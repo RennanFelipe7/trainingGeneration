@@ -93,13 +93,11 @@ module.exports = class traininggeneration{
                             await createPDF(req.body, nome).then((response) => {
                                 pdf = response
                             }).catch((err) => {
-                                console.log(err)
+                                console.log('Não foi possível gerar o PDF devido ao erro: ' + err)
                             })
                             req.session.skipRateLimit = false;
-                            setTimeout(() => {
-                                res.set('Content-Type', 'application/pdf');
-                                res.status(200).send(pdf);
-                            }, 2000);
+                            res.set('Content-Type', 'application/pdf');
+                            res.status(200).send(pdf);
                         }else{
                             return res.status(400).json({ error: "O caractere é inválido " + isValidBrazilianJSON.invalidChar})
                         }
