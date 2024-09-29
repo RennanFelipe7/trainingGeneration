@@ -35,7 +35,7 @@ app.use(cors({
   exposedHeaders: 'Authorization'
 }));
 
-const port = process.env.PORT
+const port = process.env.PORT || 8000
 
 const traininggeneration = require('./src/routes/traininggeneration')
 
