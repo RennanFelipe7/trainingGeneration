@@ -36,6 +36,7 @@ app.use(cors({
 }));
 
 const port = process.env.PORT || 8000
+app.set('port', port)
 
 const traininggeneration = require('./src/routes/traininggeneration')
 
