@@ -1,13 +1,11 @@
-require('dotenv').config();
-
-module.exports = {
+odule.exports = {
     apps: [{
         name: 'traininggeneration',
         script: 'app.js',
         instances: 'max',
         exec_mode: 'cluster',
         env: {
-            PORT: process.env.PORT || 8000
+            PORT: 8000
         }
     }]
 };
