@@ -36,16 +36,10 @@ app.use(cors({
 }));
 
 const port = process.env.PORT || 8000
-app.set('port', port)
 
 const traininggeneration = require('./src/routes/traininggeneration')
 
 app.use('/', traininggeneration)
-
-const sslServer = https.createServer({
-  key: fs.readFileSync('./certs/mykey.key'),
-  cert: fs.readFileSync('./certs/mycert.crt')
-}, app);
 
 const cron = require('node-cron');
 
@@ -78,11 +72,16 @@ cron.schedule('*/15 * * * *', () => {
 });
 
 if(process.env.ENVIRONMENT === 'development') {
+  const sslServer = https.createServer({
+    key: fs.readFileSync('./certs/mykey.key'),
+    cert: fs.readFileSync('./certs/mycert.crt')
+  }, app);
+  app.set('port', port)
   sslServer.listen(port, () => {
-    console.log(`Training Generation em execução`)
+    console.log(`Training Generation em execução no ambiente de: ` + process.env.ENVIRONMENT)
   })
 }else{
   app.listen(port, () => {
-    console.log(`Training Generation em execução`)
+    console.log(`Training Generation em execução no ambiente de: ` + process.env.ENVIRONMENT)
   })
 }
