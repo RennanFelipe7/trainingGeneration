@@ -77,6 +77,12 @@ cron.schedule('*/15 * * * *', () => {
   }
 });
 
-sslServer.listen(port, () => {
-  console.log(`Training Generation em execução`)
-})
+if(process.env.ENVIRONMENT === 'development') {
+  sslServer.listen(port, () => {
+    console.log(`Training Generation em execução`)
+  })
+}else{
+  app.listen(port, () => {
+    console.log(`Training Generation em execução`)
+  })
+}
