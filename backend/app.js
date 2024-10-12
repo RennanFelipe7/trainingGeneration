@@ -70,11 +70,17 @@ cron.schedule('*/15 * * * *', () => {
   }
 });
 
-const sslServer = https.createServer({
-  key: fs.readFileSync('./certs/mykey.key'),
-  cert: fs.readFileSync('./certs/mycert.crt')
-}, app);
-
-sslServer.listen(port, '0.0.0.0', () => {
-  console.log('Training Generation em execução.')
-})
+if(process.env.ENVIRONMENT === 'development') {
+  const sslServer = https.createServer({
+    key: fs.readFileSync('./certs/mykey.key'),
+    cert: fs.readFileSync('./certs/mycert.crt')
+  }, app);
+  app.set('port', port)
+  sslServer.listen(port, () => {
+    console.log(`Training Generation em execução no ambiente de: ` + process.env.ENVIRONMENT)
+  })
+}else{
+  app.listen(port, () => {
+    console.log(`Training Generation em execução no ambiente de: ` + process.env.ENVIRONMENT)
+  })
+}
