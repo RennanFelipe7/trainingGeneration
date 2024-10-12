@@ -75,6 +75,6 @@ const sslServer = https.createServer({
   cert: fs.readFileSync('./certs/mycert.crt')
 }, app);
 
-sslServer.listen(port, () => {
+sslServer.listen(port, '0.0.0.0', () => {
   console.log('Training Generation em execução.')
 })
