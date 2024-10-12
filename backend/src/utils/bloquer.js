@@ -3,6 +3,8 @@ require('dotenv').config();
 
 module.exports = function bloquer(req, res, next) {
     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    console.log("req.headers['x-forwarded-for'] = " + req.headers['x-forwarded-for'])
+    console.log("req.connection.remoteAddress = " + req.connection.remoteAddress)
     let ipsAndConts;
     let currentIpsAndCounts = [];
     let isBlocked = false;
