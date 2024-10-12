@@ -27,7 +27,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 const { LocalStorage } = require('node-localstorage');
-const localStorage = new LocalStorage('./serverStorage');
+new LocalStorage('./serverStorage');
 
 app.use(cors({
   origin: [process.env.FRONTEND_URL],
@@ -44,7 +44,6 @@ app.use('/', traininggeneration)
 const cron = require('node-cron');
 
 cron.schedule('*/15 * * * *', () => {
-  console.log('RUNNING CRON');
   let currentIpsAndCounts = [];
   const blockingTime = 15 * 60 * 1000;
   try {
@@ -71,17 +70,11 @@ cron.schedule('*/15 * * * *', () => {
   }
 });
 
-if(process.env.ENVIRONMENT === 'development') {
-  const sslServer = https.createServer({
-    key: fs.readFileSync('./certs/mykey.key'),
-    cert: fs.readFileSync('./certs/mycert.crt')
-  }, app);
-  app.set('port', port)
-  sslServer.listen(port, () => {
-    console.log(`Training Generation em execução no ambiente de: ` + process.env.ENVIRONMENT)
-  })
-}else{
-  app.listen(port, () => {
-    console.log(`Training Generation em execução no ambiente de: ` + process.env.ENVIRONMENT)
-  })
-}
+const sslServer = https.createServer({
+  key: fs.readFileSync('./certs/mykey.key'),
+  cert: fs.readFileSync('./certs/mycert.crt')
+}, app);
+
+sslServer.listen(port, () => {
+  console.log('Training Generation em execução.')
+})
