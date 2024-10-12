@@ -28,6 +28,11 @@ app.use(bodyParser.json());
 
 const { LocalStorage } = require('node-localstorage');
 new LocalStorage('./serverStorage');
+try {
+  fs.writeFileSync('serverStorage/bloquer.txt', '');
+} catch (err) {
+  console.error('Não foi possível criar o arquivo para armazenamento dos IPs devido ao erro: ' + err);
+}
 
 app.use(cors({
   origin: [process.env.FRONTEND_URL],
