@@ -25,11 +25,13 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
-
+app.set('trust proxy', 1)
 const { LocalStorage } = require('node-localstorage');
 new LocalStorage('./serverStorage');
 try {
-  fs.writeFileSync('serverStorage/bloquer.txt', '');
+  if (!fs.existsSync('serverStorage/bloquer.txt')) {
+    fs.writeFileSync('serverStorage/bloquer.txt', '');
+  }
 } catch (err) {
   console.error('Não foi possível criar o arquivo para armazenamento dos IPs devido ao erro: ' + err);
 }
