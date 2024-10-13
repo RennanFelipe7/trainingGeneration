@@ -3,7 +3,7 @@ require('dotenv').config();
 
 module.exports = function createAndSetToken(req, res, next) {
   
-  const token = jwt.sign({}, process.env.SECRET_KEY_JWT, { expiresIn: '30m' });
+  const token = jwt.sign({}, process.env.SECRET_KEY_JWT, { expiresIn: '1d' });
 
   req.session.token = token;
 
