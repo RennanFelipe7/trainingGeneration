@@ -8,8 +8,7 @@ export const Form = ({displaysLoading, action, inputs, value, generatedTraining,
 
     const formRef = useRef();
     useEffect(() => {
-        const saveValue = sessionStorage.getItem('token');
-        if (!saveValue) {
+        if(token){
             sessionStorage.setItem('token', token)
         }
     }, []);
