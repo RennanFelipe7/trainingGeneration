@@ -80,10 +80,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: clamp(1.2rem, 2.2vw, 1.7rem);
 }
 
 .trainingAttribute{
+    display: flex;
     width: 95%;
+    flex-wrap: nowrap;
+}
+
+.trainingAttributeWithoutSuggestion{
+    display: flex;
+    width: 95%;
+    align-items: center;
+    flex-wrap: nowrap;
 }
 
 .displaysInformation, .displaysInformation:focus{
@@ -92,9 +102,9 @@
     padding: 0.5em;
     border-radius: 0.5em;
     height: 2.5vmax;
-    width: 60%;
+    width: 70%;
     cursor:default;
-    font-size: clamp(1.3rem, 2vw, 1.5rem);
+    font-size: clamp(1.2rem, 2.2vw, 1.7rem);
     color: #F2F2F2;
     background-color: transparent;
 }
@@ -120,7 +130,7 @@
     background-color: transparent;
     cursor: pointer;
     border: 0;
-    height: 70%;
+    height: 100%;
     width: 70%;
 }
 
@@ -142,6 +152,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 .deleteTraining button{
@@ -150,7 +161,7 @@
     cursor: pointer;
     border: 0;
     height: 50%;
-    width: 50%;
+    width: 70%;
 }
 
 .deleteTraining img{
@@ -162,7 +173,6 @@
 }
 
 .parentDivOfAllCard{
-    font-size: clamp(1rem, 1.7vw, 1.5rem);
     margin-top: 2vmax;
     display: flex;
     flex-direction: column;
@@ -198,7 +208,7 @@
 }
 
 .cardNewTraining{
-    font-size: clamp(1rem, 1.7vw, 1.5rem);
+    font-size: clamp(1.2rem, 2.2vw, 1.7rem);
     color:#F2F2F2 ;
     height: 20%;
 }
@@ -220,7 +230,7 @@
     height: 2.5vmax;
     width: 35%;
     cursor: pointer;
-    font-size: clamp(1.3rem, 2vw, 1.5rem);
+    font-size: clamp(1.2rem, 2.2vw, 1.7rem);
     color: #003F63;
 }
 
@@ -232,15 +242,10 @@
     margin-left: 1vmax;
 }
 
-.atribute{
-    display: inline-block;
-}
 .suggestedExercises{
-    margin-left: calc(clamp(3rem, 5.8vw, 5.0rem) - 0.5em);
-    display: block;
     background-color: #F2F2F2;
     color: #003F63;
-    width: 60%;
+    width: 70%;
     height: 15vmax;
     overflow: auto;
     border-radius: 0.5em;
@@ -251,6 +256,7 @@
     margin-top: 0.5vmax;
 }
 .dropdown-item{
+    font-size: clamp(1.2rem, 2.2vw, 1.7rem);
     padding: 0.5em;
 }
 .dropdown-item:hover{
@@ -258,4 +264,14 @@
 }
 .dropdown-item > p{
     cursor: pointer;
+}
+
+.atribute{
+    font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+}
+
+.inputAndsuggest{
+    width: 90%;
+    display: inline-flex;
+    flex-direction: column;
 }
