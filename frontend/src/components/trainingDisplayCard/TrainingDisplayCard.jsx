@@ -465,19 +465,24 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                         </div>
                         <div className='card'>
                             <div className='trainingAttribute'>
-                                <p className='atribute'>Nome: </p><input name={day} type="text" value={inputValue[index]?.nome || ''}  className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'nome') ? null : true} style={editingIndex === (index + 'nome') ? styleEditInput : null} onChange={(event) => changeValue(event, 'nome', 1, 45, index)} maxLength={45}/>
-                                <p className='alertInputError' style={editingIndex === (index + 'nome') ? styleAlert : null}>O nome deve conter no máximo 45 caracteres.</p>
-                                <div className='suggestedExercises' style={suggestionIndex === (index + 'nome') ? styleSuggestionDiv : null}>
-                                    <div className="dropdown-content">
-                                        {execiseSuggestion.map((exercise, idx) => (
-                                            exercise.toLowerCase().includes(searchTerm.toLowerCase()) && (
-                                                <div key={idx} className="dropdown-item">
-                                                    <p onClick={() => choiseExercise(exercise, index, day)}>
-                                                        {highlightText(exercise, searchTerm)}
-                                                    </p>
-                                                </div>
-                                            )
-                                        ))}
+                                <div className='containerName'>
+                                    <p className='atribute'>Nome: </p>
+                                </div>
+                                <div className='inputAndsuggest'>
+                                    <input name={day} type="text" value={inputValue[index]?.nome || ''}  className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'nome') ? null : true} style={editingIndex === (index + 'nome') ? styleEditInput : null} onChange={(event) => changeValue(event, 'nome', 1, 45, index)} maxLength={45}/>
+                                    <p className='alertInputError' style={editingIndex === (index + 'nome') ? styleAlert : null}>O nome deve conter no máximo 45 caracteres.</p>
+                                    <div className='suggestedExercises' style={suggestionIndex === (index + 'nome') ? styleSuggestionDiv : null}>
+                                        <div className="dropdown-content">
+                                            {execiseSuggestion.map((exercise, idx) => (
+                                                exercise.toLowerCase().includes(searchTerm.toLowerCase()) && (
+                                                    <div key={idx} className="dropdown-item">
+                                                        <p onClick={() => choiseExercise(exercise, index, day)}>
+                                                            {highlightText(exercise, searchTerm)}
+                                                        </p>
+                                                    </div>
+                                                )
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -493,7 +498,7 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                             </div>
                         </div>
                         <div className='card'>
-                            <div className='trainingAttribute'>
+                            <div className='trainingAttributeWithoutSuggestion'>
                                 <p className='atribute'>Repetições: </p> <input name={day} type="number" value={inputValue[index]?.repeticoes} className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'repeticoes') ? null : true} style={editingIndex === (index + 'repeticoes') ? styleEditInput : null} onChange={(event) => changeValue(event, 'repeticoes', 1, 100, index)} max={100} min={1}/>
                                 <p className='alertInputError' style={editingIndex === (index + 'repeticoes') ? styleAlert : null}>A repetição deve estar entre 1 e 100</p>
                             </div>
@@ -509,7 +514,7 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                             </div>
                         </div>
                         <div className='card'>
-                            <div className='trainingAttribute'>
+                            <div className='trainingAttributeWithoutSuggestion'>
                                 <p className='atribute'>Descanso: </p> <input name={day} type="text" value={inputValue[index]?.descanso || ''} className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'descanso') ? null : true} style={editingIndex === (index + 'descanso') ? styleEditInput : null} onChange={(event) => changeValue(event, 'descanso', 1, 40, index)} maxLength={40}/>
                                 <p className='alertInputError' style={editingIndex === (index + 'descanso') ? styleAlert : null}>O descanso deve conter no máximo 40 caracteres.</p>
                             </div>

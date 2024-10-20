@@ -1,10 +1,13 @@
 .parentDivOfAllAlert{
     margin-top: 1vmax;
-    height: 7vmax;
     width: 80vw;
     margin-left: 10vw;
-    display: block;
+    display: flex;
+    flex-direction: column;
     border-radius: 0.5em 0.5em 0 0.5em;
+    min-height: 7vmax;
+    flex-grow: 1;
+    max-height: none;
 }
 
 .parentDivOfAllAlert.success {
@@ -16,12 +19,20 @@
 }
 
 .infoAndClose{
-    height: 97%;
+    min-height: 6.7vmax;
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: none;
 }
 
 .animation{
+    min-height: 0.3vmax;
+    flex: 1 1 auto;
     overflow: hidden;
-    height: 3%;
+    height: 0.3vmax;
+    max-height: none;
 }
 
 .info{
