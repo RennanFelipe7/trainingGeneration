@@ -32,7 +32,9 @@
     appearance: none;
     margin: 0; 
 } 
-
+input[type=number] {
+    -moz-appearance:textfield;
+}
 .containeButtons{
     position: relative;
     top: 10%;
