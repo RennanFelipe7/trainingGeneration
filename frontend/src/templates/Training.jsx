@@ -31,13 +31,15 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
     };
   
     useEffect(() => {
-        if (location) {
+        let createNewTraining = sessionStorage.getItem('createNewTraining')
+        if (location && createNewTraining) {
             setServerResponse('Treino gerado com sucesso.');
             setAlertType('success');
             setTimeout(() => {
                 setServerResponse(false)
             }, 5000);
         }
+        sessionStorage.removeItem('createNewTraining');
     }, [location]);
 
     useEffect(() => {

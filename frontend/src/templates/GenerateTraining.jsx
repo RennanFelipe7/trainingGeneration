@@ -35,6 +35,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
       setSharedTrainingData((training.data));
       setIsLoading(false);
       navigate('/training');
+      sessionStorage.setItem('createNewTraining', true);
     };
 
     return (
