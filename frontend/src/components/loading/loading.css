@@ -1,9 +1,7 @@
 .parentDivOfAllLoading{
-    height: 50vh;
-    margin-left: 25%;
-    margin-right: 25%;
-    width: 50%;
-    margin-top: 10vmax;
+    height: 60vh;
+    width: 100%;
+    margin-top: 7vmax;
 }
 
 .parentDivOfAllCircle{
@@ -35,7 +33,7 @@
     align-items: center;
     height: 20%;
     color: #F2F2F2;
-    font-size: 2vmax
+    font-size: 2vmax;
 }
 
 @keyframes appearsAndDisappears{
