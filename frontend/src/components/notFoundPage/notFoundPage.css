@@ -1,0 +1,41 @@
+.parentDivOfAllPageNotFound{
+    width: 100%;
+    height: calc(100% - 7vmax);
+}
+.parentDivOfAllMessage{
+    font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.messagePageNotFound{
+    padding: 1vmax
+}
+
+.parentDivOfAllImg{
+    height: 85%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.parentDivOfAllImg img{
+    max-width: 90%;
+    max-height: 90%;
+}
+
+button{
+    background-color: transparent;
+    border: none;
+}
+
+a{
+    font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+    color: #DAA520;
+    margin: 0 0.3vmax;
+}
+
+.robot{
+    height: 50vmax;
+}
