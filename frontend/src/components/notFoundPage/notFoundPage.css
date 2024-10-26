@@ -8,10 +8,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.messagePageNotFound{
-    padding: 1vmax
+    margin-left: 10%;
+    width: 80%;
+    text-align: center;
+    flex-direction: column;
 }
 
 .parentDivOfAllImg{
