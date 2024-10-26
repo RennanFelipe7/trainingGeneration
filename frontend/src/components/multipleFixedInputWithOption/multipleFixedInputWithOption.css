@@ -1,5 +1,5 @@
 .parentDivOfAllMultFixedWithOption{
-    width: 30vmax;
+    min-width: 30vmax;
     flex-direction: column;
     display: flex;
     justify-content: space-between;

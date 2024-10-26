@@ -18,8 +18,8 @@
     cursor: pointer;
     height: clamp(1rem, 2vw, 1.5rem);
     width: 1.5vmax; 
+    min-width: 1.5vmax;
     border-radius: 100%;
-    margin-left: 1%;
 }
 
 .checkboxFaker img{
