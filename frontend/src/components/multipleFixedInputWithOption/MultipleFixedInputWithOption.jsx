@@ -81,7 +81,7 @@ export const MultipleFixedInputWithOption = ({description, options: initialOptio
             </div>
             <div>
                 {options.map((option, index) =>
-                    <div className='xxx'>
+                    <div className='parentDivOfAllOptionCheckbox'>
                         <Checkbox
                             key={index}
                             {...option}
