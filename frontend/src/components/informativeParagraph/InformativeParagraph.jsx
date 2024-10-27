@@ -5,7 +5,7 @@ import './informativeParagraph.css'
 export const InformativeParagraph = ({message}) => {
     return(
         <div className='parentDivOfAllParagraph'>
-            <p className='message'>{message}</p>
+            <p className='message'data-cy={`informativeParagraph ${message}`}>{message}</p>
         </div>
     )
 }

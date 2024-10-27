@@ -21,7 +21,7 @@ export const MultipleFixedInput = ({description, options}) => {
 
     return(
         <div className="parentDivOfAllCheckbox">
-            <div className='descriptionCheckbox'><p>{description}</p></div>
+            <div className='descriptionCheckbox'><p data-cy={`multipleFixedInput ${description}`}>{description}</p></div>
             {options.map((option, index) => 
                 <Checkbox 
                     key={index} 

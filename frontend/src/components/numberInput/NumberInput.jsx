@@ -72,7 +72,7 @@ export const NumberInput = ({id, description, step, placeholder, max, min, name 
   return (
     <div className='parentDivOfAllNumberInput'>
         <div className="containerLabelAndInput">
-            <label htmlFor={id} className='description'>{description}</label>
+            <label htmlFor={id} className='description' data-cy={`numberInput ${id}`}>{description}</label>
             <input
               type="number"
               id={id}
@@ -86,14 +86,15 @@ export const NumberInput = ({id, description, step, placeholder, max, min, name 
                 }}
               style={styleBorderAlert}
               onBlur={() => clampValue(max, min)}
+              data-cy={`numberInput ${id} input`}
             />
-            <p className='valueInvalid' style={invalidInputAlertStyle}>Valor inválido! máximo: {max} mínimo: {min}</p>
+            <p className='valueInvalid' style={invalidInputAlertStyle} data-cy={`alert numberInput ${id}`}>Valor inválido! máximo: {max} mínimo: {min}</p>
         </div>
         <div className='containeButtons'>
-          <button type='button' onClick={increase}>
+          <button type='button' onClick={increase} data-cy={`numberInput ${id} increase`}>
             {upArrow && <img src={upArrow} alt="" />}
           </button>
-          <button type='button' onClick={decrement}>
+          <button type='button' onClick={decrement} data-cy={`numberInput ${id} decrement`}>
             {downArrow && <img src={downArrow} alt="" />}
           </button>
         </div>

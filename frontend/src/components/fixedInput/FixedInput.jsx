@@ -16,7 +16,7 @@ export const FixedInput = ({description, options}) => {
 
     return(
         <div className="parentDivOfAll">
-            <div className='descriptionRadio'><p>{description}</p></div>
+            <div className='descriptionRadio'><p data-cy={`radio ${description}`}>{description}</p></div>
             <div className='radios'>
                 {options.map((option, index) => 
                     <Radio 

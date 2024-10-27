@@ -28,9 +28,9 @@ export const Radio = ({value, id, name, isSelected, handleSelect}) => {
 
     return(
         <div className='parentDivOfAllRadio'>
-            <label htmlFor={id}>{value}</label>
+            <label htmlFor={id} data-cy={id}>{value}</label>
             <input ref={inputRef} type="radio" value={value} name={name} id={id} className='radioReference' checked={isSelected} onChange={handleInputChange}/>
-            <button type='button' className='radioFaker' onClick={handleButtonClick}>
+            <button type='button' className='radioFaker' onClick={handleButtonClick} data-cy={`button ${id}`}>
                 {imageSrc && <img src={imageSrc} alt="" />}
             </button>
         </div>

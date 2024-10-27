@@ -62,10 +62,10 @@ export const FixedInputWithOption = ({description, options: initialOptions}) => 
                     handleSelect={() => handleSelect(option.id)} 
                 />
             )}
-            <button type='button' className='createNewOption' onClick={newOptionInputAppears} style={styleButtonNewOption}>Nova opção</button>
+            <button type='button' className='createNewOption' onClick={newOptionInputAppears} style={styleButtonNewOption} data-cy={`createNewOptionButton ${description}`}>Nova opção</button>
             <div className='newOption' style={styleNewOption}>
-                <input type="text" name="" id="" value={inputValue} onChange={handleChange} ref={inputRef}/>
-                <button type='button' disabled={!inputValue} style={changeBackgroundColorIfDisabled} onClick={handleButtonClick}>Adicionar</button>
+                <input type="text" name="" id="" value={inputValue} onChange={handleChange} ref={inputRef} data-cy={`createNewOptionInput ${description}`}/>
+                <button type='button' disabled={!inputValue} style={changeBackgroundColorIfDisabled} onClick={handleButtonClick} data-cy={`confirmNewOptionButton ${description}`}>Adicionar</button>
             </div>
         </div>
     )

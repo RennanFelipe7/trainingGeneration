@@ -432,12 +432,12 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
             }}
         >
             <div className='excludeDay'>
-                <button type='button' onClick={() => excludeDay(day)}>
+                <button type='button' onClick={() => excludeDay(day)} data-cy={`excludeDay ${day}`}>
                     <img src={bin} alt="Excluir Dia"/>
                 </button>
             </div>
             <div className='dayOfWeek'>
-                <p>{formattedDay.charAt(0).toUpperCase() + formattedDay.slice(1)}</p>
+                <p data-cy={`dayOfWeek ${formattedDay.charAt(0).toUpperCase() + formattedDay.slice(1)}`}>{formattedDay.charAt(0).toUpperCase() + formattedDay.slice(1)}</p>
             </div>
             <div className='expandAndRetract'>
                 <button type='button' 
@@ -447,7 +447,9 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                         transition: 'transform 2s linear',
                     }}
                     onClick={rotateOnClick}>
-                    <img src={expandAndRetract} alt="" />
+                    <img src={expandAndRetract} alt=""
+                    data-cy={`expandAndRetract ${day}`} 
+                    />
                 </button>
             </div>
             <div className='parentDivOfAllCards'>
@@ -458,7 +460,7 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                                 Treino {exerciseNumbers[index] + 1} 
                             </div>
                             <div className='deleteTraining'>
-                                <button type='button' onClick={() => excludeTraining(exercicio.id)}>
+                                <button type='button' onClick={() => excludeTraining(exercicio.id)} data-cy={`excludeTraining ${exercicio.id} ${day}`}>
                                     <img src={bin} alt="Excluir Treino"/>
                                 </button>
                             </div>
@@ -469,14 +471,14 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                                     <p className='atribute'>Nome: </p>
                                 </div>
                                 <div className='inputAndsuggest'>
-                                    <input name={day} type="text" value={inputValue[index]?.nome || ''}  className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'nome') ? null : true} style={editingIndex === (index + 'nome') ? styleEditInput : null} onChange={(event) => changeValue(event, 'nome', 1, 45, index)} maxLength={45}/>
-                                    <p className='alertInputError' style={editingIndex === (index + 'nome') ? styleAlert : null}>O nome deve conter no máximo 45 caracteres.</p>
+                                    <input name={day} type="text" value={inputValue[index]?.nome || ''}  className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'nome') ? null : true} style={editingIndex === (index + 'nome') ? styleEditInput : null} onChange={(event) => changeValue(event, 'nome', 1, 45, index)} maxLength={45} data-cy={`input name ${exercicio.id} ${day}`}/>
+                                    <p className='alertInputError' style={editingIndex === (index + 'nome') ? styleAlert : null} data-cy={`alertInputError nome ${exercicio.id} ${day}`}>O nome deve conter no máximo 45 caracteres.</p>
                                     <div className='suggestedExercises' style={suggestionIndex === (index + 'nome') ? styleSuggestionDiv : null}>
                                         <div className="dropdown-content">
                                             {execiseSuggestion.map((exercise, idx) => (
                                                 exercise.toLowerCase().includes(searchTerm.toLowerCase()) && (
                                                     <div key={idx} className="dropdown-item">
-                                                        <p onClick={() => choiseExercise(exercise, index, day)}>
+                                                        <p onClick={() => choiseExercise(exercise, index, day)} data-cy={`suggestion ${exercise}`}>
                                                             {highlightText(exercise, searchTerm)}
                                                         </p>
                                                     </div>
@@ -487,44 +489,44 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                                 </div>
                             </div>
                             <div className='editAttribute' style={editingIndex === (index + 'nome') ? styleEditButton: null}>
-                                <button type='button' onClick={() => displayInput(index + 'nome')}>
+                                <button type='button' onClick={() => displayInput(index + 'nome')} data-cy={`editAttribute nome ${exercicio.id} ${day}`}>
                                     <img src={edit} alt="Editar nome"/>
                                 </button>
                             </div>
                             <div className='confirmAttribute' style={editingIndex === (index + 'nome') ? styleConfirmInput: null}>
-                                <button type='button' onClick={() => hideInput()} disabled={inputEditingIsEmptyIndex === (index + 'nome') ? inputEditingIsEmpty: null}>
+                                <button type='button' onClick={() => hideInput()} disabled={inputEditingIsEmptyIndex === (index + 'nome') ? inputEditingIsEmpty: null} data-cy={`confirmAttribute nome ${exercicio.id} ${day}`}>
                                     <img src={confirm} alt="Salvar nome"/>
                                 </button>
                             </div>
                         </div>
                         <div className='card'>
                             <div className='trainingAttributeWithoutSuggestion'>
-                                <p className='atribute'>Repetições: </p> <input name={day} type="number" value={inputValue[index]?.repeticoes} className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'repeticoes') ? null : true} style={editingIndex === (index + 'repeticoes') ? styleEditInput : null} onChange={(event) => changeValue(event, 'repeticoes', 1, 100, index)} max={100} min={1}/>
-                                <p className='alertInputError' style={editingIndex === (index + 'repeticoes') ? styleAlert : null}>A repetição deve estar entre 1 e 100</p>
+                                <p className='atribute'>Repetições: </p> <input name={day} type="number" value={inputValue[index]?.repeticoes} className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'repeticoes') ? null : true} style={editingIndex === (index + 'repeticoes') ? styleEditInput : null} onChange={(event) => changeValue(event, 'repeticoes', 1, 100, index)} max={100} min={1} data-cy={`input repeticoes ${exercicio.id} ${day}`}/>
+                                <p className='alertInputError' style={editingIndex === (index + 'repeticoes') ? styleAlert : null} data-cy={`alertInputError repeticoes ${exercicio.id} ${day}`}>A repetição deve estar entre 1 e 100</p>
                             </div>
                             <div className='editAttribute' style={editingIndex === (index + 'repeticoes') ? styleEditButton: null}>
-                                <button type='button' onClick={() => displayInput(index + 'repeticoes')}>
+                                <button type='button' onClick={() => displayInput(index + 'repeticoes')} data-cy={`editAttribute repeticoes ${exercicio.id} ${day}`}>
                                     <img src={edit} alt="Editar repetição"/>
                                 </button>
                             </div> 
                             <div className='confirmAttribute' style={editingIndex === (index + 'repeticoes') ? styleConfirmInput: null}>
-                                <button type='button' onClick={() => hideInput()} disabled={inputEditingIsEmptyIndex === (index + 'repeticoes') ? inputEditingIsEmpty: null}>
+                                <button type='button' onClick={() => hideInput()} disabled={inputEditingIsEmptyIndex === (index + 'repeticoes') ? inputEditingIsEmpty: null} data-cy={`confirmAttribute repeticoes ${exercicio.id} ${day}`}>
                                     <img src={confirm} alt="Salvar repetição"/>
                                 </button>
                             </div>
                         </div>
                         <div className='card'>
                             <div className='trainingAttributeWithoutSuggestion'>
-                                <p className='atribute'>Descanso: </p> <input name={day} type="text" value={inputValue[index]?.descanso || ''} className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'descanso') ? null : true} style={editingIndex === (index + 'descanso') ? styleEditInput : null} onChange={(event) => changeValue(event, 'descanso', 1, 40, index)} maxLength={40}/>
-                                <p className='alertInputError' style={editingIndex === (index + 'descanso') ? styleAlert : null}>O descanso deve conter no máximo 40 caracteres.</p>
+                                <p className='atribute'>Descanso: </p> <input name={day} type="text" value={inputValue[index]?.descanso || ''} className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'descanso') ? null : true} style={editingIndex === (index + 'descanso') ? styleEditInput : null} onChange={(event) => changeValue(event, 'descanso', 1, 40, index)} maxLength={40} data-cy={`input descanso ${exercicio.id} ${day}`}/>
+                                <p className='alertInputError' style={editingIndex === (index + 'descanso') ? styleAlert : null} data-cy={`alertInputError descanso ${exercicio.id} ${day}`}>O descanso deve conter no máximo 40 caracteres.</p>
                             </div>
                             <div className='editAttribute' style={editingIndex === (index + 'descanso') ? styleEditButton: null}>
-                                <button type='button' onClick={() => displayInput(index + 'descanso')}>
+                                <button type='button' onClick={() => displayInput(index + 'descanso')} data-cy={`editAttribute descanso ${exercicio.id} ${day}`}>
                                     <img src={edit} alt="Editar descanso"/>
                                 </button>
                             </div> 
                             <div className='confirmAttribute' style={editingIndex === (index + 'descanso') ? styleConfirmInput: null}>
-                                <button type='button' onClick={() => hideInput()} disabled={inputEditingIsEmptyIndex === (index + 'descanso') ? inputEditingIsEmpty: null}>
+                                <button type='button' onClick={() => hideInput()} disabled={inputEditingIsEmptyIndex === (index + 'descanso') ? inputEditingIsEmpty: null} data-cy={`confirmAttribute descanso ${exercicio.id} ${day}`}>
                                     <img src={confirm} alt="Salvar descanso"/>
                                 </button>
                             </div>
@@ -534,25 +536,25 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
             </div>
 
             <div className='parentNewTraining'>
-                <button type='button' onClick={displaysCreateNewTraining} style={stylenewTraining} disabled={isDisabled} title={title}>Novo Treino</button>
+                <button type='button' onClick={displaysCreateNewTraining} style={stylenewTraining} disabled={isDisabled} title={title} data-cy={`new training ${day}`}>Novo Treino</button>
                 <div className='createNewTraining' style={styleAddNewTraining}>
                     <div className='cardNewTraining'>
                         <div className='trainingAttribute'>
-                            Nome: <input type="text" className='displaysInformationNewTraining' value={name} onChange={handleChangeName} />
+                            Nome: <input type="text" className='displaysInformationNewTraining' value={name} onChange={handleChangeName} data-cy={`nome input new training ${day}`}/>
                         </div>
                     </div>
                     <div className='cardNewTraining'>
                         <div className='trainingAttribute'>
-                            Repetições: <input type="number" className='displaysInformationNewTraining' value={repetition} onChange={handleChangeRepetition} />
+                            Repetições: <input type="number" className='displaysInformationNewTraining' value={repetition} onChange={handleChangeRepetition} data-cy={`repeticoes input new training ${day}`}/>
                         </div>
                     </div>
                     <div className='cardNewTraining'>
                         <div className='trainingAttribute'>
-                            Descanso: <input type="text" className='displaysInformationNewTraining' value={rest} onChange={handleChangeRest} />
+                            Descanso: <input type="text" className='displaysInformationNewTraining' value={rest} onChange={handleChangeRest} data-cy={`descanso input new training ${day}`}/>
                         </div>
                     </div>
                     <div className='addNewTraining'>
-                        <button type='button' onClick={() => createNewTraining(name, repetition, rest)} disabled={isEmpty} style={styleAddTraining} title={titleIsEmpty}>Adicionar</button>
+                        <button type='button' onClick={() => createNewTraining(name, repetition, rest)} disabled={isEmpty} style={styleAddTraining} title={titleIsEmpty} data-cy={`create new training ${day}`}>Adicionar</button>
                     </div>
                 </div>
             </div> 
