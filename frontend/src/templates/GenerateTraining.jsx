@@ -129,6 +129,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
                 {value: 'Peitoral', id:'peitoral', name: 'preferencias_de_exercicio'},
                 {value: 'Pernas', id:'pernas', name: 'preferencias_de_exercicio'},
                 {value: 'Costas', id:'costas', name: 'preferencias_de_exercicio'},
+                {value: 'Braços', id:'bracos', name: 'preferencias_de_exercicio'},
               ]}
               name='preferencias_de_exercicio'
               key='preferencias_de_exercicio'
@@ -185,7 +186,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
             <MultipleFixedInputWithOption
               description = "Histórico de lesões:"
               options = {[
-                {value: 'Lesões Musculares', id:'lesoesMusculares', name: 'historico_de_lesoes'},
+                {value: 'Não possui', id:'naoPossui', name: 'historico_de_lesoes'},
                 {value: 'Torção do Joelho', id:'torcaoDoJoelho', name: 'historico_de_lesoes'},
                 {value: 'Entorses de Tornozelo', id:'entorsesDeTornozelo', name: 'historico_de_lesoes'},
                 {value: 'Problemas nos Meniscos', id:'problemasNosMeniscos', name: 'historico_de_lesoes'}
