@@ -15,12 +15,12 @@ export const Alert = ({message, type }) => {
         <div className={`parentDivOfAllAlert ${type}`} style={style}>
             <div className='infoAndClose'>
                 <div className='info'>
-                    <p>
+                    <p data-cy={message}>
                         {message} 
                     </p>
                 </div>
                 <div className='close'>
-                    <button onClick={handleClose}>
+                    <button onClick={handleClose} data-cy={'closeAlert'}>
                         <img src={close} alt=""/>
                     </button>
                 </div>

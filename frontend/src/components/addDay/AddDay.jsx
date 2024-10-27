@@ -21,7 +21,7 @@ export const AddDay = ({options, choice}) => {
                         <div className="select-options">
                             {options.map((option, idx) => (
                                 <div key={idx} className="select-option-itens">
-                                    <button onClick={() => setSelectedOption(option)}>{option}</button>
+                                    <button onClick={() => setSelectedOption(option)} data-cy={`${option}`}>{option}</button>
                                 </div>
                             ))}
                         </div>

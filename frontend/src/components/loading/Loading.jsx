@@ -7,7 +7,7 @@ export const Loading = ({message, style}) => {
                 <img src={gear} alt='engrenagem'/>
             </div>
             <div className='parentDivOfAllMessage'>
-                <p>
+                <p data-cy={`loading ${message}`}>
                     {message} 
                     <span className='pointer'></span>
                     <span className='pointer'></span>

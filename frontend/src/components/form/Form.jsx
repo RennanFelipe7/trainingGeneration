@@ -177,7 +177,7 @@ export const Form = ({displaysLoading, action, inputs, value, generatedTraining,
                     {inputs.map((inputElement, index) => inputElement)}
                 </div>
                 <div className='submitContainer'>
-                    <input type="submit" value={value} disabled={anyInputIsEmpty}/>
+                    <input type="submit" value={value} disabled={anyInputIsEmpty} data-cy={`submit ${value}`}/>
                 </div>
             </form>
         </div>

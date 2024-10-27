@@ -20,9 +20,9 @@ export const FreeInput = ({description, type, placeholder, id, name, min, max}) 
 
     return(
         <div className='parentDivOfAllFreeInput'>
-            <label className='description' htmlFor={id}>{description}</label>
-            <input type={type} placeholder={placeholder} className='input' id={id} value={inputValue} name={name} onChange={handleInputChange} minLength={min} maxLength={max}/>
-            <p className='valueInvalid' style={invalidInputAlertStyle}>Máximo de {max} caracteres alcançado</p>
+            <label className='description' htmlFor={id} data-cy={id}>{description}</label>
+            <input type={type} placeholder={placeholder} className='input' id={id} value={inputValue} name={name} onChange={handleInputChange} minLength={min} maxLength={max} data-cy={`input ${id}`}/>
+            <p className='valueInvalid' style={invalidInputAlertStyle} data-cy={`inform`}>Máximo de {max} caracteres alcançado</p>
         </div>
     )
 }
