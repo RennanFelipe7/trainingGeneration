@@ -33,14 +33,14 @@ module.exports = class traininggeneration{
                             } catch (error) {
                                 console.log('Não foi possível formatar o json devido ao erro: ' + error);
                                 req.session.skipRateLimit = true;
-                                return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_OF_TRAINING + " minutos"});
+                                return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_TIME_OF_TRAINING + " minutos"});
                             }
                             const requiredKeysDaysOfWeek = ["segunda", "terca", "quarta", "quinta", "sexta", "sabado", "domingo"];
                             if (jsonIsValid(requiredKeysDaysOfWeek, formatJson)) {                
                                 const requiredProperty = ["nome", "repeticoes", "descanso"];
                                 if(jsonExercisesIsEmpty(formatJson)){
                                     req.session.skipRateLimit = true;
-                                    return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_OF_TRAINING + " minutos"});
+                                    return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_TIME_OF_TRAINING + " minutos"});
                                 }
                                 if(jsonFilledIsValid(requiredProperty, formatJson)){ 
                                     req.session.skipRateLimit = false;
@@ -50,11 +50,11 @@ module.exports = class traininggeneration{
                                     res.status(200).header('Content-Type', 'application/json').send(formatJson);
                                 }else{
                                     req.session.skipRateLimit = true;
-                                    return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_OF_TRAINING + " minutos"});
+                                    return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_TIME_OF_TRAINING + " minutos"});
                                 }
                             }else{
                                 req.session.skipRateLimit = true; 
-                                return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_OF_TRAINING + " minutos"});
+                                return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_TIME_OF_TRAINING + " minutos"});
                             }
                         })
                     }else{
