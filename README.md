@@ -96,4 +96,4 @@
 
     Ele irá instalar todas as dependências do frontend, criar uma pasta certs e instalar os certificados, substitua os inputs (country, state, locality, organization, organizationalUnit e commonName) por seu valor para desenvolvimento local. 
 
-    3.5 Execute npm start para executar o backend do trainingGeneration
+    3.5 Execute npm start para executar o frontend do trainingGeneration
