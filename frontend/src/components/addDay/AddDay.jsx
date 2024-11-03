@@ -10,6 +10,17 @@ export const AddDay = ({options, choice}) => {
         setSelectedOption('')
     }, [selectedOption])
     
+    const formatarDia = (dia) => {
+        switch (dia) {
+            case 'terca':
+            return 'terça';
+            case 'sabado':
+            return 'sábado';
+            default:
+            return dia;
+        }
+    };
+    
     return (
         <>
             {options.length > 0 && (
@@ -21,7 +32,7 @@ export const AddDay = ({options, choice}) => {
                         <div className="select-options">
                             {options.map((option, idx) => (
                                 <div key={idx} className="select-option-itens">
-                                    <button onClick={() => setSelectedOption(option)} data-cy={`${option}`}>{option}</button>
+                                    <button onClick={() => setSelectedOption(option)} data-cy={`${formatarDia(option)}`}>{formatarDia(option)}</button>
                                 </div>
                             ))}
                         </div>
