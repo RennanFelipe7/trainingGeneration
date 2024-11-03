@@ -79,8 +79,8 @@ cron.schedule('*/15 * * * *', () => {
 
 if(process.env.ENVIRONMENT === 'development') {
   const sslServer = https.createServer({
-    key: fs.readFileSync('./certs/mykey.key'),
-    cert: fs.readFileSync('./certs/mycert.crt')
+    key: fs.readFileSync('./certs/key.pem'),
+    cert: fs.readFileSync('./certs/cert.pem')
   }, app);
   app.set('port', port)
   sslServer.listen(port, () => {
