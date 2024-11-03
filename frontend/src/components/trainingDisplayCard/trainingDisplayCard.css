@@ -83,6 +83,10 @@
     font-size: clamp(1.2rem, 2.2vw, 1.7rem);
 }
 
+.numberOfExercise p{
+    margin-left: 5%;
+}
+
 .trainingAttribute{
     display: flex;
     width: 95%;
@@ -197,6 +201,7 @@
     background-color: #33C758;
     cursor: pointer;
     margin-top: 1vmax;
+    margin-left: 5%;
 }
 
 .createNewTraining{

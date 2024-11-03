@@ -457,7 +457,7 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                     <div key={exercicio.id} className='parentDivOfAllCard'>
                         <div className='namberAndDeleteTraining'>
                             <div className='numberOfExercise'>
-                                Treino {exerciseNumbers[index] + 1} 
+                                <p>Treino {exerciseNumbers[index] + 1}</p> 
                             </div>
                             <div className='deleteTraining'>
                                 <button type='button' onClick={() => excludeTraining(exercicio.id)} data-cy={`excludeTraining ${exercicio.id} ${day}`}>
