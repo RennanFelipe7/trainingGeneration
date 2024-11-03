@@ -281,3 +281,13 @@
     display: inline-flex;
     flex-direction: column;
 }
+
+.displaysInformation::-webkit-outer-spin-button, .displaysInformationNewTraining::-webkit-outer-spin-button,
+.displaysInformation::-webkit-inner-spin-button, .displaysInformationNewTraining::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.displaysInformation, .displaysInformationNewTraining {
+    -moz-appearance: textfield;
+}
