@@ -25,11 +25,11 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
         const nonTrainingDaysInitial = allDays.filter(day => !Object.keys(training).includes(day));
         setNonTrainingDays(nonTrainingDaysInitial);
     }, [training]);
-    
+
     const displaysLoading = (isOK) => {
-        setIsLoading(isOK); 
+        setIsLoading(isOK);
     };
-  
+
     useEffect(() => {
         let createNewTraining = sessionStorage.getItem('createNewTraining')
         if (location && createNewTraining) {
@@ -53,7 +53,7 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
                 }
                 return accumulated;
             }, {}))
-        }else{
+        } else {
             setTraining(Object.keys(JSON.parse(sharedTrainingDataState)).reduce((accumulated, dia) => {
                 if (dia !== 'nome' && JSON.parse(sharedTrainingDataState)[dia].exercicios.length > 0) {
                     accumulated[dia] = JSON.parse(sharedTrainingDataState)[dia];
@@ -63,9 +63,9 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
         }
         setName(saveName)
     }, []);
-      
+
     useEffect(() => {
-        if(sharedTrainingDataState){
+        if (sharedTrainingDataState) {
             sessionStorage.setItem('training', sharedTrainingDataState);
             sessionStorage.setItem('name', JSON.parse(sharedTrainingDataState).nome);
         }
@@ -78,10 +78,10 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
         const a = document.createElement("a");
         a.href = url;
         a.download = name + " treino.pdf";
-        document.body.appendChild(a); 
+        document.body.appendChild(a);
         a.click();
         URL.revokeObjectURL(url);
-        
+
         setServerResponse('Relatório gerado com sucesso, verifiquei sua pasta de download.');
         setAlertType('success');
         setTimeout(() => {
@@ -93,47 +93,51 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
 
     const handleTrainingChange = (day, updatedTraining) => {
         setTraining((prevTraining) => ({
-          ...prevTraining,
-          [day]: {
-            exercicios: updatedTraining,
-          },
+            ...prevTraining,
+            [day]: {
+                exercicios: updatedTraining,
+            },
         }));
         const trainingInSessionStorage = sessionStorage.getItem('training');
-        if(trainingInSessionStorage){
+        if (trainingInSessionStorage) {
             const parsedTraining = JSON.parse(trainingInSessionStorage);
             parsedTraining[day].exercicios = updatedTraining
             sessionStorage.setItem('training', JSON.stringify(parsedTraining));
         }
-    };      
-      
+    };
+
 
     const handleTrainingEdit = (day, index, key, newValue) => {
         setTraining((prevTraining) => {
-          const updatedExercises = prevTraining[day].exercicios.map((exercise, i) => 
-            i === index ? { ...exercise, [key]: newValue } : exercise
-          );
-      
-          return {
-            ...prevTraining,
-            [day]: {
-              ...prevTraining[day],
-              exercicios: updatedExercises,
-            },
-          };
+            const updatedExercises = prevTraining[day].exercicios.map((exercise, i) =>
+                i === index ? { ...exercise, [key]: newValue } : exercise
+            );
+
+            return {
+                ...prevTraining,
+                [day]: {
+                    ...prevTraining[day],
+                    exercicios: updatedExercises,
+                },
+            };
         });
     };
     const handleExcludeDay = (day) => {
         setTraining((prevTraining) => {
-            const updatedDays = {...prevTraining };
+            const updatedDays = { ...prevTraining };
             delete updatedDays[day];
             return updatedDays;
         });
         const trainingInSessionStorage = sessionStorage.getItem('training');
-        if(trainingInSessionStorage){
+        if (trainingInSessionStorage) {
             const parsedTraining = JSON.parse(trainingInSessionStorage);
             delete parsedTraining[day];
             sessionStorage.setItem('training', JSON.stringify(parsedTraining));
         }
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
         setServerResponse('Dia excluido com sucesso.');
         setAlertType('success');
         setTimeout(() => {
@@ -142,7 +146,7 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
     }
 
     const createDay = (day) => {
-        if(day){
+        if (day) {
             const daysOfWeek = ["segunda", "terca", "quarta", "quinta", "sexta", "sabado", "domingo"];
             setTraining((prevTraining) => {
                 const updatedTraining = { ...prevTraining, [day]: { exercicios: [] } };
@@ -154,7 +158,7 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
                     }, {});
                 return sortedTraining;
             });
-        
+
             const trainingInSessionStorage = sessionStorage.getItem('training');
             if (trainingInSessionStorage) {
                 const parsedTraining = JSON.parse(trainingInSessionStorage);
@@ -167,7 +171,7 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
                     }, {});
                 sessionStorage.setItem('training', JSON.stringify(sortedTraining));
             }
-        
+
             setNonTrainingDays(prevDays => prevDays.filter(d => d !== day));
             setServerResponse('Dia adicionado com sucesso.');
             setAlertType('success');
@@ -176,59 +180,59 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
             }, 5000);
         }
     };
-    
+
 
     return (
         <div>
             {serverResponse && <Alert message={serverResponse} type={alertType} />}
-            {isLoading && <Loading message='Gerando relatório'/>}
+            {isLoading && <Loading message='Gerando relatório' />}
             {!isLoading && (
                 <>
-                <InformativeParagraph message={`Olá ${name}, treino gerado por inteligência artificial, caso necessite é possível editá-lo.`} />
-                <AddDay options={nonTrainingDays} choice={createDay}></AddDay>
+                    <InformativeParagraph message={`Olá ${name}, treino gerado por inteligência artificial, caso necessite é possível editá-lo.`} />
+                    <AddDay options={nonTrainingDays} choice={createDay}></AddDay>
                     <Form
-                    displaysLoading={displaysLoading}
-                    generatedTraining={generatedTraining} 
-                    action = "/reportGeneration"
-                    value="Gerar Relatório"
-                    responseType='blob'
-                    token={authorization}
-                    payload={{
-                        "segunda": {
-                            "exercicios": []
-                        },
-                        "terca": {
-                            "exercicios": []
-                        },
-                        "quarta": {
-                            "exercicios": []
-                        },
-                        "quinta": {
-                            "exercicios": []
-                        },
-                        "sexta": {
-                            "exercicios": []
-                        },
-                        "sabado": {
-                            "exercicios": []
-                        },
-                        "domingo": {
-                            "exercicios": []
-                        },
+                        displaysLoading={displaysLoading}
+                        generatedTraining={generatedTraining}
+                        action="/reportGeneration"
+                        value="Gerar Relatório"
+                        responseType='blob'
+                        token={authorization}
+                        payload={{
+                            "segunda": {
+                                "exercicios": []
+                            },
+                            "terca": {
+                                "exercicios": []
+                            },
+                            "quarta": {
+                                "exercicios": []
+                            },
+                            "quinta": {
+                                "exercicios": []
+                            },
+                            "sexta": {
+                                "exercicios": []
+                            },
+                            "sabado": {
+                                "exercicios": []
+                            },
+                            "domingo": {
+                                "exercicios": []
+                            },
 
-                        "nome": name
-                    }}
-                    inputs = {[
-                        ...Object.keys(training).map((key) => (
-                            <TrainingDisplayCard key={key} trainingOfDay={training[key]} day={key.charAt(0).toLowerCase() + key.slice(1)} setAlert={setServerResponse} setAlertType={setAlertType} changeTraining={handleTrainingChange} editTraining={handleTrainingEdit} excludeDay={handleExcludeDay}>
-                            
-                            </TrainingDisplayCard>
-                        )),
-                    ]}
-                    setServerResponse={setServerResponse}
-                    setAlertType={setAlertType}
-                ></Form>
-            </>)}
+                            "nome": name
+                        }}
+                        inputs={[
+                            ...Object.keys(training).map((key) => (
+                                <TrainingDisplayCard key={key} trainingOfDay={training[key]} day={key.charAt(0).toLowerCase() + key.slice(1)} setAlert={setServerResponse} setAlertType={setAlertType} changeTraining={handleTrainingChange} editTraining={handleTrainingEdit} excludeDay={handleExcludeDay}>
+
+                                </TrainingDisplayCard>
+                            )),
+                        ]}
+                        setServerResponse={setServerResponse}
+                        setAlertType={setAlertType}
+                    ></Form>
+                </>)}
         </div>
     );
 }
