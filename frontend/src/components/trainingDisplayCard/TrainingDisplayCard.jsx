@@ -134,6 +134,7 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
         setStyleEditInput({border: 'none', cursor: 'default', backgroundColor: 'transparent', color: '#F2F2F2'});
         setEditingIndex(null);
         setEditingIndexReadOnly(null)
+        setStyleSuggestionDiv({ display: 'none' });
     }
 
     const displaySuggestion = (index) => {
