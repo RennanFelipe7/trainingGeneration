@@ -146,36 +146,57 @@ module.exports = function jsonHasCorrectEntries(requiredKeys, inputJson) {
                 }
                 break;
             case 'segunda':
+                if(value.exercicios.length > 10){
+                    return 'Quantidade de exercício na segunda deve ser menor ou igual a 10'
+                }
                 value.exercicios.forEach((element, index) => {
                     errorMessage = errorMessage + validateTrainingInDay(element, index, key)
                 });
                 break
             case 'terca':
+                if(value.exercicios.length > 10){
+                    return 'Quantidade de exercício na terça deve ser menor ou igual a 10'
+                }
                 value.exercicios.forEach((element, index) => {
                     errorMessage = errorMessage + validateTrainingInDay(element, index, key)
                 });
                 break
             case 'quarta':
+                if(value.exercicios.length > 10){
+                    return 'Quantidade de exercício na quarta deve ser menor ou igual a 10'
+                }
                 value.exercicios.forEach((element, index) => {
                     errorMessage = errorMessage + validateTrainingInDay(element, index, key)
                 });
                 break
             case 'quinta':
+                if(value.exercicios.length > 10){
+                    return 'Quantidade de exercício na quinta deve ser menor ou igual a 10'
+                }
                 value.exercicios.forEach((element, index) => {
                     errorMessage = errorMessage + validateTrainingInDay(element, index, key)
                 });
                 break
             case'sexta':
+                if(value.exercicios.length > 10){
+                    return 'Quantidade de exercício na sexta deve ser menor ou igual a 10'
+                }
                 value.exercicios.forEach((element, index) => {
                     errorMessage = errorMessage + validateTrainingInDay(element, index, key)
                 });
                 break
             case'sabado':
+                if(value.exercicios.length > 10){
+                    return 'Quantidade de exercício no sábado deve ser menor ou igual a 10'
+                }
                 value.exercicios.forEach((element, index) => {
                     errorMessage = errorMessage + validateTrainingInDay(element, index, key)
                 });
                 break
             case 'domingo':
+                if(value.exercicios.length > 10){
+                    return 'Quantidade de exercício no domingo deve ser menor ou igual a 10'
+                }
                 value.exercicios.forEach((element, index) => {
                     errorMessage = errorMessage + validateTrainingInDay(element, index, key)
                 });
