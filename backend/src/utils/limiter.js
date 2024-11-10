@@ -8,9 +8,8 @@ module.exports = function limiter (time, messageError, maxRequest){
             return res.status(429).header('Content-Type', 'application/json').send({error: messageError});
         },
         
-        skip: (req, res) => {
-            return req.session.skipRateLimit
-        }
+        skipSuccessfulRequests: false,
+        skipFailedRequests: true,
     });
 
     return limiter;

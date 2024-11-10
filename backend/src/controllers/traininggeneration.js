@@ -17,7 +17,6 @@ module.exports = class traininggeneration{
         const requiredKeys = ["peso", "biotipo_corporal", "objetivos_do_treino", "altura", "nivel_de_condicionamento_fisico", "preferencias_de_exercicio", "restricoes_de_saude", "disponibilidade", "idade", "sexo", "historico_de_lesoes", "nome"];
         if(jsonIsValid(requiredKeys, trainingInputs)){
             if(jsonTrainingGenerationIsEmpty(trainingInputs)){
-                req.session.skipRateLimit = true;
                 return res.status(422).json({ error: "Campo(s) vazio(s). Preencha todos os campos" });
             }else{
                 const validationResult = jsonHasCorrectEntries(requiredKeys, trainingInputs);
@@ -32,28 +31,23 @@ module.exports = class traininggeneration{
                                 formatJson = FormatJson(response)
                             } catch (error) {
                                 console.log('Não foi possível formatar o json devido ao erro: ' + error);
-                                req.session.skipRateLimit = true;
                                 return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_TIME_OF_TRAINING + " minutos"});
                             }
                             const requiredKeysDaysOfWeek = ["segunda", "terca", "quarta", "quinta", "sexta", "sabado", "domingo"];
                             if (jsonIsValid(requiredKeysDaysOfWeek, formatJson)) {                
                                 const requiredProperty = ["nome", "repeticoes", "descanso"];
                                 if(jsonExercisesIsEmpty(formatJson)){
-                                    req.session.skipRateLimit = true;
                                     return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_TIME_OF_TRAINING + " minutos"});
                                 }
-                                if(jsonFilledIsValid(requiredProperty, formatJson)){ 
-                                    req.session.skipRateLimit = false;
+                                if(jsonFilledIsValid(requiredProperty, formatJson)){
                                     formatJson.nome = trainingInputs.nome
                                     formatJson["nome"] = nome
                                     res.setHeader('Authorization', `token ${req.session.token}`);
                                     res.status(200).header('Content-Type', 'application/json').send(formatJson);
                                 }else{
-                                    req.session.skipRateLimit = true;
                                     return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_TIME_OF_TRAINING + " minutos"});
                                 }
-                            }else{
-                                req.session.skipRateLimit = true; 
+                            }else{ 
                                 return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_TIME_OF_TRAINING + " minutos"});
                             }
                         })
@@ -61,12 +55,10 @@ module.exports = class traininggeneration{
                         return res.status(400).json({ error: "O caractere é inválido " + isValidBrazilianJSON.invalidChar})
                     }
                 }else{
-                    req.session.skipRateLimit = true;
                     return res.status(422).json({ error: "Foram encontrados os seguintes erros: " +  validationResult.errors});
                 }
             }
         }else{
-            req.session.skipRateLimit = true;
             return res.status(422).json({ error: "JSON inválido. Chaves faltando ou incorretas." });
         }
     }
@@ -78,7 +70,6 @@ module.exports = class traininggeneration{
         
         if(jsonIsValid(requiredKeys, trainingInputs)){
             if(jsonExercisesIsEmpty(trainingInputs)){
-                req.session.skipRateLimit = true;
                 return res.status(422).json({ error: "Campo(s) vazio(s). Preencha todos os campos" });
             }else{
                 const requiredProperty = ["nome", "repeticoes", "descanso"];
@@ -95,23 +86,19 @@ module.exports = class traininggeneration{
                             }).catch((err) => {
                                 console.log('Não foi possível gerar o PDF devido ao erro: ' + err)
                             })
-                            req.session.skipRateLimit = false;
                             res.set('Content-Type', 'application/pdf');
                             res.status(200).send(pdf);
                         }else{
                             return res.status(400).json({ error: "O caractere é inválido " + isValidBrazilianJSON.invalidChar})
                         }
                     }else{
-                        req.session.skipRateLimit = true;
                         return res.status(422).json({ error: "Foram encontrados os seguintes erros: " +  validationResult.errors});
                     }
                 }else{
-                    req.session.skipRateLimit = true;
                     return res.status(422).json({ error: "JSON inválido. Chaves faltando ou incorretas." });
                 }
             }
         }else{
-            req.session.skipRateLimit = true;
             return res.status(422).json({ error: "JSON inválido. Chaves faltando ou incorretas." });
         }
 
