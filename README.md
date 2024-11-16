@@ -1,4 +1,4 @@
-# trainingGeneration
+# trainingGeneration 222
 ## Geração de treino com inteligência artificial.
 #### O trainingGeneration é um Software para geração de treino físico com inteligência artificial. Com ele é possível gerar treino físico, editar o treino sugerido e gerar PDF com o treino semanal.
 
