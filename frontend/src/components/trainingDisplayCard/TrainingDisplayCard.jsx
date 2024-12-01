@@ -423,6 +423,11 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
         );
     };
     
+    function redirectToTrainingImages(query) {
+        const url = `https://www.google.com/search?tbm=isch&q=Exercício Físico ${encodeURIComponent(query)}`;
+        window.open(url, '_blank')
+    }
+
     return(
         <div className="parentDivOfAllTraningDisplayCard"
             style={{
@@ -472,7 +477,7 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                                     <p className='atribute'>Nome: </p>
                                 </div>
                                 <div className='inputAndsuggest'>
-                                    <input name={day} type="text" value={inputValue[index]?.nome || ''}  className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'nome') ? null : true} style={editingIndex === (index + 'nome') ? styleEditInput : null} onChange={(event) => changeValue(event, 'nome', 1, 45, index)} maxLength={45} data-cy={`input name ${exercicio.id} ${day}`}/>
+                                    <input name={day} type="text" value={inputValue[index]?.nome || ''}  className='displaysInformation' readOnly={editingIndexReadOnly === (index + 'nome') ? null : true} style={editingIndex === (index + 'nome') ? styleEditInput : null} onChange={(event) => changeValue(event, 'nome', 1, 45, index)} maxLength={45} data-cy={`input name ${exercicio.id} ${day}`} onClick={editingIndexReadOnly === (index + 'nome') ? null : () => redirectToTrainingImages(inputValue[index]?.nome)}/>
                                     <p className='alertInputError' style={editingIndex === (index + 'nome') ? styleAlert : null} data-cy={`alertInputError nome ${exercicio.id} ${day}`}>O nome deve conter no máximo 45 caracteres.</p>
                                     <div className='suggestedExercises' style={suggestionIndex === (index + 'nome') ? styleSuggestionDiv : null}>
                                         <div className="dropdown-content">
