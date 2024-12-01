@@ -10,7 +10,9 @@ const jsonHasCorrectEntries = require('../utils/jsonHasCorrectEntries');
 const jsonExercisesIsEmpty = require('../utils/jsonExercisesIsEmpty');
 const jsonFilledIsValid = require('../utils/jsonFilledIsValid');
 const functionIsValidBrazilianJSON = require('../utils/isValidBrazilianJSON');
-
+const keysHaveArrayAndOnlyKey = require('../utils/keysHaveArrayAndOnlyKey');
+const trainingScheme = require('../utils/trainingScheme.js')
+const reorderTrainingJson = require('../utils/reoderTrainingJson.js');
 module.exports = class traininggeneration{
     static traininggeneration(req, res){
         let trainingInputs = req.body
@@ -25,12 +27,11 @@ module.exports = class traininggeneration{
                     if(isValidBrazilianJSON.isValid){
                         let nome = trainingInputs["nome"]
                         delete trainingInputs["nome"]
-                        postPrompt(prompted(trainingInputs)).then((response) => { 
+                        postPrompt(prompted(trainingInputs), trainingScheme).then((response) => { 
                             let formatJson;
                             try {
                                 formatJson = FormatJson(response)
                             } catch (error) {
-                                console.log('Não foi possível formatar o json devido ao erro: ' + error);
                                 return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_TIME_OF_TRAINING + " minutos"});
                             }
                             const requiredKeysDaysOfWeek = ["segunda", "terca", "quarta", "quinta", "sexta", "sabado", "domingo"];
@@ -39,17 +40,30 @@ module.exports = class traininggeneration{
                                 if(jsonExercisesIsEmpty(formatJson)){
                                     return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_TIME_OF_TRAINING + " minutos"});
                                 }
-                                if(jsonFilledIsValid(requiredProperty, formatJson)){
-                                    formatJson.nome = trainingInputs.nome
-                                    formatJson["nome"] = nome
-                                    res.setHeader('Authorization', `token ${req.session.token}`);
-                                    res.status(200).header('Content-Type', 'application/json').send(formatJson);
+                                if(keysHaveArrayAndOnlyKey(formatJson)){
+                                    if(jsonFilledIsValid(requiredProperty, formatJson)){
+                                        const requiredKeysDaysOfWeekWithName = ["segunda", "terca", "quarta", "quinta", "sexta", "sabado", "domingo", "nome"];
+                                        formatJson["nome"] = nome
+                                        const validationResult = jsonHasCorrectEntries(requiredKeysDaysOfWeekWithName, formatJson)
+                                        if(validationResult.success){
+                                            formatJson = reorderTrainingJson(formatJson)
+                                            formatJson.nome = nome
+                                            res.setHeader('Authorization', `token ${req.session.token}`);
+                                            res.status(200).header('Content-Type', 'application/json').send(formatJson);
+                                        }else{
+                                            return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_TIME_OF_TRAINING + " minutos"});
+                                        }
+                                    }else{
+                                        return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_TIME_OF_TRAINING + " minutos"});
+                                    }
                                 }else{
-                                    return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_TIME_OF_TRAINING + " minutos"});
+                                     return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_TIME_OF_TRAINING + " minutos"});
                                 }
                             }else{ 
                                 return res.status(502).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_TIME_OF_TRAINING + " minutos"});
                             }
+                        }).catch(() =>{
+                            return res.status(500).json({ error: "Não foi possível gerar o treino no momento, tente novamente em " + process.env.RATE_LIMIT_TIME_OF_TRAINING + " minutos"});
                         })
                     }else{
                         return res.status(400).json({ error: "O caractere é inválido " + isValidBrazilianJSON.invalidChar})
@@ -83,11 +97,12 @@ module.exports = class traininggeneration{
                             let pdf
                             await createPDF(req.body, nome).then((response) => {
                                 pdf = response
+                                res.set('Content-Type', 'application/pdf');
+                                res.status(200).send(pdf);
                             }).catch((err) => {
                                 console.log('Não foi possível gerar o PDF devido ao erro: ' + err)
+                                return res.status(500).json({ error: "Não foi possível gerar o PDF no momento, tente novamente."});
                             })
-                            res.set('Content-Type', 'application/pdf');
-                            res.status(200).send(pdf);
                         }else{
                             return res.status(400).json({ error: "O caractere é inválido " + isValidBrazilianJSON.invalidChar})
                         }
