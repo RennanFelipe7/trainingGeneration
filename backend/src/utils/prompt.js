@@ -25,11 +25,12 @@ e tentar criar o treino com base nos outros valores. Aqui está o que cada chave
     Os dias que o usuário não escolheu que não possua disponibilidade não deve ser adicionado treino;
     Caso haja informações irrelevantes para a criação de um treino, então desconsidere;
     Responda o treino com base nesse JSON <formato>${baseJson()}</formato>;
-    Você deve preencher apenas os valores para as chaves;
+    Você deve preencher apenas os valores para as chaves, gere a saída em formato json formatado corretamente com base no json de exemplo;
     A chave "nome" corresponde ao nome do exercício, então retorne uma string não vazia para o mesmo;
     A chave "repeticoes" corresponde a quantidade de repetições que o usuário deve repetir aquele exercício, então retorne um inteiro maior que 0 para o mesmo;
     A chave "descanso" corresponde ao tempo que ele deve descançar entre as execuções dos exercícios, então, seu formato deve ser uma string não vazia contendo apenas a unidade e a medida, como por exemplo "1 minuto";
     Feche todas as strings com aspas duplas "";
+    Não altere a sequência das chaves no json, respeite a estrutura fornecida anteriormente;
     Para todos os exercícios preencha o nome a repetição e o descanso, não deve haver um exericios com alguma chave preenchida e outra em branco
     Responda somente com o json preenchido com seus respectivos valores, não responda mais nada a não ser o json preenchido.
     

@@ -131,7 +131,7 @@ module.exports = function createPDF(pdfContent, nome) {
             if(pdfBuffer){
                 resolve(pdfBuffer)
             }else{
-                reject('Não foi possível gerar o PDF, tente novamente em 1 minuto.')
+                reject()
             }
         })
         
