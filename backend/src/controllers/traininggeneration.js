@@ -13,10 +13,29 @@ const functionIsValidBrazilianJSON = require('../utils/isValidBrazilianJSON');
 const keysHaveArrayAndOnlyKey = require('../utils/keysHaveArrayAndOnlyKey');
 const trainingScheme = require('../utils/trainingScheme.js')
 const reorderTrainingJson = require('../utils/reoderTrainingJson.js');
+const recaptchaTokenIsValid = require('../utils/recaptchaTokenIsValid.js');
+
 module.exports = class traininggeneration{
-    static traininggeneration(req, res){
+    static async traininggeneration(req, res){
+        const userAgent = req.headers['user-agent'].split('/')[0]
         let trainingInputs = req.body
-        const requiredKeys = ["peso", "biotipo_corporal", "objetivos_do_treino", "altura", "nivel_de_condicionamento_fisico", "preferencias_de_exercicio", "restricoes_de_saude", "disponibilidade", "idade", "sexo", "historico_de_lesoes", "nome"];
+        let requiredKeys = []
+        let userAgentOfBrowser = ['mozilla', 'chrome', 'safari']
+        if(userAgentOfBrowser.includes(userAgent.toLowerCase())){
+            const recaptchaToken = trainingInputs["g-recaptcha-response"];
+            try {
+                const isValid = await recaptchaTokenIsValid(recaptchaToken)
+                if(!isValid){
+                    return res.status(400).json({ error: "Chave de validação do recaptcha inválida."});
+                }   
+            } catch (error) {
+                console.log("Não foi possível verificar o recaptcha devido ao erro: " + error);
+                return res.status(500).json({ error: "Erro na verificação do recaptcha."});
+            }
+            requiredKeys = ["peso", "biotipo_corporal", "objetivos_do_treino", "altura", "nivel_de_condicionamento_fisico", "preferencias_de_exercicio", "restricoes_de_saude", "disponibilidade", "idade", "sexo", "historico_de_lesoes", "nome", "g-recaptcha-response"];
+        }else{
+            requiredKeys = ["peso", "biotipo_corporal", "objetivos_do_treino", "altura", "nivel_de_condicionamento_fisico", "preferencias_de_exercicio", "restricoes_de_saude", "disponibilidade", "idade", "sexo", "historico_de_lesoes", "nome"];
+        }
         if(jsonIsValid(requiredKeys, trainingInputs)){
             if(jsonTrainingGenerationIsEmpty(trainingInputs)){
                 return res.status(422).json({ error: "Campo(s) vazio(s). Preencha todos os campos" });
@@ -79,8 +98,27 @@ module.exports = class traininggeneration{
 
 
     static async reportGeneration(req, res) {
+
+        const userAgent = req.headers['user-agent'].split('/')[0]
         let trainingInputs = req.body
-        const requiredKeys = ["segunda", "terca", "quarta", "quinta", "sexta", "sabado", "domingo", "nome"];
+        let requiredKeys = []
+        let userAgentOfBrowser = ['mozilla', 'chrome', 'safari']
+
+        if(userAgentOfBrowser.includes(userAgent.toLowerCase())){
+            const recaptchaToken = trainingInputs["g-recaptcha-response"];
+            try {
+                const isValid = await recaptchaTokenIsValid(recaptchaToken)
+                if(!isValid){
+                    return res.status(400).json({ error: "Chave de validação do recaptcha inválida."});
+                }   
+            } catch (error) {
+                console.log("Não foi possível verificar o recaptcha devido ao erro: " + error);
+                return res.status(500).json({ error: "Erro na verificação do recaptcha."});
+            }
+            requiredKeys = ["segunda", "terca", "quarta", "quinta", "sexta", "sabado", "domingo", "nome", "g-recaptcha-response"];
+        }else{
+            requiredKeys = ["segunda", "terca", "quarta", "quinta", "sexta", "sabado", "domingo", "nome"];
+        }
         
         if(jsonIsValid(requiredKeys, trainingInputs)){
             if(jsonExercisesIsEmpty(trainingInputs)){
@@ -94,6 +132,7 @@ module.exports = class traininggeneration{
                         if(isValidBrazilianJSON.isValid){
                             let nome = req.body.nome
                             delete req.body['nome']
+                            delete req.body['g-recaptcha-response']
                             let pdf
                             await createPDF(req.body, nome).then((response) => {
                                 pdf = response
