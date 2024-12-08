@@ -23,3 +23,15 @@
     border-radius: 0.5em;
     cursor: pointer;
 }
+
+.recaptcha{
+    height: 7vmax;
+    display: flex;
+    justify-content: end;
+    align-items:end;
+}
+
+.recaptcha *{
+    max-height: 100%;
+    max-width: 100%;
+}

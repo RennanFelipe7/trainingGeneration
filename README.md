@@ -27,7 +27,7 @@
         LIMIT_TO_LOCK =
         MINUTE_TO_BLOCK =
         ENVIRONMENT = 
-
+        RECAPTCHA_VALIDATION_KEY = 
         PORT = Referente à porta na qual o backend será executado.
         FRONTEND_URL = Referente a url HTTPS na qual o frontend será executado.
         SESSION_SECRET = Referente ao segredo que assina a sessão.
@@ -41,7 +41,8 @@
         LIMIT_TO_LOCK = Referente a quantidade máxima de requisições que o usuário pode realizar na janela de tempo. 
         MINUTE_TO_BLOCK = Referente ao tempo em minutos de escuta para a quantidade de requsições.
         ENVIRONMENT = Referente ao ambiente na qual o mesmo será executado. 
-        
+        RECAPTCHA_VALIDATION_KEY = Chave secreta do Google reCAPTCHA usada para validar os tokens reCAPTCHA enviados pelo frontend.
+
         Exemplo para o desenvolvimento local:
 
         PORT = 8000
