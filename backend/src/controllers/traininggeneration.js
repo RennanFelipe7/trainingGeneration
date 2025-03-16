@@ -21,7 +21,7 @@ module.exports = class traininggeneration{
         let trainingInputs = req.body
         let requiredKeys = []
         let userAgentOfBrowser = ['mozilla', 'chrome', 'safari']
-        if(userAgentOfBrowser.includes(userAgent.toLowerCase())){
+        if(userAgentOfBrowser.includes(userAgent.toLowerCase()) && process.env.ENVIRONMENT !== 'development'){
             const recaptchaToken = trainingInputs["g-recaptcha-response"];
             try {
                 const isValid = await recaptchaTokenIsValid(recaptchaToken)
@@ -104,7 +104,7 @@ module.exports = class traininggeneration{
         let requiredKeys = []
         let userAgentOfBrowser = ['mozilla', 'chrome', 'safari']
 
-        if(userAgentOfBrowser.includes(userAgent.toLowerCase())){
+        if(userAgentOfBrowser.includes(userAgent.toLowerCase()) && process.env.ENVIRONMENT !== 'development'){
             const recaptchaToken = trainingInputs["g-recaptcha-response"];
             try {
                 const isValid = await recaptchaTokenIsValid(recaptchaToken)

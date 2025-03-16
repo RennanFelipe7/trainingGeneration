@@ -107,7 +107,7 @@ export const Form = ({displaysLoading, action, inputs, value, generatedTraining,
                         }
                     }
                 });
-                if(!recaptchaValue){
+                if(!recaptchaValue && process.env.REACT_APP_ENVIRONMENT !== 'development'){
                     window.scrollTo({
                         top: 0,
                         behavior: 'smooth'
@@ -120,7 +120,9 @@ export const Form = ({displaysLoading, action, inputs, value, generatedTraining,
                     displaysLoading(false)
                     return
                 }
-                payload['g-recaptcha-response'] = recaptchaValue
+                if(process.env.REACT_APP_ENVIRONMENT !== 'development'){
+                    payload['g-recaptcha-response'] = recaptchaValue
+                }
                 try {
                     await axios.post(
                         process.env.REACT_APP_TRAININGGENERATION_BACKEND_URL + action, 
@@ -198,12 +200,14 @@ export const Form = ({displaysLoading, action, inputs, value, generatedTraining,
                 <div className='submitContainer'>
                     <input type="submit" value={value} disabled={anyInputIsEmpty} data-cy={`submit ${value}`}/>
                 </div>
-                <div className='recaptcha'>
-                    <ReCAPTCHA
-                        sitekey="6LeQAZUqAAAAABQIiiH-RP6lUFJmIRu4Kd0aLXEj"
-                        onChange={handleRecaptchaChange}
-                    />
-                </div>
+                {process.env.REACT_APP_ENVIRONMENT !== 'development' && (
+                    <div className='recaptcha'>
+                        <ReCAPTCHA
+                            sitekey="6LeQAZUqAAAAABQIiiH-RP6lUFJmIRu4Kd0aLXEj"
+                            onChange={handleRecaptchaChange}
+                        />
+                    </div>
+                )}
             </form>
         </div>
     )

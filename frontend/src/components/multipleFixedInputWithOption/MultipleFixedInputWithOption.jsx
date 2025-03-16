@@ -92,11 +92,11 @@ export const MultipleFixedInputWithOption = ({description, options: initialOptio
                 )}  
             </div>
             <div className='parentCreateNewOption' style={styleParentButtonNewOption}>
-                <button type='button' className='createNewOption' onClick={newOptionInputAppears} disabled={maximumReached} title={title} style={styleButtonNewOption} data-cy={`button CreateNewOption`}>Nova opção</button>
+                <button type='button' className='createNewOption' onClick={newOptionInputAppears} disabled={maximumReached} title={title} style={styleButtonNewOption} data-cy={`button CreateNewOption ${description}`}>Nova opção</button>
             </div>
             <div className='newOption' style={styleNewOption}>
-                <input type="text" name="" id="" value={inputValue} onChange={handleChange} ref={inputRef} maxLength={50} data-cy={`input CreateNewOption`}/>
-                <button type='button' disabled={!inputValue} style={changeBackgroundColorIfDisabled} onClick={handleButtonClick} title={titleCreateNewOption} data-cy={`confirm CreateNewOption`}>Adicionar</button>
+                <input type="text" name="" id="" value={inputValue} onChange={handleChange} ref={inputRef} maxLength={50} data-cy={`input CreateNewOption ${description}`}/>
+                <button type='button' disabled={!inputValue} style={changeBackgroundColorIfDisabled} onClick={handleButtonClick} title={titleCreateNewOption} data-cy={`confirm CreateNewOption ${description}`}>Adicionar</button>
             </div>
         </div>
     );

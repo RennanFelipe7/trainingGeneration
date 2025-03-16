@@ -429,7 +429,7 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
     }
 
     return(
-        <div className="parentDivOfAllTraningDisplayCard"
+        <div className="parentDivOfAllTraningDisplayCard" data-cy={`parentDivOfAllTraningDisplayCard ${day}`}
             style={{
                 height: rotate ? '5vmax' : '30vmax',
                 transition: 'height 2s linear',
@@ -463,7 +463,7 @@ export default function TrainingDisplayCard({ trainingOfDay, day, setAlert, setA
                     <div key={exercicio.id} className='parentDivOfAllCard'>
                         <div className='namberAndDeleteTraining'>
                             <div className='numberOfExercise'>
-                                <p>Treino {exerciseNumbers[index] + 1}</p> 
+                                <p data-cy={`numberOfTraining ${exerciseNumbers[index] + 1} ${day}`}>Treino {exerciseNumbers[index] + 1}</p> 
                             </div>
                             <div className='deleteTraining'>
                                 <button type='button' onClick={() => excludeTraining(exercicio.id)} data-cy={`excludeTraining ${exercicio.id} ${day}`}>

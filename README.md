@@ -84,9 +84,15 @@
 
         REACT_APP_TRAININGGENERATION_BACKEND_URL = Referente a url HTTPS na qual o backend está sendo executado.
 
+        REACT_APP_ENVIRONMENT =
+
+        REACT_APP_ENVIRONMENT = Referente ao ambiente na qual o mesmo será executado. 
+
         Exemplo para o desenvolvimento local:
 
         REACT_APP_TRAININGGENERATION_BACKEND_URL = https://localhost:8000
+
+        REACT_APP_ENVIRONMENT = development
 
     3.4 Com o git bash dentro do diretório frontend execute o seguinte comando:
 
@@ -98,3 +104,9 @@
     Ele irá instalar todas as dependências do frontend, criar uma pasta certs e instalar os certificados, substitua os inputs (country, state, locality, organization, organizationalUnit e commonName) por seu valor para desenvolvimento local. 
 
     3.5 Execute npm start para executar o frontend do trainingGeneration
+
+#### 4. Para a execução dos testes automatizados, execute:
+
+    4.1 Altere o diretório para o "test"
+    4.1 Instale as dependências do teste com "npm install"
+    4.2 Execute o cypress com "npx cypress open"

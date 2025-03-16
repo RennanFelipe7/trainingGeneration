@@ -46,7 +46,7 @@ export const NumberInput = ({id, description, step, placeholder, max, min, name 
   const decrement = () => {
     if(!value && value !== 0){
         playSound()
-        setValor(0)
+        setValor(step)
     }
     else if (value > min) {
       playSound()

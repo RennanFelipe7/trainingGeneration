@@ -73,7 +73,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               step={0.1}
               placeholder="Insira aqui o peso"
               max={500}
-              min={0}
+              min={0.1}
               name="peso"
               key='peso'
             ></NumberInput>,
@@ -107,7 +107,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               step={1}
               placeholder="Insira aqui a altura"
               max={250}
-              min={0}
+              min={1}
               name="altura"
               key='altura'
             ></NumberInput>,
@@ -168,7 +168,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               step={1}
               placeholder="Insira aqui a idade"
               max={120}
-              min={0}
+              min={1}
               name="idade"
               key='idade'
             ></NumberInput>,
