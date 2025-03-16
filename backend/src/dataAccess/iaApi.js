@@ -1,4 +1,3 @@
-const axios = require('axios');
 const mock = require('../mock/responseMockApi')
 require('dotenv').config();
 const { GoogleGenerativeAI } = require("@google/generative-ai");
