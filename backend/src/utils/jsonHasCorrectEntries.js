@@ -50,6 +50,10 @@ module.exports = function jsonHasCorrectEntries(requiredKeys, inputJson) {
                     return `'objetivos_do_treino' não deve conter mais do que 10 objetivos. quantidade de objetivos: ${value.length}`;
                 }else if(value.some(item => typeof item !== 'string')){
                     return `'objetivos_do_treino' deve ser uma string. Valor recebido: ${value}`;
+                }else if(value.some(item => item.length === 0)){
+                    return `'objetivos_do_treino' deve ser uma string não vazia. Valor recebido: ${value}`;
+                }else if(value.some(item => item.length > 50)){
+                    return `'objetivos_do_treino' deve ser uma string de tamanho menor ou igual a 50 ${value}`;
                 }
                 break;
             case 'altura':
@@ -74,6 +78,10 @@ module.exports = function jsonHasCorrectEntries(requiredKeys, inputJson) {
                     return `'preferencias_de_exercicio' não deve conter mais do que 10 preferência. quantidade de preferência: ${value.length}`;
                 }else if(value.some(item => typeof item !== 'string')){
                     return `'preferencias_de_exercicio' deve ser uma string. Valor recebido: ${value}`;
+                }else if(value.some(item => item.length === 0)){
+                    return `'preferencias_de_exercicio' deve ser uma string não vazia. Valor recebido: ${value}`;
+                }else if(value.some(item => item.length > 50)){
+                    return `'preferencias_de_exercicio' deve ser uma string de tamanho menor ou igual a 50 ${value}`;
                 }
                 break;
             case 'restricoes_de_saude':
@@ -81,6 +89,10 @@ module.exports = function jsonHasCorrectEntries(requiredKeys, inputJson) {
                     return `'restricoes_de_saude' não deve conter mais do que 10 restrições. quantidade de restrições: ${value.length}`;
                 }else if(value.some(item => typeof item !== 'string')){
                     return `'restricoes_de_saude' deve ser uma string. Valor recebido: ${value}`;
+                }else if(value.some(item => item.length === 0)){
+                    return `'restricoes_de_saude' deve ser uma string não vazia. Valor recebido: ${value}`;
+                }else if(value.some(item => item.length > 50)){
+                    return `'restricoes_de_saude' deve ser uma string de tamanho menor ou igual a 50 ${value}`;
                 }
                 break;
             case 'disponibilidade':
@@ -120,6 +132,10 @@ module.exports = function jsonHasCorrectEntries(requiredKeys, inputJson) {
                     return `'historico_de_lesoes' não deve conter mais do que 10 lesões. quantidade de lesões: ${value.length}`;
                 }else if(value.some(item => typeof item !== 'string')){
                     return `'historico_de_lesoes' deve ser uma string. Valor recebido: ${value}`;
+                }else if(value.some(item => item.length === 0)){
+                    return `'historico_de_lesoes' deve ser uma string não vazia. Valor recebido: ${value}`;
+                }else if(value.some(item => item.length > 50)){
+                    return `'historico_de_lesoes' deve ser uma string de tamanho menor ou igual a 50 ${value}`;
                 }
                 break;
             case 'nome':
@@ -130,36 +146,57 @@ module.exports = function jsonHasCorrectEntries(requiredKeys, inputJson) {
                 }
                 break;
             case 'segunda':
+                if(value.exercicios.length > 10){
+                    return 'Quantidade de exercício na segunda deve ser menor ou igual a 10'
+                }
                 value.exercicios.forEach((element, index) => {
                     errorMessage = errorMessage + validateTrainingInDay(element, index, key)
                 });
                 break
             case 'terca':
+                if(value.exercicios.length > 10){
+                    return 'Quantidade de exercício na terça deve ser menor ou igual a 10'
+                }
                 value.exercicios.forEach((element, index) => {
                     errorMessage = errorMessage + validateTrainingInDay(element, index, key)
                 });
                 break
             case 'quarta':
+                if(value.exercicios.length > 10){
+                    return 'Quantidade de exercício na quarta deve ser menor ou igual a 10'
+                }
                 value.exercicios.forEach((element, index) => {
                     errorMessage = errorMessage + validateTrainingInDay(element, index, key)
                 });
                 break
             case 'quinta':
+                if(value.exercicios.length > 10){
+                    return 'Quantidade de exercício na quinta deve ser menor ou igual a 10'
+                }
                 value.exercicios.forEach((element, index) => {
                     errorMessage = errorMessage + validateTrainingInDay(element, index, key)
                 });
                 break
             case'sexta':
+                if(value.exercicios.length > 10){
+                    return 'Quantidade de exercício na sexta deve ser menor ou igual a 10'
+                }
                 value.exercicios.forEach((element, index) => {
                     errorMessage = errorMessage + validateTrainingInDay(element, index, key)
                 });
                 break
             case'sabado':
+                if(value.exercicios.length > 10){
+                    return 'Quantidade de exercício no sábado deve ser menor ou igual a 10'
+                }
                 value.exercicios.forEach((element, index) => {
                     errorMessage = errorMessage + validateTrainingInDay(element, index, key)
                 });
                 break
             case 'domingo':
+                if(value.exercicios.length > 10){
+                    return 'Quantidade de exercício no domingo deve ser menor ou igual a 10'
+                }
                 value.exercicios.forEach((element, index) => {
                     errorMessage = errorMessage + validateTrainingInDay(element, index, key)
                 });

@@ -1,26 +1,18 @@
-.parentDivOfAllCheckbox{
-    width: 30vmax;
-    flex-direction: column;
-    display: flex;
-    justify-content: space-between;
+.parentDivOfAllMultFixedWithOption{
+    min-width: 30vmax;
     padding: 0.5vmax 1vmax 1vmax 1vmax;
-    margin-top: 2vmax
+    margin-top: 2vmax;
 }
 
-.descriptionCheckbox{
-    font-weight: bold;
-    text-align: center;
-    font-size: clamp(1rem, 2vw, 1.5rem);
-    color: #F2F2F2;
-}
-
-.parentDivOfAllCheckbox > *:not(:first-child) {
-    margin-left: 3vmin;
-    margin-top: 1vmin;
+.parentCreateNewOption{
+    height: 3vmax;
+    display: flex;
+    align-items:end;
+    justify-content: baseline;
 }
 
 .createNewOption{
-    height: 2.5vmax;
+    height: 80%;
     width: 30%;
     border-radius: 0.5em;
     cursor: pointer;
@@ -31,7 +23,7 @@
 
 .newOption{
     display: none;
-    height: 2.5vmax;
+    height: 3vmax;
     width: 70%;
     align-items: center;
     justify-content: space-between;

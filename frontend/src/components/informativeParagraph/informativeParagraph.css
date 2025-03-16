@@ -1,9 +1,10 @@
 .parentDivOfAllParagraph{
-    height: 3vmax;
-    width: 100%;
+    margin-top: 1vmax;
     display: flex;
     justify-content:center;
     align-items: end;
+    width: 80%;
+    margin-left: 10%;
 }
 
 .message{

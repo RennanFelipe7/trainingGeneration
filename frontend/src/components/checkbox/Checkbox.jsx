@@ -35,9 +35,9 @@ export const Checkbox = ({value, id, name, isSelected, handleSelect, checked}) =
 
     return(
         <div className='parentDivOfAllRadio'>
-            <label htmlFor={id}>{value}</label>
+            <label htmlFor={id} data-cy={id}>{value}</label>
             <input ref={inputRef} type="checkbox" value={value} name={name} id={id} checked={isChecked} className='checkboxReference' onChange={handleInputChange}/>
-            <button type='button' className='checkboxFaker' onClick={handleButtonClick}>
+            <button type='button' className='checkboxFaker' onClick={handleButtonClick} data-cy={`button ${id}`}>
                 {imageSrc && <img src={imageSrc} alt="" />}
             </button>
         </div>

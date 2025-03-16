@@ -10,7 +10,7 @@ module.exports = function createAndSetToken(req, res, next) {
   res.cookie('token', token, {
     httpOnly: true,
     secure: true,
-    sameSite: 'Strict',
+    sameSite: 'none',
     path: '/'
   });
 

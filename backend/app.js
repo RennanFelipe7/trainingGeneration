@@ -15,7 +15,7 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     maxAge: 1800000,
-    sameSite: true,
+    sameSite: 'none',
     secure: true,
   }
 }));
@@ -25,9 +25,16 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
-
+app.set('trust proxy', 1)
 const { LocalStorage } = require('node-localstorage');
-const localStorage = new LocalStorage('./serverStorage');
+new LocalStorage('./serverStorage');
+try {
+  if (!fs.existsSync('serverStorage/bloquer.txt')) {
+    fs.writeFileSync('serverStorage/bloquer.txt', '');
+  }
+} catch (err) {
+  console.error('Não foi possível criar o arquivo para armazenamento dos IPs devido ao erro: ' + err);
+}
 
 app.use(cors({
   origin: [process.env.FRONTEND_URL],
@@ -35,17 +42,52 @@ app.use(cors({
   exposedHeaders: 'Authorization'
 }));
 
-const port = process.env.PORT
+const port = process.env.PORT || 8000
 
 const traininggeneration = require('./src/routes/traininggeneration')
 
 app.use('/', traininggeneration)
 
-const sslServer = https.createServer({
-  key: fs.readFileSync('./certs/mykey.key'),
-  cert: fs.readFileSync('./certs/mycert.crt')
-}, app);
+const cron = require('node-cron');
 
-sslServer.listen(port, () => {
-  console.log(`Training Generation em execução`)
-})
+cron.schedule('*/15 * * * *', () => {
+  let currentIpsAndCounts = [];
+  const blockingTime = 15 * 60 * 1000;
+  try {
+    const ipsAndCounts = fs.readFileSync('serverStorage/bloquer.txt', 'utf8');
+    currentIpsAndCounts = ipsAndCounts.split('\n').map(item => item.replace('\r', ''));
+    console.log('Original = ' + currentIpsAndCounts);
+  } catch (err) { 
+    console.error('Não foi possível ler o arquivo contendo os IPs devido ao erro: ' + err);
+  }
+
+  currentIpsAndCounts = currentIpsAndCounts.map(item => {
+    let [currentIp, count, timestamp, isBlockedFile] = item.split(';');
+    const currentTime = Date.now();
+    if (!((currentTime - parseInt(timestamp, 10) > blockingTime) && isBlockedFile === 'true')) {
+      return item;
+    }
+    return null;
+  }).filter(item => item !== null);
+
+  try {
+    fs.writeFileSync('serverStorage/bloquer.txt', currentIpsAndCounts.join('\n'), 'utf8');
+  } catch (err) {
+    console.error('Não foi possível escrever no arquivo contendo os IPs devido ao erro: ' + err);
+  }
+});
+
+if(process.env.ENVIRONMENT === 'development') {
+  const sslServer = https.createServer({
+    key: fs.readFileSync('./certs/key.pem'),
+    cert: fs.readFileSync('./certs/cert.pem')
+  }, app);
+  app.set('port', port)
+  sslServer.listen(port, () => {
+    console.log(`Training Generation em execução no ambiente de: ` + process.env.ENVIRONMENT)
+  })
+}else{
+  app.listen(port, () => {
+    console.log(`Training Generation em execução no ambiente de: ` + process.env.ENVIRONMENT)
+  })
+}

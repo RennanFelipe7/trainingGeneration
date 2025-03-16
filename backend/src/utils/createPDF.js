@@ -28,7 +28,7 @@ module.exports = function createPDF(pdfContent, nome) {
         lastAvailableSpace += 30;
         lastAvailableSpaceDay += 30;
         doc.fontSize(20);
-        doc.text('Atividades do: ' + nome, 50, lastAvailableSpace);
+        doc.text('Atividades do(a): ' + nome, 50, lastAvailableSpace);
         
         for (let day in pdfContent) {
             if (pdfContent[day].exercicios.length > 0 && lastAvailableSpace + 120 <= 842 && (lastAvailableSpaceDay + 200) <= 799) { 
@@ -131,7 +131,7 @@ module.exports = function createPDF(pdfContent, nome) {
             if(pdfBuffer){
                 resolve(pdfBuffer)
             }else{
-                reject('Não foi possível gerar o PDF, tente novamente em 1 minuto.')
+                reject()
             }
         })
         

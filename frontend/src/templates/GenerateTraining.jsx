@@ -35,6 +35,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
       setSharedTrainingData((training.data));
       setIsLoading(false);
       navigate('/training');
+      sessionStorage.setItem('createNewTraining', true);
     };
 
     return (
@@ -72,7 +73,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               step={0.1}
               placeholder="Insira aqui o peso"
               max={500}
-              min={0}
+              min={0.1}
               name="peso"
               key='peso'
             ></NumberInput>,
@@ -106,7 +107,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               step={1}
               placeholder="Insira aqui a altura"
               max={250}
-              min={0}
+              min={1}
               name="altura"
               key='altura'
             ></NumberInput>,
@@ -115,7 +116,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               description = "Nível de condicionamento físico:"
               options = {[
                 {value: 'Iniciante', id:'iniciante', name: 'nivel_de_condicionamento_fisico'},
-                {value: 'Intermediário ', id:'intermediário ', name: 'nivel_de_condicionamento_fisico'},
+                {value: 'Intermediário', id:'intermediário ', name: 'nivel_de_condicionamento_fisico'},
                 {value: 'Avançado', id:'avançado', name: 'nivel_de_condicionamento_fisico'}
               ]}
               name='nivel_de_condicionamento_fisico'
@@ -128,6 +129,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
                 {value: 'Peitoral', id:'peitoral', name: 'preferencias_de_exercicio'},
                 {value: 'Pernas', id:'pernas', name: 'preferencias_de_exercicio'},
                 {value: 'Costas', id:'costas', name: 'preferencias_de_exercicio'},
+                {value: 'Braços', id:'bracos', name: 'preferencias_de_exercicio'},
               ]}
               name='preferencias_de_exercicio'
               key='preferencias_de_exercicio'
@@ -149,12 +151,12 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               description = "Disponibilidade:"
               options = {[
                 {value: 'Segunda', id:'segunda', name: 'disponibilidade'},
-                {value: 'Terça', id:'terça', name: 'disponibilidade'},
+                {value: 'Terça', id:'terca', name: 'disponibilidade'},
                 {value: 'Quarta', id:'quarta', name: 'disponibilidade'},
                 {value: 'Quinta', id:'quinta', name: 'disponibilidade'},
                 {value: 'Sexta', id:'sexta', name: 'disponibilidade'},
                 {value: 'Sábado', id:'sabado', name: 'disponibilidade'},
-                {value: 'Domingo', id:'somingo', name: 'disponibilidade'},
+                {value: 'Domingo', id:'domingo', name: 'disponibilidade'},
               ]}
               name='disponibilidade'
               key='disponibilidade'
@@ -166,7 +168,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               step={1}
               placeholder="Insira aqui a idade"
               max={120}
-              min={0}
+              min={1}
               name="idade"
               key='idade'
             ></NumberInput>,
@@ -184,7 +186,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
             <MultipleFixedInputWithOption
               description = "Histórico de lesões:"
               options = {[
-                {value: 'Lesões Musculares', id:'lesoesMusculares', name: 'historico_de_lesoes'},
+                {value: 'Não possui', id:'naoPossui', name: 'historico_de_lesoes'},
                 {value: 'Torção do Joelho', id:'torcaoDoJoelho', name: 'historico_de_lesoes'},
                 {value: 'Entorses de Tornozelo', id:'entorsesDeTornozelo', name: 'historico_de_lesoes'},
                 {value: 'Problemas nos Meniscos', id:'problemasNosMeniscos', name: 'historico_de_lesoes'}
@@ -200,6 +202,8 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               key = 'nome'
               id='username'
               name='nome'
+              min={0}
+              max={70}
             ></FreeInput>,
   
           ]}

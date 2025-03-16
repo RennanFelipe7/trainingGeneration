@@ -1,6 +1,6 @@
 module.exports = function baseJson(){
   return `{
-    "Segunda": {
+    "segunda": {
       "exercicios": [
         {
           "nome": "",
@@ -14,10 +14,10 @@ module.exports = function baseJson(){
         }
       ]
     },
-    "Terca": {
+    "terca": {
       exercicio: []
     },
-    "Quarta": {
+    "quarta": {
       "exercicios": [
         {
           "nome": "",
@@ -31,7 +31,7 @@ module.exports = function baseJson(){
         }
       ]
     },
-    "Quinta": {
+    "quinta": {
       "exercicios": [
         {
           "nome": "",
@@ -40,20 +40,20 @@ module.exports = function baseJson(){
         }
       ]
     },
-    "Sexta": {
+    "sexta": {
       "exercicios": [
         {
           "nome": "",
-          "repeticoes": 3,
+          "repeticoes": ,
           "descanso": ""
         }
       ]
     },
-    "Sabado": {
+    "sabado": {
       "exercicios": [
       ]
     },
-    "Domingo": {
+    "domingo": {
       "exercicios": [
       ]
     }

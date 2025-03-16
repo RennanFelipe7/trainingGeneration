@@ -2,7 +2,7 @@
     font-size: clamp(1rem, 2vw, 1.5rem);
     color: #F2F2F2;
     display: flex;
-    justify-content:left;
+    justify-content:space-between;
     align-items: center;
 }
 
@@ -16,10 +16,10 @@
 
 .checkboxFaker{
     cursor: pointer;
-    height: 80%;
+    height: clamp(1rem, 2vw, 1.5rem);
     width: 1.5vmax; 
+    min-width: 1.5vmax;
     border-radius: 100%;
-    margin-left: 1%;
 }
 
 .checkboxFaker img{

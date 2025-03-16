@@ -16,7 +16,7 @@
     align-items: center;
     font-size: clamp(1.5rem, 2.5vw, 2rem);
     font-weight: bold;
-    width: 95%;
+    width: 90%;
 }
 
 @keyframes rotate {
@@ -37,7 +37,16 @@
     float: right;
 }
 
-.expandAndRetract button{
+.excludeDay{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 3vmax;
+    width: 5%;
+    float: left;
+}
+
+.expandAndRetract button, .excludeDay button{
     height: 3vmax;
     width: 60%;
     border:  none;
@@ -45,7 +54,7 @@
     cursor: pointer;
 }
 
-.expandAndRetract button img{
+.expandAndRetract button img, .excludeDay button img{
     height: 100%;
     width: 100%;
     max-height: 100%;
@@ -71,14 +80,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+}
+
+.numberOfExercise p{
+    margin-left: 5%;
 }
 
 .trainingAttribute{
-    height: 3vmax;
+    display: flex;
     width: 95%;
-    display: inline-flex;
-    justify-content: start;
+    flex-wrap: nowrap;
+}
+
+.trainingAttributeWithoutSuggestion{
+    display: flex;
+    width: 95%;
     align-items: center;
+    flex-wrap: nowrap;
 }
 
 .displaysInformation, .displaysInformation:focus{
@@ -87,11 +106,15 @@
     padding: 0.5em;
     border-radius: 0.5em;
     height: 2.5vmax;
-    width: 60%;
+    width: 70%;
     cursor:default;
-    font-size: clamp(1.3rem, 2vw, 1.5rem);
+    font-size: clamp(1.2rem, 2.2vw, 1.7rem);
     color: #F2F2F2;
     background-color: transparent;
+}
+
+.displaysInformation:nth-child(1){
+    cursor: pointer;
 }
 
 .editAttribute{
@@ -115,14 +138,14 @@
     background-color: transparent;
     cursor: pointer;
     border: 0;
-    height: 70%;
-    width: 70%;
+    height: 100%;
+    width: 100%;
 }
 
 .editAttribute button img, .confirmAttribute button img{
     border: 0;
-    height: 65%;
-    width: 65%;
+    height: 2vmax;
+    width: 2vmax;
     max-height: 65%;
     max-width: 65%;
 }
@@ -137,6 +160,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 .deleteTraining button{
@@ -145,7 +169,7 @@
     cursor: pointer;
     border: 0;
     height: 50%;
-    width: 50%;
+    width: 70%;
 }
 
 .deleteTraining img{
@@ -157,7 +181,6 @@
 }
 
 .parentDivOfAllCard{
-    font-size: clamp(1rem, 1.7vw, 1.5rem);
     margin-top: 2vmax;
     display: flex;
     flex-direction: column;
@@ -182,6 +205,7 @@
     background-color: #33C758;
     cursor: pointer;
     margin-top: 1vmax;
+    margin-left: 5%;
 }
 
 .createNewTraining{
@@ -193,7 +217,7 @@
 }
 
 .cardNewTraining{
-    font-size: clamp(1rem, 1.7vw, 1.5rem);
+    font-size: clamp(1.2rem, 2.2vw, 1.7rem);
     color:#F2F2F2 ;
     height: 20%;
 }
@@ -213,9 +237,10 @@
     padding: 0.5em;
     border-radius: 0.5em;
     height: 2.5vmax;
-    width: 35%;
+    width: 35vmax;
+    max-width: 80%;
     cursor: pointer;
-    font-size: clamp(1.3rem, 2vw, 1.5rem);
+    font-size: clamp(1.2rem, 2.2vw, 1.7rem);
     color: #003F63;
 }
 
@@ -225,4 +250,48 @@
     font-size: clamp(1rem, 1.7vw, 1.2rem);
     font-weight: bold;
     margin-left: 1vmax;
+}
+
+.suggestedExercises{
+    background-color: #F2F2F2;
+    color: #003F63;
+    width: 70%;
+    height: 15vmax;
+    overflow: auto;
+    border-radius: 0.5em;
+    display: none;
+}
+
+.dropdown-item:not(:first-child){
+    margin-top: 0.5vmax;
+}
+.dropdown-item{
+    font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+    padding: 0.5em;
+}
+.dropdown-item:hover{
+    background-color: #00ff00;
+}
+.dropdown-item > p{
+    cursor: pointer;
+}
+
+.atribute{
+    font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+}
+
+.inputAndsuggest{
+    width: 90%;
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.displaysInformation::-webkit-outer-spin-button, .displaysInformationNewTraining::-webkit-outer-spin-button,
+.displaysInformation::-webkit-inner-spin-button, .displaysInformationNewTraining::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.displaysInformation, .displaysInformationNewTraining {
+    -moz-appearance: textfield;
 }

@@ -1,19 +1,27 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import './form.css'
 import axios from 'axios';
+import {useSelector} from 'react-redux'
+import ReCAPTCHA from "react-google-recaptcha";
 
 export const Form = ({displaysLoading, action, inputs, value, generatedTraining, payload, responseType, setServerResponse, setAlertType, token  }) => {
 
+    const [recaptchaValue, setRecaptchaValue] = useState(null)
+
     const formRef = useRef();
-    
+    useEffect(() => {
+        if(token){
+            sessionStorage.setItem('token', token)
+        }
+    }, []);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formValues = new FormData(formRef.current);
 
         const firstEntry = formValues.entries().next().value;
-       
-        if(firstEntry){
+        if(firstEntry && firstEntry[0] !== 'g-recaptcha-response'){
 
             let [key] = firstEntry;
 
@@ -74,7 +82,7 @@ export const Form = ({displaysLoading, action, inputs, value, generatedTraining,
                         }
                     }else{
                         if(payload[key] !== null) {
-                            if(payload[key].hasOwnProperty("exercicios")) {
+                            if(payload[key]?.hasOwnProperty("exercicios")) {
                                 if(cont === 0){
                                     training.nome = value
                                     cont++
@@ -99,14 +107,29 @@ export const Form = ({displaysLoading, action, inputs, value, generatedTraining,
                         }
                     }
                 });
-                
+                if(!recaptchaValue && process.env.REACT_APP_ENVIRONMENT !== 'development'){
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                    setServerResponse('Por favor, confirme que você não é um robô.');
+                    setAlertType('error');
+                    setTimeout(() => {
+                        setServerResponse(false)
+                    }, 5000);
+                    displaysLoading(false)
+                    return
+                }
+                if(process.env.REACT_APP_ENVIRONMENT !== 'development'){
+                    payload['g-recaptcha-response'] = recaptchaValue
+                }
                 try {
                     await axios.post(
                         process.env.REACT_APP_TRAININGGENERATION_BACKEND_URL + action, 
                         payload,
                         {
                             headers: {
-                                'Authorization': `Bearer ${token}`
+                                'Authorization': `Bearer ${token || sessionStorage.getItem('token')}`
                             },
                             withCredentials: true,
                             responseType: responseType,
@@ -162,6 +185,12 @@ export const Form = ({displaysLoading, action, inputs, value, generatedTraining,
         }
     }
 
+    const { anyInputIsEmpty } = useSelector((state) => state.trainingDisplayCard);
+
+    const handleRecaptchaChange = (value) => {
+        setRecaptchaValue(value)
+    }
+
     return(
         <div className='parentDivOfAllForm'>
             <form ref={formRef} onSubmit={handleSubmit} className='styleForm' method='POST'>
@@ -169,8 +198,16 @@ export const Form = ({displaysLoading, action, inputs, value, generatedTraining,
                     {inputs.map((inputElement, index) => inputElement)}
                 </div>
                 <div className='submitContainer'>
-                    <input type="submit" value={value}/>
+                    <input type="submit" value={value} disabled={anyInputIsEmpty} data-cy={`submit ${value}`}/>
                 </div>
+                {process.env.REACT_APP_ENVIRONMENT !== 'development' && (
+                    <div className='recaptcha'>
+                        <ReCAPTCHA
+                            sitekey="6LeQAZUqAAAAABQIiiH-RP6lUFJmIRu4Kd0aLXEj"
+                            onChange={handleRecaptchaChange}
+                        />
+                    </div>
+                )}
             </form>
         </div>
     )
