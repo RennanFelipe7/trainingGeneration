@@ -9,7 +9,7 @@ module.exports = function postPrompt(prompt, schema) {
         } else {
             const genAI = new GoogleGenerativeAI(process.env.KEY_OF_CONNECTION_IA);
             const model = genAI.getGenerativeModel({
-                model: "gemini-1.5-flash-latest",
+                model: "gemini-3.1-flash-lite-preview",
                 generationConfig: {
                     responseMimeType: "application/json",
                     responseSchema: schema,
