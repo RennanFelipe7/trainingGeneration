@@ -1,0 +1,25 @@
+.soundController {
+    width: clamp(1.7rem, 3.7vw, 2.7rem);
+    height: clamp(1.7rem, 3.7vw, 2.7rem);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    border: transparent;
+    justify-content: center;
+    background-color: #003f63;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    float: right;
+    margin-right: 0.5vmax;
+    margin-top: 0.5vmax;
+}
+
+.soundController img {
+    border-radius: 50%;
+    height: 82%;
+    width: 82%;
+    max-height: 82%;
+    max-width: 82%;
+    object-fit: contain;
+}

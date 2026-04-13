@@ -32,4 +32,5 @@ module.exports = defineConfig({
       return config
     },
   },
+  numTestsKeptInMemory: 0
 });

@@ -1,13 +1,13 @@
-.parentDivOfAllParagraph{
+.parentDivOfAllParagraph {
     margin-top: 1vmax;
-    display: flex;
-    justify-content:center;
+    display: inline-flex;
+    justify-content: center;
     align-items: end;
     width: 80%;
     margin-left: 10%;
 }
 
-.message{
-    color: #F2F2F2;
+.message {
+    color: #f2f2f2;
     font-size: clamp(1rem, 2vw, 1.5rem);
 }

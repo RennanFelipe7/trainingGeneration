@@ -5,7 +5,7 @@ import soundCheck from '../../sounds/check.mp3';
 import { useSound } from '../../hooks/useSound.jsx';
 import React, { useState } from 'react';
 
-export const MultipleFixedInput = ({description, options}) => {
+export const MultipleFixedInput = ({description, options, shouldReproduce}) => {
     const [selectedOptions, setSelectedOptions] = useState([]);
 
     const { playSound } = useSound(soundCheck);
@@ -15,7 +15,9 @@ export const MultipleFixedInput = ({description, options}) => {
             setSelectedOptions(selectedOptions.filter(id => id !== optionId));
         } else {
             setSelectedOptions([...selectedOptions, optionId]);
-            playSound();
+            if (shouldReproduce) {
+                playSound();
+            }
         }
     };
 
