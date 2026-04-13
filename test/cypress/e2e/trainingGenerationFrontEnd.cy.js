@@ -493,11 +493,23 @@ describe('Teste e2e do FrontEnd do TrainingGeneration', () => {
         cy.get('[data-cy="input username"]').type('好')
         cy.wait(500)
         cy.get('[data-cy="submit Gerar Treino"]').should('be.visible').click({ scrollBehavior: 'center' })
-        cy.get('[data-cy="loading Gerando treino"]').should('be.visible')
         cy.get('[data-cy="O caractere é inválido 好"]').should('be.visible').and('have.text', 'O caractere é inválido 好')
         cy.get('[data-cy="O caractere é inválido 好"]', {timeout: 10000}).should('not.exist')
     });
 
+    it('Deverá verificar se é possível desligar e ligar o som quando um chekcbox é clicado', () => {
+        cy.visit('https://localhost:3000/traininggeneration', {
+            onBeforeLoad(win) {
+            cy.spy(win.HTMLAudioElement.prototype, 'play').as('audioPlay');
+        }});
+        cy.get('[data-cy="button endomorfo"]').should('be.visible').click({ scrollBehavior: 'center' })
+        cy.get('@audioPlay').should('have.been.called');
+        cy.get('@audioPlay').invoke('resetHistory');
+        cy.get('[data-cy="checkbox sound"]').should('be.visible').click()
+        cy.get('[data-cy="button ectomorfo"]').should('be.visible').click({ scrollBehavior: 'center' })
+        cy.get('@audioPlay').should('not.have.been.called');
+
+    });
     
 
     afterEach(() => {

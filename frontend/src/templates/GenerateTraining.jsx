@@ -11,12 +11,14 @@ import { MultipleFixedInput } from '../components/multipleFixedInput/MultipleFix
 import { MultipleFixedInputWithOption } from '../components/multipleFixedInputWithOption/MultipleFixedInputWithOption.jsx'
 import { Loading } from "../components/loading/Loading.jsx";
 import { Alert } from "../components/alert/Alert.jsx";
+import { SoundController } from "../components/soundController/SoundController.jsx";
 export default function GenerateTraining({setSharedTrainingData, authorization}) {
 
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const [serverResponse, setServerResponse] = useState(null);
     const [alertType, setAlertType] = useState(null);
+    const [shouldReproduceSound, setShouldReproduceSound] = useState(true);
 
     useEffect(() => {
       if (!isLoading && serverResponse) {
@@ -45,6 +47,9 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
         {!isLoading && <InformativeParagraph 
           message = "Insira abaixo as informações do usuário:"
         ></InformativeParagraph>}
+        {!isLoading && <SoundController
+          shouldReproduce={setShouldReproduceSound}
+        ></SoundController>}
         {!isLoading && <Form
           displaysLoading={displaysLoading}
           generatedTraining={generatedTraining} 
@@ -87,6 +92,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               ]}
               name='biotipo_corporal'
               key='biotipo_corporal'
+              shouldReproduce={shouldReproduceSound}
             ></FixedInput>,
   
             <MultipleFixedInputWithOption
@@ -99,6 +105,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               ]}
               name='objetivos_do_treino'
               key='objetivos_do_treino'
+              shouldReproduce={shouldReproduceSound}
             ></MultipleFixedInputWithOption>,
   
             <NumberInput 
@@ -121,6 +128,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               ]}
               name='nivel_de_condicionamento_fisico'
               key='nivel_de_condicionamento_fisico'
+              shouldReproduce={shouldReproduceSound}
             ></FixedInput>,
   
             <MultipleFixedInputWithOption
@@ -133,6 +141,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               ]}
               name='preferencias_de_exercicio'
               key='preferencias_de_exercicio'
+              shouldReproduce={shouldReproduceSound}
             ></MultipleFixedInputWithOption>,
   
             <MultipleFixedInputWithOption
@@ -145,6 +154,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               ]}
               name='restricoes_de_saude'
               key='restricoes_de_saude'
+              shouldReproduce={shouldReproduceSound}
             ></MultipleFixedInputWithOption>,
   
             <MultipleFixedInput
@@ -160,6 +170,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               ]}
               name='disponibilidade'
               key='disponibilidade'
+              shouldReproduce={shouldReproduceSound}
             ></MultipleFixedInput>,
   
             <NumberInput 
@@ -181,6 +192,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               ]}
               name='sexo'
               key='sexo'
+              shouldReproduce={shouldReproduceSound}
             ></FixedInput>,
   
             <MultipleFixedInputWithOption
@@ -193,6 +205,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               ]}
               name = 'historico_de_lesoes'
               key = 'historico_de_lesoes'
+              shouldReproduce={shouldReproduceSound}
             ></MultipleFixedInputWithOption>,
   
             <FreeInput

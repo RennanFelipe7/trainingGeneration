@@ -5,13 +5,15 @@ import soundCheck from '../../sounds/check.mp3';
 import { useSound } from '../../hooks/useSound.jsx';
 import React, { useState } from 'react';
 
-export const FixedInput = ({description, options}) => {
+export const FixedInput = ({description, options, shouldReproduce}) => {
     const [selectedOption, setSelectedOption] = useState(null);
     const { playSound } = useSound(soundCheck);
 
     const handleSelect = (optionId) => {
         setSelectedOption(optionId);
-        playSound();
+        if (shouldReproduce) {
+            playSound();
+        }
     };
 
     return(

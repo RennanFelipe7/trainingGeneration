@@ -6,7 +6,7 @@ import { useSound } from '../../hooks/useSound.jsx';
 import React, { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-export const MultipleFixedInputWithOption = ({description, options: initialOptions, name}) => {
+export const MultipleFixedInputWithOption = ({description, options: initialOptions, name, shouldReproduce}) => {
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [styleNewOption, setStyleNewOption] = useState({});
     const [styleParentButtonNewOption, setStyleParentButtonNewOption] = useState({});
@@ -25,7 +25,9 @@ export const MultipleFixedInputWithOption = ({description, options: initialOptio
             setSelectedOptions(selectedOptions.filter(id => id !== optionId));
         } else {
             setSelectedOptions([...selectedOptions, optionId]);
-            playSound();
+            if (shouldReproduce) {
+                playSound();
+            }
         }
     };
 
