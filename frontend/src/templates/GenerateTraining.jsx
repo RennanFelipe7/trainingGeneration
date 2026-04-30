@@ -81,6 +81,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               min={0.1}
               name="peso"
               key='peso'
+              shouldReproduce={shouldReproduceSound}
             ></NumberInput>,
   
              <FixedInput
@@ -117,6 +118,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               min={1}
               name="altura"
               key='altura'
+              shouldReproduce={shouldReproduceSound}
             ></NumberInput>,
   
             <FixedInput
@@ -182,6 +184,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
               min={1}
               name="idade"
               key='idade'
+              shouldReproduce={shouldReproduceSound}
             ></NumberInput>,
   
             <FixedInput

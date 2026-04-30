@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import clickButton from '../../sounds/clickButton.mp3';
 import { useSound } from '../../hooks/useSound.jsx';
 
-export const NumberInput = ({id, description, step, placeholder, max, min, name }) => {
+export const NumberInput = ({id, description, step, placeholder, max, min, name, shouldReproduce }) => {
 
   const [value, setValor] = useState();
   const { playSound } = useSound(clickButton);
@@ -28,11 +28,15 @@ export const NumberInput = ({id, description, step, placeholder, max, min, name 
 
   const increase = () => {
     if(!value && value !== 0){
-      playSound()
+      if(shouldReproduce){
+        playSound()
+      }
       setValor(step)
     }
     else if (value < max) {
-      playSound()
+      if(shouldReproduce){
+        playSound()
+      }
       const newValue = parseFloat((value + step).toFixed(2));
       setValor(newValue);
       setStyleBorderAlert({}); 
@@ -45,11 +49,15 @@ export const NumberInput = ({id, description, step, placeholder, max, min, name 
 
   const decrement = () => {
     if(!value && value !== 0){
-        playSound()
+        if(shouldReproduce){
+          playSound()
+        }
         setValor(step)
     }
     else if (value > min) {
-      playSound()
+      if(shouldReproduce){
+        playSound()
+      }
       const newValue = parseFloat((value - step).toFixed(2));
       setValor(newValue);
       setStyleBorderAlert({}); 
@@ -109,5 +117,6 @@ NumberInput.propTypes = {
   id: PropTypes.string,
   max: PropTypes.number.isRequired,
   min: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  shouldReproduce: PropTypes.bool.isRequired
 };
