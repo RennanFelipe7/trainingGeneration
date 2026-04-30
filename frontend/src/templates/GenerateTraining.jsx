@@ -19,6 +19,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
     const [serverResponse, setServerResponse] = useState(null);
     const [alertType, setAlertType] = useState(null);
     const [shouldReproduceSound, setShouldReproduceSound] = useState(true);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
       if (!isLoading && serverResponse) {
@@ -40,6 +41,20 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
       sessionStorage.setItem('createNewTraining', true);
     };
 
+    useEffect(() => {
+      const stored = localStorage.getItem('shouldReproduceSound');
+      if (stored !== null) {
+        setShouldReproduceSound(stored === 'true');
+      }
+      setIsLoaded(true);
+    }, []);
+
+    useEffect(() => {
+      if (isLoaded) {
+        localStorage.setItem('shouldReproduceSound', shouldReproduceSound);
+      }
+    }, [shouldReproduceSound, isLoaded]);
+
     return (
         <div className="generateTraining">
         {isLoading && <Loading message='Gerando treino' />}
@@ -49,6 +64,7 @@ export default function GenerateTraining({setSharedTrainingData, authorization})
         ></InformativeParagraph>}
         {!isLoading && <SoundController
           shouldReproduce={setShouldReproduceSound}
+          referenceInLocalStorage='shouldReproduceSound'
         ></SoundController>}
         {!isLoading && <Form
           displaysLoading={displaysLoading}
