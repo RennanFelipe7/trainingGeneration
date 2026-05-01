@@ -67,7 +67,9 @@ export default function Training({ sharedTrainingData, setAuthorization }) {
     useEffect(() => {
         if (sharedTrainingDataState) {
             sessionStorage.setItem('training', sharedTrainingDataState);
-            sessionStorage.setItem('name', JSON.parse(sharedTrainingDataState).nome);
+            let nameFromData = JSON.parse(sharedTrainingDataState).nome;
+            setName(nameFromData);
+            sessionStorage.setItem('name', nameFromData);
         }
     }, [sharedTrainingDataState]);
 
